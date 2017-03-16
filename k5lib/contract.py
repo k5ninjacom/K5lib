@@ -60,3 +60,33 @@ def show_region(domainToken, regionId):
     return r
 
 
+# https:// contract.gls.cloud.global.fujitsu.com
+# POST /v1/contracts/{domain_id}?action=startRegion
+def rest_activate_region(domainToken, domainId, regionId):
+    headers = {'Content-Type': 'application/json',
+               'X-Auth-Token': domainToken}
+
+    configData = {'contract': {
+                     'regions': [
+                          {
+                              'id': regionId
+                          }
+                     ]
+                 }
+    }
+
+    url = 'https:// contract.gls.cloud.global.fujitsu.com/v1/contracts/' + domainId +'?action=startRegion'
+
+    try:
+        r = requests.post(url, json=configData, headers=headers)
+        return r
+
+    except:
+        return r
+
+
+def activate_region(domainToken, domainId, regionId):
+    request = rest_activate_region(domainToken, domainId, regionId)
+    r = request.json()
+    return r
+
