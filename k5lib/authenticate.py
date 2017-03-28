@@ -1,59 +1,7 @@
-from os import environ as env
-
 import requests
 import json
 import logging
 
-from openstack import connection
-from openstack import profile
-from openstack import utils
-from openstack import identity
-
-utils.enable_logging(debug=True, path='openstack.log')
-
-# links:
-# http://developer.openstack.org/api-ref/identity/v3/index.html
-# http://stackoverflow.com/questions/33698861/openstack-novaclient-python-api-not-working
-# http://developer.openstack.org/sdks/python/openstacksdk/
-# http://docs.openstack.org/developer/python-keystoneclient/api/keystoneclient.auth.identity.v3.html#keystoneclient.auth.identity.v3.Password
-# http://developer.openstack.org/sdks/python/openstacksdk/users/connection.html
-
-
-def create_connection(auth_url, region, project_name, project_domain_name, user_domain_name, username, password):
-    prof = profile.Profile()
-    prof.set_region(profile.Profile.ALL, region)
-    prof.set_version('identity', 'v3')
-
-    return connection.Connection(
-        profile=prof,
-        user_agent='MHApythonDemo',
-        auth_plugin='v3password',
-
-        auth_url=auth_url,
-        password=password,
-        username=username,
-        user_domain_name=user_domain_name,
-        project_name= project_name,
-        project_domain_name= project_domain_name
-    )
-
-def authenticate():
-    auth_url = env['OS_AUTH_URL']
-    region = env['OS_REGION_NAME']
-    domain_name = env['OS_USER_DOMAIN_NAME']
-
-    project_domain_name = env['OS_USER_DOMAIN_NAME']
-    project_name = env['OS_PROJECT_NAME']
-
-    user_domain_name = env['OS_USER_DOMAIN_NAME']
-    username = env['OS_USERNAME']
-    password = env['OS_PASSWORD']
-
-    # Create a connection and use authorize method to fetch token
-    conn = create_connection(auth_url, region, project_name, project_domain_name, user_domain_name, username, password)
-
-    token = conn.authorize()
-    return token
 
 def rest_global_authenticate(user, password, contract):
     """

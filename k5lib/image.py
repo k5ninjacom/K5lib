@@ -18,8 +18,7 @@ def rest_image_export(regionToken, image_id, containerName ):
 
     # Url = image base url +  /v1/imageexport
 
-    url =
-
+    url = ''
     try:
         r = requests.post(url, json=configData, headers=headers)
         logging.info(r)

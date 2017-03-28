@@ -1,7 +1,7 @@
 import requests
 import json
 import logging
-import k5.authenticate
+
 
 # List regions
 def rest_list_regions(globalToken):
