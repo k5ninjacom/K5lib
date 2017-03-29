@@ -89,14 +89,20 @@ def get_global_token(user, password, contract):
 def get_domain_id(user, password, contract):
 
     request = rest_global_authenticate(user, password, contract)
-    r = request.json()
-    return r['token']['user']['domain']['id']
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        r = request.json()
+        return r['token']['user']['domain']['id']
 
 
 def get_defaultproject_id(user, password, contract):
     request = rest_global_authenticate(user, password, contract)
-    r = request.json()
-    return r['token']['project']['id']
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        r = request.json()
+        return r['token']['project']['id']
 
 
 def rest_region_authenticate(user, password, contract, region):
