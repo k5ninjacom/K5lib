@@ -53,12 +53,12 @@ def rest_show_region(domainToken, regionId):
     try:
         r = requests.get(url, headers=headers)
 
-        logging.info(r)
+#        logging.info(r)
 
         return r
     except:
-        logging.debug(r)
-        logging.debug(r.json)
+#        logging.debug(r)
+#        logging.debug(r.json)
         return
 
 def show_region(domainToken, regionId):
@@ -84,7 +84,7 @@ def rest_activate_region(domainToken, domainId, regionId):
                  }
     }
 
-    url = 'https:// contract.gls.cloud.global.fujitsu.com/v1/contracts/' + domainId +'?action=startRegion'
+    url = 'https://contract.gls.cloud.global.fujitsu.com/v1/contracts/' + domainId +'?action=startRegion'
 
     try:
         r = requests.post(url, json=configData, headers=headers)
