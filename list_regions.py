@@ -10,8 +10,6 @@ password = env['OS_PASSWORD']
 domain = env['OS_USER_DOMAIN_NAME']
 
 globalToken = k5lib.get_global_token(username, password, domain)
-domainId = k5lib.get_domain_id(username, password, domain)
-
 regions = k5lib.list_regions(globalToken)
 
 print(regions)
