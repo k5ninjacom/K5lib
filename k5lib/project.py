@@ -1,7 +1,7 @@
 import requests
 import json
 import logging
-import k5.authenticate
+import k5lib.authenticate
 
 def show (token, project_id):
 
@@ -50,11 +50,11 @@ def list_projects(regionToken, domainId, region):
 
 
 def get_project_id(user, password, contract, projectName, region):
-    request = k5.authenticate.rest_project_authenticate(user, password, contract, projectName, region)
+    request = k5lib.authenticate.rest_project_authenticate(user, password, contract, projectName, region)
     r = request.json()
     return r['token']['project']['id']
 
 
 def get_project_info(user, password, contract, projectName, region):
-    r = k5.authenticate.rest_project_authenticate(user, password, contract, projectName, region)
+    r = k5lib.authenticate.rest_project_authenticate(user, password, contract, projectName, region)
     return r.json()

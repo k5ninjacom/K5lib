@@ -12,14 +12,14 @@ def rest_list_regions(globalToken):
     url = 'https://identity.gls.cloud.global.fujitsu.com/v3/regions'
 
     try:
-        r = requests.get(url, headers=headers)
+        r = requests.get(url, headers=headers, verify=False)
 
-        logging.info(r)
+#        logging.info(r)
 
         return r
     except:
-        logging.debug(r)
-        logging.debug(r.json)
+#        logging.debug(r)
+#        logging.debug(r.json)
         return
 
 

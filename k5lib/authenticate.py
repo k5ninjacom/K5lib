@@ -67,13 +67,12 @@ def rest_global_authenticate(user, password, contract):
 
     url = 'https://identity.gls.cloud.global.fujitsu.com/v3/auth/tokens'
     try:
-        r = requests.post(url, json=configData, headers=headers)
-        logging.info(r)
+        r = requests.post(url, json=configData, headers=headers, verify=False)
+#        logging.info()
 
         return r
     except:
-        logging.debug(r)
-        logging.debug(r.json)
+#       logging.exeption("error")
         return
 
 
@@ -124,7 +123,7 @@ def rest_region_authenticate(user, password, contract, region):
 
     try:
         r = requests.post(url, json=configData, headers=headers)
-        logging.info(r)
+#        logging.info(r)
 
         return r
     except:
@@ -176,8 +175,8 @@ def rest_project_authenticate(user, password, contract, projectName, region):
         '.cloud.global.fujitsu.com/v3/auth/tokens'
 
     try:
-        r = requests.post(url, json=configData, headers=headers)
-        logging.info(r)
+        r = requests.post(url, json=configData, headers=headers, verify=False)
+#        logging.info(r)
 
         return r
     except:
