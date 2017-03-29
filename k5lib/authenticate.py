@@ -66,21 +66,24 @@ def rest_global_authenticate(user, password, contract):
     }
 
     url = 'https://identity.gls.cloud.global.fujitsu.com/v3/auth/tokens'
-    try:
-        r = requests.post(url, json=configData, headers=headers, verify=False)
-#        logging.info()
 
-        return r
-    except:
-#       logging.exeption("error")
-        return
+    try:
+        request = requests.post(url, json=configData, headers=headers, verify=False)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+         # Whoops it wasn't a 200
+         return 'Error: ' + str(e)
+    else:
+         return request
 
 
 def get_global_token(user, password, contract):
 
-    r = rest_global_authenticate(user, password, contract)
-
-    return r.headers['X-Subject-Token']
+    request = rest_global_authenticate(user, password, contract)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+       return r.headers['X-Subject-Token']
 
 
 def get_domain_id(user, password, contract):

@@ -3,7 +3,7 @@ import json
 import logging
 
 
-# List regions
+# Rest call to list regions
 def rest_list_regions(globalToken):
     headers = {'Content-Type': 'application/json',
                'Accept' : 'application/json',
@@ -12,32 +12,32 @@ def rest_list_regions(globalToken):
     url = 'https://identity.gls.cloud.global.fujitsu.com/v3/regions'
 
     try:
-        r = requests.get(url, headers=headers, verify=False)
-
-#        logging.info(r)
-
-        return r
-    except:
-#        logging.debug(r)
-#        logging.debug(r.json)
-        return
+        request = requests.get(url, headers=headers, verify=False)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        return  'Error: ' + str(e)
+    else:
+        return request
 
 
 # list regions
-#returns list of regions
+# returns list of regions
 def list_regions(domainToken):
 
     request = rest_list_regions(domainToken)
-    r = request.json()
+    if 'Error' in str(request):
+       return str(request)
+    else:
+        r = request.json()
+        regionsList = []
+        regionsDict = r['regions']
 
-    regionsList = []
-    regionsDict = r['regions']
-
-    counter = 0
-    for i in regionsDict:
-        if str(i['parent_region_id']) == 'None':
-           regionsList.append(str(i['id']))
-           counter += 1
+        counter = 0
+        for i in regionsDict:
+              if str(i['parent_region_id']) == 'None':
+                 regionsList.append(str(i['id']))
+                 counter += 1
 
     return regionsList
 
@@ -96,7 +96,11 @@ def rest_activate_region(domainToken, domainId, regionId):
 
 def activate_region(domainToken, domainId, regionId):
     request = rest_activate_region(domainToken, domainId, regionId)
-    print(request)
-#    r = request.json()
-    return
+
+    if find('Error',request):
+       return 'Error: ' + str(request)
+    else:
+
+    #    r = request.json()
+      return
 
