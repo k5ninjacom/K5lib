@@ -3,7 +3,7 @@ import k5lib
 import logging
 
 # add filemode="w" to overwrite
-logging.basicConfig(filename="list_regions.log", level=logging.INFO)
+logging.basicConfig(filename="list_regions.log", level=logging.DEBUG)
 
 username = env['OS_USERNAME']
 password = env['OS_PASSWORD']
