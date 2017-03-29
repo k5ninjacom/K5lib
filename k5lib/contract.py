@@ -39,7 +39,7 @@ def list_regions(domainToken):
                  regionsList.append(str(i['id']))
                  counter += 1
 
-    return regionsList
+        return regionsList
 
 
 # Show region
@@ -51,22 +51,21 @@ def rest_show_region(domainToken, regionId):
     url = 'https://identity.gls.cloud.global.fujitsu.com/v3/regions/' + regionId
 
     try:
-        r = requests.get(url, headers=headers, verify=False)
+        request = requests.get(url, headers=headers, verify=False)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        return 'Error: ' + str(e)
+    else:
+        return request
 
-#        logging.info(r)
-
-        return r
-    except:
-#        logging.debug(r)
-#        logging.debug(r.json)
-        return
 
 def show_region(domainToken, regionId):
-
     request = rest_show_region(domainToken, regionId)
-    r = request.json()
-
-    return r
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
 
 
 # https:// contract.gls.cloud.global.fujitsu.com
@@ -98,10 +97,8 @@ def rest_activate_region(domainToken, domainId, regionId):
 
 def activate_region(domainToken, domainId, regionId):
     request = rest_activate_region(domainToken, domainId, regionId)
-
     if 'Error' in str(request):
         return str(request)
     else:
-        r = request.json()
-        return
+        return request.json()
 
