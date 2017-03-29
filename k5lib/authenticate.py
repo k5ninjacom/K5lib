@@ -131,26 +131,29 @@ def rest_region_authenticate(user, password, contract, region):
         '.cloud.global.fujitsu.com/v3/auth/tokens'
 
     try:
-        r = requests.post(url, json=configData, headers=headers)
-#        logging.info(r)
-
-        return r
-    except:
-#         logging.debug(r)
-#         logging.debug(r.json)
-         return
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        return 'Error: ' + str(e)
+    else:
+        return request
 
 
 def get_region_token(user, password, contract, region):
     r = rest_region_authenticate(user, password, contract, region)
-    return r.headers['X-Subject-Token']
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return r.headers['X-Subject-Token']
 
 
 def get_region_info(user, password, contract, region):
     r = rest_region_authenticate(user, password, contract, region)
-
-    return r.json()
-
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return r.json()
 
 
 def rest_project_authenticate(user, password, contract, projectName, region):
@@ -184,16 +187,18 @@ def rest_project_authenticate(user, password, contract, projectName, region):
         '.cloud.global.fujitsu.com/v3/auth/tokens'
 
     try:
-        r = requests.post(url, json=configData, headers=headers, verify=False)
-#        logging.info(r)
+        request = requests.post(url, json=configData, headers=headers, verify=False)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        return 'Error: ' + str(e)
+    else:
+        return request
 
-        return r
-    except:
-#         logging.debug(r)
-#         logging.debug(r.json)
-         return
 
 def get_project_token(user, password, contract, projectName, region):
     r = rest_project_authenticate(user, password, contract, projectName, region)
-
-    return r.headers['X-Subject-Token']
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return r.headers['X-Subject-Token']
