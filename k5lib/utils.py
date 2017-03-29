@@ -12,5 +12,3 @@ def gen_passwd(length):
             and sum(c.isdigit() for c in password) >= 3):
             break
     return password
-
-

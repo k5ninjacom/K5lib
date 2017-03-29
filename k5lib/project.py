@@ -20,6 +20,7 @@ def show (token, project_id):
 
     return r.json()
 
+
 def rest_list_projects(regionToken, domainId, region):
     headers = {'Content-Type': 'application/json',
                'Accept' : 'application/json',
