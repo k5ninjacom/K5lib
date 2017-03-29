@@ -1,6 +1,5 @@
 from os import environ as env
 import k5lib
-import json
 import logging
 
 # add filemode="w" to overwrite

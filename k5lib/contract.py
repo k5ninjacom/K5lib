@@ -23,14 +23,23 @@ def rest_list_regions(globalToken):
         return
 
 
+# list regions
+#returns list of regions
 def list_regions(domainToken):
 
     request = rest_list_regions(domainToken)
     r = request.json()
 
-    return r
-# Todo: Find a method to return region list instead of full json
-#    return r['token']['user']['domain']['id']
+    regionsList = []
+    regionsDict = r['regions']
+
+    counter = 0
+    for i in regionsDict:
+        if str(i['parent_region_id']) == 'None':
+           regionsList.append(str(i['id']))
+           counter += 1
+
+    return regionsList
 
 
 # Show region
