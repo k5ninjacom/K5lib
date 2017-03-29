@@ -51,7 +51,7 @@ def rest_show_region(domainToken, regionId):
     url = 'https://identity.gls.cloud.global.fujitsu.com/v3/regions/' + regionId
 
     try:
-        r = requests.get(url, headers=headers)
+        r = requests.get(url, headers=headers, verify=False)
 
 #        logging.info(r)
 
@@ -87,7 +87,7 @@ def rest_activate_region(domainToken, domainId, regionId):
     url = 'https://contract.gls.cloud.global.fujitsu.com/v1/contracts/' + domainId +'?action=startRegion'
 
     try:
-        r = requests.post(url, json=configData, headers=headers)
+        r = requests.post(url, json=configData, headers=headers, verify=False)
         return r
 
     except:
@@ -96,6 +96,7 @@ def rest_activate_region(domainToken, domainId, regionId):
 
 def activate_region(domainToken, domainId, regionId):
     request = rest_activate_region(domainToken, domainId, regionId)
-    r = request.json()
-    return r
+    print(request)
+#    r = request.json()
+    return
 

@@ -31,17 +31,12 @@ def rest_list_projects(regionToken, domainId, region):
     url = 'https://identity.' + region + '.cloud.global.fujitsu.com/v3/projects?domain_id=' + domainId
 #    url = 'https://identity.' + region + '.cloud.global.fujitsu.com/v3/projects?domain_id=' + domainId + ',' + domainName + ',enabled'
 
+    r = requests.get(url, headers=headers)
     try:
-        r = requests.get(url, headers=headers)
-#        r = requests.get(url, json=configData, headers=headers)
-
-#        logging.info(r)
-
-        return r
-    except:
-#        logging.debug(r)
-#        logging.debug(r.json)
-        return
+       response.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        return "error: " + str(e)
+    return r
 
 
 def list_projects(regionToken, domainId, region):
