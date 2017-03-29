@@ -87,20 +87,21 @@ def rest_activate_region(domainToken, domainId, regionId):
     url = 'https://contract.gls.cloud.global.fujitsu.com/v1/contracts/' + domainId +'?action=startRegion'
 
     try:
-        r = requests.post(url, json=configData, headers=headers, verify=False)
-        return r
-
-    except:
-        return r
+        request = requests.post(url, json=configData, headers=headers, verify=False)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        return 'Error: ' + str(e)
+    else:
+        return request
 
 
 def activate_region(domainToken, domainId, regionId):
     request = rest_activate_region(domainToken, domainId, regionId)
 
-    if find('Error',request):
-       return 'Error: ' + str(request)
+    if 'Error' in str(request):
+        return str(request)
     else:
-
-    #    r = request.json()
-      return
+        r = request.json()
+        return
 

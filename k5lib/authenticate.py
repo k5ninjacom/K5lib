@@ -83,7 +83,7 @@ def get_global_token(user, password, contract):
     if 'Error' in str(request):
         return str(request)
     else:
-       return r.headers['X-Subject-Token']
+       return request.headers['X-Subject-Token']
 
 
 def get_domain_id(user, password, contract):
