@@ -6,4 +6,4 @@ from .authenticate import get_domain_id
 from .authenticate import get_defaultproject_id
 
 from .contract import list_regions
-
+from .contract import activate_region
