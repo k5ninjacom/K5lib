@@ -12,7 +12,7 @@ def rest_list_regions(globalToken):
     url = 'https://identity.gls.cloud.global.fujitsu.com/v3/regions'
 
     try:
-        request = requests.get(url, headers=headers, verify=False)
+        request = requests.get(url, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
