@@ -35,7 +35,7 @@ def rest_list_projects(regionToken, domainId, region):
         r = requests.get(url, headers=headers)
 #        r = requests.get(url, json=configData, headers=headers)
 
-        logging.info(r)
+#        logging.info(r)
 
         return r
     except:
