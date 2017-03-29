@@ -68,7 +68,7 @@ def rest_global_authenticate(user, password, contract):
     url = 'https://identity.gls.cloud.global.fujitsu.com/v3/auth/tokens'
 
     try:
-        request = requests.post(url, json=configData, headers=headers, verify=False)
+        request = requests.post(url, json=configData, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
          # Whoops it wasn't a 200
@@ -187,7 +187,7 @@ def rest_project_authenticate(user, password, contract, projectName, region):
         '.cloud.global.fujitsu.com/v3/auth/tokens'
 
     try:
-        request = requests.post(url, json=configData, headers=headers, verify=False)
+        request = requests.post(url, json=configData, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200

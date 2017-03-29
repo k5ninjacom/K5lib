@@ -51,7 +51,7 @@ def rest_show_region(domainToken, regionId):
     url = 'https://identity.gls.cloud.global.fujitsu.com/v3/regions/' + regionId
 
     try:
-        request = requests.get(url, headers=headers, verify=False)
+        request = requests.get(url, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
@@ -86,7 +86,7 @@ def rest_activate_region(domainToken, domainId, regionId):
     url = 'https://contract.gls.cloud.global.fujitsu.com/v1/contracts/' + domainId +'?action=startRegion'
 
     try:
-        request = requests.post(url, json=configData, headers=headers, verify=False)
+        request = requests.post(url, json=configData, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
