@@ -1,7 +1,7 @@
 import requests
 import json
 import logging
-import k5.authenticate
+import .authenticate
 
 def rest_image_export(regionToken, image_id, containerName ):
     headers = {'Content-Type': 'application/json',
