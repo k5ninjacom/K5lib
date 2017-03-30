@@ -197,8 +197,16 @@ def rest_project_authenticate(user, password, contract, projectName, region):
 
 
 def get_project_token(user, password, contract, projectName, region):
-    r = rest_project_authenticate(user, password, contract, projectName, region)
+    request = rest_project_authenticate(user, password, contract, projectName, region)
     if 'Error' in str(request):
         return str(request)
     else:
-        return r.headers['X-Subject-Token']
+        return request.headers['X-Subject-Token']
+
+def get_project_id(user, password, contract, projectName, region):
+    request = rest_project_authenticate(user, password, contract, projectName, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        r = request.json()
+        return r['token']['project']['id']
