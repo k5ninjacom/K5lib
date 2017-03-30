@@ -88,6 +88,10 @@ def get_global_token(user, password, contract):
 
 def get_domain_id(user, password, contract):
 
+    """
+
+    :rtype: str
+    """
     request = rest_global_authenticate(user, password, contract)
     if 'Error' in str(request):
         return str(request)
