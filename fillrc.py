@@ -44,8 +44,7 @@ def main():
     projectId = k5lib.get_project_id(userName, userPassword, domainName, projectName, region)
     if 'Error' in str(projectId):
         logging.info(str(projectId))
-        print('Exit .. ', str(projectId))
-        sys.exit()
+        sys.exit('Exit .. ', str(projectId))
 
     # Create default.rc file and write on it
     rcfile = open('default.rc', 'w')
