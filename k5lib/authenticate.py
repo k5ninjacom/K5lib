@@ -160,35 +160,39 @@ def get_region_info(user, password, contract, region):
         return r.json()
 
 
-def rest_project_authenticate(user, password, contract, projectName, region):
+def _rest_project_authenticate(user, password, contract, projectName, region):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json'}
 
-    configData = {'auth': {
-        'identity': {
-            'methods': [
-                'password'
-            ],
-            'password': {
-                'user': {
+    configData = {
+        'auth': {
+            'identity': {
+                'methods': [
+                    'password'
+                ],
+                'password': {
+                    'user': {
+                        'domain': {
+                            'name': contract
+                        },
+                        'name': user,
+                        'password': password
+                    }
+                }
+            },
+            'scope': {
+                'project': {
+                    'name': projectName,
                     'domain': {
                         'name': contract
                     },
-                    'name': user,
-                    'password': password
-                }
-            },
-        'scope' : {
-            'project' : {
-                'name' : projectName
+                },
             },
         },
-        },
-    },
     }
+#    print(json.dumps(configData, indent=4))
 
-    url = 'https://identity.' + region + \
-        '.cloud.global.fujitsu.com/v3/auth/tokens'
+    url = 'https://identity.' + region + '.cloud.global.fujitsu.com/v3/auth/tokens'
 
     try:
         request = requests.post(url, json=configData, headers=headers)
@@ -201,16 +205,26 @@ def rest_project_authenticate(user, password, contract, projectName, region):
 
 
 def get_project_token(user, password, contract, projectName, region):
-    request = rest_project_authenticate(user, password, contract, projectName, region)
+    request = _rest_project_authenticate(user, password, contract, projectName, region)
     if 'Error' in str(request):
         return str(request)
     else:
         return request.headers['X-Subject-Token']
 
+
 def get_project_id(user, password, contract, projectName, region):
-    request = rest_project_authenticate(user, password, contract, projectName, region)
+    request = _rest_project_authenticate(user, password, contract, projectName, region)
     if 'Error' in str(request):
         return str(request)
     else:
         r = request.json()
         return r['token']['project']['id']
+
+
+def get_project_info(user, password, contract, projectName, region):
+    request = _rest_project_authenticate(user, password, contract, projectName, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        r = request.json()
+        return r

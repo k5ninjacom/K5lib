@@ -1,9 +1,10 @@
 from os import environ as env
 import k5lib
 import logging
+import json
 
 # add filemode="w" to overwrite
-logging.basicConfig(filename="get_project_id.log", level=logging.DEBUG)
+logging.basicConfig(filename="get_project_info.log", level=logging.DEBUG)
 
 username = env['OS_USERNAME']
 password = env['OS_PASSWORD']
@@ -11,6 +12,5 @@ domain = env['OS_USER_DOMAIN_NAME']
 projectName = env['OS_PROJECT_NAME']
 region = env['OS_REGION_NAME']
 
-projectId = k5lib.get_project_id(username, password, domain, projectName, region)
-print(projectId)
-
+projectInfo = k5lib.get_project_info(username, password, domain, projectName, region)
+print(json.dumps(projectInfo, indent = 2))

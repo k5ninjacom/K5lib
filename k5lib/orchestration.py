@@ -1,3 +1,8 @@
+import requests
+import json
+import logging
+
+
 def _rest_create_stack(projectToken, region, projectId, stackName, template):
     """Summary
     Param:
@@ -27,7 +32,8 @@ def _rest_create_stack(projectToken, region, projectId, stackName, template):
                  "disable_rollback": True,
                  "timeout_mins": 60
     }
-
+# from portal https://orchestration.fi-1.cloud.global.fujitsu.com/v1/e77679bd08104b0483d5cd5aba0f704d
+# from log:   https://orchestration.fi-1.cloud.global.fujitsu.com/v1/9c15ef58ce7e42098e1844b5d81202fe/stacks
     url = 'https://orchestration.' + region + '.cloud.global.fujitsu.com/v1/' + projectId + '/stacks'
 
     try:
