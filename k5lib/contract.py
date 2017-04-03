@@ -102,3 +102,4 @@ def activate_region(domainToken, domainId, regionId):
     else:
         return request.json()
 
+

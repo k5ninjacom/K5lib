@@ -8,3 +8,5 @@ from .authenticate import get_project_id
 
 from .contract import list_regions
 from .contract import activate_region
+
+from .orchestration import create_stack
