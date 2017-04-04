@@ -1,6 +1,8 @@
 from os import environ as env
 import k5lib
 import logging
+import json
+
 
 # add filemode="w" to overwrite
 logging.basicConfig(filename="create_stack.log", level=logging.DEBUG)
@@ -20,6 +22,7 @@ stackName = 'Foobar'
 
 with open(templatefile, 'r') as file:
     template = file.read()
+print (template)
 
 stackInfo = k5lib.create_stack(projectToken, region, projectId, stackName, template)
 print(stackInfo)
