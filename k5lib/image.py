@@ -1,8 +1,8 @@
 import requests
 import json
 import logging
-import .authenticate
 
+log = logging.getLogger(__name__)
 
 def _rest_image_export(regionToken, region, projectId, image_id, containerName):
     """
@@ -33,11 +33,13 @@ def _rest_image_export(regionToken, region, projectId, image_id, containerName):
     # 'https://import-export.uk-1.cloud.global.fujitsu.com/v1/imageexport'
     url = 'https://import-export.' + region + '.cloud.global.fujitsu.com/v1/imageexport'
 
+
     try:
         request = requests.post(url, json=configData, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent= 4))
         return 'Error: ' + str(e)
     else:
         return request
