@@ -2,6 +2,7 @@ import requests
 import json
 import logging
 
+log = logging.getLogger(__name__)
 
 def _rest_create_stack(projectToken, region, projectId, stackName, template):
     """Summary
@@ -41,6 +42,7 @@ def _rest_create_stack(projectToken, region, projectId, stackName, template):
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
         return 'Error: ' + str(e)
     else:
         return request

@@ -2,6 +2,7 @@ import requests
 import json
 import logging
 
+log = logging.getLogger(__name__)
 
 # Rest call to list regions
 def rest_list_regions(globalToken):
@@ -55,6 +56,7 @@ def rest_show_region(domainToken, regionId):
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
         return 'Error: ' + str(e)
     else:
         return request
@@ -90,6 +92,7 @@ def rest_activate_region(domainToken, domainId, regionId):
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
         return 'Error: ' + str(e)
     else:
         return request

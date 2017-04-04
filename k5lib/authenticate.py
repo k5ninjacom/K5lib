@@ -2,6 +2,7 @@ import requests
 import json
 import logging
 
+log = logging.getLogger(__name__)
 
 def rest_global_authenticate(user, password, contract):
     """
@@ -72,6 +73,7 @@ def rest_global_authenticate(user, password, contract):
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
          # Whoops it wasn't a 200
+         log.error(json.dumps(configData, indent=4))
          return 'Error: ' + str(e)
     else:
          return request
@@ -139,6 +141,7 @@ def rest_region_authenticate(user, password, contract, region):
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
         return 'Error: ' + str(e)
     else:
         return request
@@ -199,6 +202,7 @@ def _rest_project_authenticate(user, password, contract, projectName, region):
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
         return 'Error: ' + str(e)
     else:
         return request
