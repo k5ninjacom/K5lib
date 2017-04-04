@@ -13,4 +13,7 @@ from .contract import activate_region
 from .orchestration import create_stack
 
 from .image import export_image
+from .image import clone_vm
+from .image import get_image_info
+from .image import get_export_status
 

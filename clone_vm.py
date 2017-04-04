@@ -4,7 +4,7 @@ import logging
 import json
 
 # add filemode="w" to overwrite
-logging.basicConfig(filename="export_image.log", level=logging.DEBUG)
+logging.basicConfig(filename="clone_vm.log", level=logging.DEBUG)
 
 username = env['OS_USERNAME']
 password = env['OS_PASSWORD']
@@ -15,8 +15,8 @@ region = env['OS_REGION_NAME']
 projectToken = k5lib.get_project_token(username,password,domain,projectName,region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
-imageId = '4937bd05-2952-402d-8d77-ecf2808454d0'
-containerName = 'vmexport'
+volumeId = '31b71d81-0691-4513-8293-b9c08f5052ff'
+imageName = 'mgmt_exported_OS'
 
-exportId = k5lib.export_image(projectToken, region, projectId, imageId, containerName)
-print(exportId)
+imageId = k5lib.clone_vm( projectToken, projectId, region, imageName, volumeId)
+print(imageId)
