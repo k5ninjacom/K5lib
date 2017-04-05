@@ -18,4 +18,5 @@ projectToken = k5lib.get_project_token(username,password,domain,projectName,regi
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
 exportStatus = k5lib.get_export_status(projectToken, region,exportId)
+logging.info(json.dumps(exportStatus, indent = 4))
 print(json.dumps(exportStatus, indent = 4))
