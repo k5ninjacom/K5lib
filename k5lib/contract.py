@@ -4,6 +4,7 @@ import logging
 
 log = logging.getLogger(__name__)
 
+
 # Rest call to list regions
 def rest_list_regions(globalToken):
     headers = {'Content-Type': 'application/json',
@@ -56,7 +57,10 @@ def rest_show_region(domainToken, regionId):
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
-        log.error(json.dumps(configData, indent=4))
+        log.error('headers:')
+        log.error(headers)
+        log.error('url:')
+        log.error(url)
         return 'Error: ' + str(e)
     else:
         return request

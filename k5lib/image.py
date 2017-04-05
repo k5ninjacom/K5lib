@@ -4,6 +4,7 @@ import logging
 
 log = logging.getLogger(__name__)
 
+
 def _rest_image_export(regionToken, region, projectId, image_id, containerName):
     """
     X-Auth-Token: String
@@ -54,6 +55,14 @@ def export_image(regionToken, region, projectId, image_id, containerName):
 
 
 def _rest_get_export_status(projectToken, region, exportId):
+    """
+
+    :param projectToken:
+    :param region:
+    :param exportId:
+    :return: json
+
+    """
     headers = {'Content-Type': 'application/json',
         'X-Auth-Token': projectToken
     }
@@ -75,8 +84,15 @@ def _rest_get_export_status(projectToken, region, exportId):
         return request
 
 
-
 def get_export_status(projectToken, region, exportId):
+    """
+
+    :param projectToken:
+    :param region:
+    :param exportId:
+    :return: json
+
+    """
     request = _rest_get_export_status(projectToken, region, exportId)
     if 'Error' in str(request):
         return str(request)
