@@ -4,7 +4,7 @@ import logging
 import json
 
 # add filemode="w" to overwrite
-logging.basicConfig(filename="get_stack_info.log", level=logging.DEBUG)
+logging.basicConfig(filename="get_vnc_console_url.log", level=logging.DEBUG)
 
 username = env['OS_USERNAME']
 password = env['OS_PASSWORD']
@@ -15,12 +15,8 @@ region = env['OS_REGION_NAME']
 projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
-stackName = 'devops_tools'
-stackId = '8686e252-334c-4e56-b424-573f64f4c567'
+serverId = '8928b9ba-7571-4948-8c0c-e1445f4fe75a'
 
-stackInfo = k5lib.get_stack_info(projectToken, projectId, region, stackName, stackId)
+vncUrl = k5lib.get_vnc_console_url(projectToken, projectId, region, serverId)
 
-logging.info(json.dumps(stackInfo, indent=4))
-print(json.dumps(stackInfo, indent = 4))
-#print(stackInfo)
-
+print(vncUrl)
