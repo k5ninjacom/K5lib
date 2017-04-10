@@ -1,0 +1,59 @@
+{
+    "stack": {
+        "stack_status": "CREATE_COMPLETE",
+        "template_description": "One AZ with 3 servers. 3 Global IP. 1 keypair. 3 security groups.",
+        "notification_topics": [],
+        "creation_time": "2017-04-10T08:02:18Z",
+        "stack_status_reason": "Stack CREATE completed successfully",
+        "disable_rollback": true,
+        "parent": null,
+        "updated_time": null,
+        "stack_user_project_id": "292696e1d01643f8a60748d5a189be1e",
+        "stack_name": "devops_tools",
+        "links": [
+            {
+                "href": "https://orchestration.fi-1.cloud.global.fujitsu.com/v1/e77679bd08104b0483d5cd5aba0f704d/stacks/devops_tools/144955db-b1b5-490c-87ea-a52fc8eca9fa",
+                "rel": "self"
+            }
+        ],
+        "outputs": [
+            {
+                "description": "The public key of the app keypair.",
+                "output_value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTe73nL4ALB9rhSzaDVraisbFCk4WXULeKxKR3Nzln9vFmT0hDZce1pivI7JcnLuy+/BumIQI0lX1vVOQVd1VnkTsfnJNlO/Dn+Kz7vHJZkto4G3b2SIp6DdQ7OaxPLGlJXAZsK5jHL1lJx0ZFvjE4YTWM2DcLNcp9kZqSyfgAvLR/JBNNjYx9BwvvYYVgPQ/YFnyj0YMTZH6+1on+9Iacf35ea/Jg48wqDL69a2FjL8Luf2vunAjhElapGOG+ouwWsMSaDha7PPtYf9HgeGqnS+H2XgJa6Ji6N9EMkkaI17OFw0frWlcq048aSEqHUlGtvvBxznMP6mPO/ZRZX0E3 Generated-by-Nova\n",
+                "output_key": "app_public_key"
+            },
+            {
+                "description": "The private key of the app keypair.",
+                "output_value": "-----BEGIN RSA PRIVATE KEY-----\nMIIEogIBAAKCAQEA03u95y+ACwfa4Us2g1a2orGxQpOFl1C3isSkdzc5Z/bxZk9I\nQ2XHtaYryOyXJy7svvwbpiECNJV9b1TkFXdVZ5E7H5yTZTvw5/is+7xyWZLaOBt2\n9kiKeg3UOzmsTyxpSVwGbCuYxy9ZScdGRb4xOGE1jNg3CzXKfZGaksn4ALy0fyQT\nTY2MfQcL72GFYD0P2BZ8o9GDE2R+vtaJ/vSGnH9+XmvyYOPMKgy+vWthYy/C7n9r\n7pwI4RJWqRjhvqLsFrDEmg4Wuzz7WH/R4Hhqp0vh9l4CWuiYujfRDJJGiNezhcNH\n61pXKtOPGkhKh1JRrb7wcc5zD+pjzv2UWV9BNwIDAQABAoIBADya4IAJB7uhg6M+\np5+Z0PrsyyyWFBmZ4w9cbPlRFR1rEiDMpZvS5hlzRmbtDiAHfYb5vn6sRPKGyIyI\nGljgetQUNYpIl6DSPaZsiD4X8fkjcW/UxxGrFiwGHITgcTW7N2zzd0+2arDiK8dN\n2SCRcY+DpBH5wERxJNc5S7+3K2AiLlyLi7CJaxx48VmFwS9aljeFtXODzOPIzouA\nAZkmQaZy8rrPOTVDF0Mmg3TlwCTfXjo8jNXIVc9CsG+dolPsU1bODznYf/43ibi/\ngvgRB8mlnyhAASb3KAYYSBDLblSOhpNxx3w8pom+QcO9s6QkzIXxnxmXyq777Iq+\nDGqLO+kCgYEA9KGi1wyEYkkyJCeOKjdlAfy8cueCpeasqGV9deJyDEgVXAwiNPpV\nOM2eJA/ywYaKyKZdUCpWyKaS7htkBrt9eM0FZIEOnOi3Dxboq4MT6pe5y716fFBN\nmN/f6pNjfF83NPT47Pn5esjgwmaThi0+84BrQTxNgBHS52trWyS4U5sCgYEA3U++\n7NcDlL4FGzeD0wp6R7RXZN430ojhTDXYie8RC4rqfitG//QDZeYpIiYE5f9a6BOP\n8cd/qhc93K8L45CZCTKPTyRpIWA/uaCl/2ZuB7gKrl71FpUy/yCGMDOJSGlFZeFw\nZJfgbz/D452JPRh28gUrKNHupWU9yADnRwhpSJUCgYAGYRSrAPOO0JPTJ4johutG\nYv3TDUB17Q8BkSv1YANTWKnd7Z8SvJhuU8ZU8GmHLGgAFX6HcaMztkxMk0BHgKoj\n9Uy3sznbU6I6bYGBv3hMfMpmirlf9oQfgW8IYfGNM7pv0hePrnEYB5b82snsDNAA\nb4/ccqMevNhAGqgBB3MbEwKBgD/vStP3JdSxtJ3xQscULtFKOzkrrWrIGnY+1Ai9\nJOp1vlqmvAMzhkvI2zc/Toj3ZVbIV/xcSvhjcH6xnzilzGBI1/fgJ/L5cE97JpmL\nCNx4AbXwPtPAVJQ53CpOqSlfKCpPn32gFrls7XVzTHN2/t3aOma3hz8G6Xs/L5Fo\nz6mlAoGAfAXiiEnp9J62i56bSCkKS6locbrQGPe0fHbdbeF5pKZ4X6G5DvSEbbPj\nGOOYTc8+2PFWOCH5s8RVNe4D7+q3yZF5UhROmWk9ckFgbTppsMrPW1E+X7dCHvHg\nfeeCIr3cU5MW/XZ/OGjsWartZnIG8hvn2AZKvsXFCVpwZD2Ydgk=\n-----END RSA PRIVATE KEY-----\n",
+                "output_key": "app_private_key"
+            },
+            {
+                "description": "The name of the app keypair.",
+                "output_value": "app-keypair",
+                "output_key": "app_name"
+            }
+        ],
+        "description": "One AZ with 3 servers. 3 Global IP. 1 keypair. 3 security groups.",
+        "capabilities": [],
+        "id": "144955db-b1b5-490c-87ea-a52fc8eca9fa",
+        "parameters": {
+            "app_keypair_name": "app-keypair",
+            "az_dns2": "213.214.165.10",
+            "app_server_name": "gitlab",
+            "az": "fi-1b",
+            "app_image": "openSUSE-Leap-42.2",
+            "mgmt_image": "openSUSE-Leap-42.2",
+            "app2_server_name": "jenkins",
+            "prefix": "mha",
+            "OS::stack_name": "devops_tools",
+            "OS::project_id": "e77679bd08104b0483d5cd5aba0f704d",
+            "mgmt_server_name": "salt",
+            "provider_network": "inf_az2_ext-net01",
+            "az_dns1": "213.214.165.9",
+            "OS::stack_id": "144955db-b1b5-490c-87ea-a52fc8eca9fa",
+            "provider_network_id": "20167649-2525-444e-b50c-fcc8c249a61e"
+        },
+        "stack_owner": null,
+        "timeout_mins": 60
+    }
+}
