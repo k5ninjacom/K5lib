@@ -196,7 +196,7 @@ def _rest_get_image_import_queue_status(projectToken, region):
     headers = {'Content-Type': 'application/json',
            'X-Auth-Token': projectToken
            }
-    url = 'https://import-export.' + region + '.cloud.global.fujitsu.com/v1/imageexport?0,10'
+    url = 'https://vmimport.' + region + '.cloud.global.fujitsu.com/v1/imageimport'
 
     try:
         request = requests.get(url, headers=headers)
