@@ -13,5 +13,5 @@ projectName = env['OS_PROJECT_NAME']
 region = env['OS_REGION_NAME']
 
 projectToken = k5lib.get_project_token(username,password,domain,projectName,region)
-queueInfo = k5lib.get_image_import_queue_status(projectToken)
+queueInfo = k5lib.get_image_import_queue_status(projectToken, region)
 print(json.dumps(queueInfo, indent = 2))

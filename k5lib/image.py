@@ -188,7 +188,7 @@ def get_image_info(projectToken, projectId, region, volumeId):
     else:
         return request.json()
 
-def _rest_get_image_import_queue_status(projectToken):
+def _rest_get_image_import_queue_status(projectToken, region):
     """
     GET /v1/imageimport{?start, limit}
 
@@ -211,8 +211,8 @@ def _rest_get_image_import_queue_status(projectToken):
     else:
         return request
 
-def get_image_import_queue_status(projectToken, ):
-    request = _rest_get_image_import_queue_status(projectToken)
+def get_image_import_queue_status(projectToken, region):
+    request = _rest_get_image_import_queue_status(projectToken, region)
     if 'Error' in str(request):
         return str(request)
     else:
