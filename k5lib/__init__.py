@@ -16,6 +16,7 @@ from .image import export_image
 from .image import clone_vm
 from .image import get_image_info
 from .image import get_export_status
+from .image import get_image_import_queue_status
 from .compute import get_vnc_console_url
 
 

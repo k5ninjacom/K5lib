@@ -187,3 +187,33 @@ def get_image_info(projectToken, projectId, region, volumeId):
         return str(request)
     else:
         return request.json()
+
+def _rest_get_image_import_queue_status(projectToken):
+    """
+    GET /v1/imageimport{?start, limit}
+
+    """
+    headers = {'Content-Type': 'application/json',
+           'X-Auth-Token': projectToken
+           }
+    url = 'https://import-export.' + region + '.cloud.global.fujitsu.com/v1/imageexport'
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error('headers:')
+        log.error(headers)
+        log.error('url')
+        log.error(url)
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+def get_image_import_queue_status(projectToken, ):
+    request = _rest_get_image_import_queue_status(projectToken)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
