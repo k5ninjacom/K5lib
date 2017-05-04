@@ -65,7 +65,7 @@ def _rest_create_network_connector(projectToken, projectid, connectorName, regio
 
 
 def create_network_connector(projectToken, projectid, connectorName, region):
-    request =     k5lib._rest_create_network_connector(projectToken, projectid, connectorName, region)
+    request =  _rest_create_network_connector(projectToken, projectid, connectorName, region)
     if 'Error' in str(request):
         return str(request)
     else:
