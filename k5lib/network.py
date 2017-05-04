@@ -85,8 +85,8 @@ def _rest_create_port(projecttoken, networkNamename, networkIdid, securitygroupI
                                         "availability_zone": az,
                                         "security_groups": [sg_id]
                                         }
-                                       }
-    )
+    }
+
 
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/ports'
