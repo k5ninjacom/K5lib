@@ -32,13 +32,22 @@ def _rest_stub(projectToken, region):
         return request
 
 
-def _rest_create_network_connector(projectToken, projectid, connector_name, region):
+def stub(projectToken, region):
+    request = _rest_stub(projectToken, region):
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        r = request.json()
+        return r
+
+
+def _rest_create_network_connector(projectToken, projectid, connectorName, region):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': projectToken}
 
-    configData ={"network_connector": {
-                 "name": connector_name,
+    configData = {"network_connector": {
+                 "name": connectorName,
                  "tenant_id": projectid}
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connectors'
 
@@ -52,8 +61,14 @@ def _rest_create_network_connector(projectToken, projectid, connector_name, regi
     else:
         return request
 
-def create_network_connector(projectToken, projectid, connector_name, region):
-    return
+
+def create_network_connector(projectToken, projectid, connectorName, region):
+    request =     k5lib._rest_create_network_connector(projectToken, projectid, connectorName, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        r = request.json()
+        return r
 
 
 def _rest_create_port(projecttoken, networkNamename, networkIdid, securitygroupId, az, region):
@@ -110,8 +125,6 @@ def _rest_create_inter_project_connection(projectToken, region):
         return 'Error: ' + str(e)
     else:
         return request
-
-
 
 
 def inter_project_connection_create(k5token, router, port, region):
