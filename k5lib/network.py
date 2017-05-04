@@ -33,7 +33,7 @@ def _rest_stub(projectToken, region):
 
 
 def stub(projectToken, region):
-    request = _rest_stub(projectToken, region):
+    request = _rest_stub(projectToken, region)
     if 'Error' in str(request):
         return str(request)
     else:
