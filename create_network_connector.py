@@ -13,11 +13,12 @@ domain = env['OS_USER_DOMAIN_NAME']
 projectName = env['OS_PROJECT_NAME']
 region = env['OS_REGION_NAME']
 
+connectorName = 'mhaNetworkConnector'
 
 projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
 
-connectorid = k5lib.create_network_connector(projectToken, projectId, connectorName, region)
-print(connectorid)
+connectorId = k5lib.create_network_connector(projectToken, projectId, connectorName, region)
+print(connectorId)
 
