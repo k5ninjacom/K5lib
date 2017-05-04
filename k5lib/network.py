@@ -47,8 +47,10 @@ def _rest_create_network_connector(projectToken, projectid, connectorName, regio
                'X-Auth-Token': projectToken}
 
     configData = {"network_connector": {
-                 "name": connectorName,
-                 "tenant_id": projectid}
+                     "name": connectorName,
+                     "tenant_id": projectid}
+    }
+
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connectors'
 
     try:
