@@ -25,8 +25,8 @@ Domain (aka contract)
 Project name
 Region
 """
-# add filemode="w" to overwrite
-logging.basicConfig(filename="fillrc.log", level=logging.DEBUG)
+# Create a log file
+k5lib.create_logfile('fillrc.log')
 
 
 

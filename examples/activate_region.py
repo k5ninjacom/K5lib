@@ -7,8 +7,8 @@ username = env['OS_USERNAME']
 password = env['OS_PASSWORD']
 domain = env['OS_USER_DOMAIN_NAME']
 
-# add filemode="w" to overwrite
-logging.basicConfig(filename="activate_region.log", level=logging.DEBUG)
+# Create a log file
+k5lib.create_logfile('activate_region.log')
 
 globalToken = k5lib.get_global_token(username, password, domain)
 domainId = k5lib.get_domain_id(username, password, domain)

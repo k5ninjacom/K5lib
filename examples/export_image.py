@@ -3,8 +3,8 @@ import sys
 sys.path.append('k5lib')
 import k5lib
 
-# add filemode="w" to overwrite
-logging.basicConfig(filename="export_image.log", level=logging.DEBUG)
+# Create a log file
+k5lib.create_logfile('export_image.log')
 
 username = env['OS_USERNAME']
 password = env['OS_PASSWORD']
