@@ -1,4 +1,5 @@
 from os import environ as env
+import k5lib.*
 from .. import k5lib
 
 
