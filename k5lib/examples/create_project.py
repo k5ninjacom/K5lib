@@ -1,5 +1,5 @@
 from os import environ as env
-from .. import k5lib as k5lib
+from ..k5lib import k5lib as k5lib
 
 
 username = env['OS_USERNAME']
