@@ -17,8 +17,9 @@ def gen_passwd(length):
     return password
 
 
-def create_logfile(logName='default.log', logDir='log'):
+def create_logfile(logName = 'default.log', logDir = 'log'):
     if os.path.exists(logDir):
         os.makedirs(logDir)
-    logging.basicConfig(filename = logDir + '/' + logName, level=logging.DEBUG)
+    logging.basicConfig(filename=logDir + '/' + logName, level=logging.DEBUG)
+    logging.info('Logging started')
     return
