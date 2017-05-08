@@ -1,0 +1,146 @@
+# **********************************************************************************************************************
+# xalm devops stack testing 2
+#
+# Author: Hahtokari Mika
+# v.0.1 9.2.2017 Hahtokari Mika
+# v.0.2 31.3.2017
+#
+# Features
+# - Internal network
+# - Keypair creation
+# - Public IP allocation
+# - mgmt server
+# - app & app2 servers
+#
+# Usage:
+#   openstack stack create -v  -t xalm.yml xalm
+#   openstack stack output show xalm  app_private_key -f value >app_xalm.key
+#   chmod 600 mgmt_k5ninja.key
+#   ssh -i mgmt_k5ninja.key k5user@PUBLIC_IP_address_OF_mgmt_server
+#
+# Todo: Stack delete fails. Delete ext_router by hand and retry
+# Todo: Modify prarameters more generic
+# Todo: Add firewall
+#
+# **********************************************************************************************************************
+
+heat_template_version: 2013-05-23
+
+description: "One AZ with 3 servers. 3 Global IP. 1 keypair. 3 security groups."
+parameters:
+  prefix:
+    type: string
+    label: Name prefix
+    default: mha
+    description: The prefix to use for the keypair name.
+  az:
+    type: string
+    default: "fi-1b"
+    description: Availability zone A for FI region
+  provider_network:
+    type: string
+    default: "inf_az2_ext-net01"
+    description: External network for fi-1a az 
+  provider_network_id:
+    type: string
+    default: "20167649-2525-444e-b50c-fcc8c249a61e"
+    description: External network ID for fi-1a az
+  az_dns1:
+    type: string
+    default: "213.214.165.9"
+    description: DNS 1 for az
+  az_dns2:
+    type: string
+    default: "213.214.165.10"
+    description: DNS 2 for az
+  mgmt_image:
+    type: string
+    label: Image name or ID
+    description: Image to be used for compute instance
+    default: "openSUSE-Leap-42.1-OpenStack.x86_64-0.0.4-Build2.164"
+  app_image:
+    type: string
+    label: Image name or ID
+    description: Image to be used for compute instance
+    default: "openSUSE-Leap-42.1-OpenStack.x86_64-0.0.4-Build2.164"
+  mgmt_server_name:
+    type: string
+    label: Name of mgmt server
+    description: Name of mgmt server
+    default: "salt"
+  app_server_name:
+    type: string
+    label: name of app server
+    description: Name of app server
+    default: "gitlab"
+  app2_server_name:
+    type: string
+    label: name of app server
+    description: Name of app server
+    default: "jenkins"
+
+  app_keypair_name:
+    type: string
+    label: app keypair name
+    description: "app server(s) keypair"
+    default: "app-keypair"
+
+resources:
+# **********************************************************************************************************************
+# Misc resources
+# **********************************************************************************************************************
+
+  app_keypair:
+    type: OS::Nova::KeyPair
+    properties:
+      name: { get_param: app_keypair_name }
+      save_private_key: true
+
+# **********************************************************************************************************************
+# Internal network with router
+# **********************************************************************************************************************
+
+  # Create a network in availability zone
+  internal_net:
+    type: OS::Neutron::Net
+    properties:
+      availability_zone: { get_param: az }
+      name: "internal_net"
+
+  # Create a external subnet on the private network
+  internal_subnet:
+    type: OS::Neutron::Subnet
+    depends_on: [ internal_net ]
+    properties:
+      availability_zone: { get_param: az }
+      name: "internal_subnet"
+      network_id: { get_resource: internal_net }
+      cidr: "10.10.10.0/24"
+      gateway_ip: "10.10.10.254"
+#      dns_nameservers: [ { get_param: az_dns1 }, { get_param: az_dns2 } ]
+
+  ext_router:
+    type: OS::Neutron::Router
+    depends_on: [ internal_net ]
+    properties:
+      name: ext_router
+      external_gateway_info:
+        network: { get_param: provider_network }
+
+  # Connect an interface from internal_net into ext_router
+  ext_router_interface:
+    type: OS::Neutron::RouterInterface
+    depends_on: [ ext_router ]
+    properties:
+      router_id: { get_resource: ext_router }
+      subnet_id: { get_resource: internal_subnet }
+
+  # Create a gateway into provider networkp
+  ext_router_gw:
+     type: OS::Neutron::RouterGateway
+     depends_on: [  ext_router_interface ]
+     properties:
+       network_id: { get_param: provider_network_id }
+       router_id: { get_resource: ext_router }
+
+outputs:
