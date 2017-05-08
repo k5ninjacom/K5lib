@@ -11,7 +11,7 @@ projectName = 'foobar'
 
 
 # Create a log file
-k5lib.create_logfile('create_project.log', '/home/mika/Projects/fisandbox/log')
+k5lib.create_logfile('create_project.log')
 
 
 regionToken = k5lib.get_region_token(username, password, domain, region)
