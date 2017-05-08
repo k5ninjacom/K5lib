@@ -15,7 +15,7 @@ region = env['OS_REGION_NAME']
 projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
-serverId = '8928b9ba-7571-4948-8c0c-e1445f4fe75a'
+serverId = 'REPLACE WITH SERVER ID'
 
 vncUrl = k5lib.get_vnc_console_url(projectToken, projectId, region, serverId)
 

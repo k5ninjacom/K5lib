@@ -12,7 +12,7 @@ domain = env['OS_USER_DOMAIN_NAME']
 projectName = env['OS_PROJECT_NAME']
 region = env['OS_REGION_NAME']
 
-exportId = 'fb3611a9-1b7f-4b22-b7a7-02905ff9558c'
+exportId = 'REPLACE with export job ID'
 
 projectToken = k5lib.get_project_token(username,password,domain,projectName,region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)

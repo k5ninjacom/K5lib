@@ -15,7 +15,7 @@ region = env['OS_REGION_NAME']
 projectToken = k5lib.get_project_token(username,password,domain,projectName,region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
-imageId = '4937bd05-2952-402d-8d77-ecf2808454d0'
+imageId = 'REPLACE WITH image ID'
 containerName = 'vmexport'
 
 exportId = k5lib.export_image(projectToken, region, projectId, imageId, containerName)

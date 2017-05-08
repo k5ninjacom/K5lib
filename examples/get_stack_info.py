@@ -16,8 +16,8 @@ region = env['OS_REGION_NAME']
 projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
-stackName = 'devops_tools'
-stackId = '144955db-b1b5-490c-87ea-a52fc8eca9fa'
+stackName = 'REPLACE WITH STACK NAME'
+stackId = 'REPLACE WITH STACK ID'
 
 stackInfo = k5lib.get_stack_info(projectToken, projectId, region, stackName, stackId)
 

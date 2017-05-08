@@ -7,7 +7,7 @@ username = env['OS_USERNAME']
 password = env['OS_PASSWORD']
 domain = env['OS_USER_DOMAIN_NAME']
 region = env['OS_REGION_NAME']
-projectName = 'foobar'
+projectName = 'foobar_project'
 
 
 # Create a log file
