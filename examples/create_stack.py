@@ -1,8 +1,7 @@
 from os import environ as env
+import sys
+sys.path.append('k5lib')
 import k5lib
-import logging
-import json
-
 
 # add filemode="w" to overwrite
 logging.basicConfig(filename="create_stack.log", level=logging.DEBUG)

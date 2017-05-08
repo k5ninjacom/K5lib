@@ -1,6 +1,6 @@
-import logging
-import k5lib
 import sys
+sys.path.append('k5lib')
+import k5lib
 
 """
 This script will create a default.rc file into current folder

@@ -1,6 +1,7 @@
 from os import environ as env
+import sys
+sys.path.append('k5lib')
 import k5lib
-import logging
 
 # add filemode="w" to overwrite
 logging.basicConfig(filename="get_domainid.log", level=logging.DEBUG)
