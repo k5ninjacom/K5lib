@@ -1,6 +1,5 @@
 from os import environ as env
-from ..k5lib import k5lib as k5lib
-
+import k5lib
 
 username = env['OS_USERNAME']
 password = env['OS_PASSWORD']
