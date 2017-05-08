@@ -89,8 +89,6 @@ def _rest_get_stack_info(projectToken, projectId, region, stackName, stackId):
     else:
         return request
 
-    return
-
 
 def get_stack_info(projectToken, projectId, region, stackName, stackId):
     request = _rest_get_stack_info(projectToken, projectId, region, stackName, stackId)
@@ -98,8 +96,6 @@ def get_stack_info(projectToken, projectId, region, stackName, stackId):
         return str(request)
     else:
         return request.json()
-
-    return
 
 
 def _rest_list_stacks(projectToken, projectId, region):

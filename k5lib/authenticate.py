@@ -5,12 +5,6 @@ import logging
 log = logging.getLogger(__name__)
 
 
-class project:
-    def __init__(self, projectToken=None, projectId=None, region=None):
-        self.projectToken = projectToken
-        self.projectId = projectId
-        self.region = region
-
 def rest_global_authenticate(user, password, contract):
     """
        https://k5-doc.jp-east-1.paas.cloud.global.fujitsu.com/doc/en/iaas/document/k5-iaas-api-reference_management-administration.pdf
@@ -236,5 +230,4 @@ def get_project_info(user, password, contract, projectName, region):
     if 'Error' in str(request):
         return str(request)
     else:
-        r = request.json()
-        return r
+        return request.json()
