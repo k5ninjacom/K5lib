@@ -71,3 +71,40 @@ def create_network_connector(projectToken, projectid, connectorName, region):
     else:
         r = request.json()
         return r
+
+
+def _rest_create_network_connector_endpoint(projectToken, projectId, region, az, endpointName, networkconnectorId):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': projectToken}
+
+    configData = {"network_connector_endpoint": {
+                      "name": endpointName,
+                      "network_connector_id": networkconnectorId,
+                      "endpoint_type": "availability_zone",
+                      "location": az,
+                      "tenant_id": projectId
+                 }
+    }
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connector_endpoints'
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def create_network_connector_endpoint(projectToken, projectId, region, az, endpointName, networkconnectorId):
+    request = _rest_create_network_connector_endpoint(projectToken, projectId, region, az, endpointName, networkconnectorId)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        r = request.json()
+        return r
+

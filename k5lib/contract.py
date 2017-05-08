@@ -110,3 +110,38 @@ def activate_region(domainToken, domainId, regionId):
         return request.json()
 
 
+def _rest_create_project(regionToken, domainId, region, projectName):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': regionToken}
+
+    configData = {"project":
+                     {"description": "Programatically created project",
+                         "domain_id": domainId,
+                         "enabled": True,
+                         "is_domain": False,
+                         "name": projectName
+                     }
+                   }
+
+    url = 'https://identity.' + region + '.cloud.global.fujitsu.com/v3/projects?domain_id=' + domainId
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def create_project(regionToken, domainId, region, projectName):
+    request = _rest_create_project(regionToken, domainId, region, projectName)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        r = request.json()
+        return r
+
