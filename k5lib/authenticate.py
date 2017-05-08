@@ -158,7 +158,7 @@ def get_region_token(user, password, contract, region):
     if 'Error' in str(request):
         return str(request)
     else:
-        return r.headers['X-Subject-Token']
+        return request.headers['X-Subject-Token']
 
 
 def get_region_info(user, password, contract, region):
