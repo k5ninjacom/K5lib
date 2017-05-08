@@ -140,8 +140,7 @@ def rest_region_authenticate(user, password, contract, region):
     },
     }
 
-    url = 'https://identity.' + region + \
-        '.cloud.global.fujitsu.com/v3/auth/tokens'
+    url = 'https://identity.' + region + '.cloud.global.fujitsu.com/v3/auth/tokens'
 
     try:
         request = requests.post(url, json=configData, headers=headers)
@@ -155,7 +154,7 @@ def rest_region_authenticate(user, password, contract, region):
 
 
 def get_region_token(user, password, contract, region):
-    r = rest_region_authenticate(user, password, contract, region)
+    request = rest_region_authenticate(user, password, contract, region)
     if 'Error' in str(request):
         return str(request)
     else:
