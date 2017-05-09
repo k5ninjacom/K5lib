@@ -3,10 +3,23 @@ import os
 import logging
 
 
-# https://docs.python.org/3/library/secrets.html
-# create a alphanumeric password with at least one lowercase character, at least one uppercase character, and at least three digits
-# Returns String
-def gen_passwd(length):
+def gen_passwd(length=16):
+    """gen_passwd.
+
+    Utility function to create a string.
+    https://docs.python.org/3/library/secrets.html
+    create a alphanumeric password with at least one lowercase character, at least one uppercase character, and at least three digits
+
+
+    Args:
+        lenght (int): lenght of returned string.
+        logDir: (string): Working folder for log file
+
+    Returns:
+        String.
+
+    """
+
     alphabet = string.ascii_letters + string.digits
     while True:
         password = ''.join(choice(alphabet) for i in range(length))
@@ -18,6 +31,19 @@ def gen_passwd(length):
 
 
 def create_logfile(logName = 'default.log', logDir = 'log'):
+    """create_logfile.
+
+    Utility function to create a log file
+
+    Args:
+        logname (string): name of log file.
+        logDir: (string): Working folder for log file
+
+    Returns:
+        none.
+
+    """
+
     if not os.path.exists(logDir):
         os.makedirs(logDir)
     logging.basicConfig(filename=logDir + '/' + logName, level=logging.DEBUG)
