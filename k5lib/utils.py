@@ -1,6 +1,6 @@
 """utils.py.
 
-    Utility functions for k5lib other modules.
+Utility functions for k5lib other modules.
 
 """
 import string
