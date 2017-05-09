@@ -1,3 +1,8 @@
+"""utils.py.
+
+    Utility functions for k5lib other modules.
+
+"""
 import string
 import os
 import logging
