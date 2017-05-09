@@ -5,7 +5,6 @@ import logging
 
 def gen_passwd(length=16):
     """gen_passwd.
-
     Utility function to create a string.
     https://docs.python.org/3/library/secrets.html
     create a alphanumeric password with at least one lowercase character, at least one uppercase character, and at least three digits
@@ -32,7 +31,6 @@ def gen_passwd(length=16):
 
 def create_logfile(logName = 'default.log', logDir = 'log'):
     """create_logfile.
-
     Utility function to create a log file
 
     Args:
@@ -53,7 +51,6 @@ def create_logfile(logName = 'default.log', logDir = 'log'):
 
 def _rest_stub(projectToken, region):
     """_rest_stub.
-
     Example internal rest call.
 
     Args:
@@ -93,7 +90,6 @@ def _rest_stub(projectToken, region):
 
 def stub(projectToken, region):
     """stub.
-
     Example call that use internal rest call to do actual job.
 
     Args:
