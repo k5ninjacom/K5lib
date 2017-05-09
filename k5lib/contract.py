@@ -146,7 +146,7 @@ def create_project(regionToken, domainId, region, projectName):
         return request
 
 #TODO: user details, object or simple list of variables?
-def _rest_create_user(globalToken,  ):
+def _rest_create_user(globalToken,   ):
     headers = {'Token': globalToken,
                'Content-Type': 'application/json'}
 

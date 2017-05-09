@@ -67,9 +67,44 @@ def _rest_create_network_connector_endpoint(projectToken, projectId, region, az,
 
 
 def create_network_connector_endpoint(projectToken, projectId, region, az, endpointName, networkconnectorId):
+    """create_network_connector_endpoint.
+
+    Create a endpoint into specified network connector
+
+    Args:
+        projectToken (token): Valid K5 project scope token.
+        projectId (id): Valid K5 project ID
+        region: (string): region code eg fi-1
+        az (string): az code eg fi1-a
+        endpointName (string): Name of endpoint
+        networkconnectorId (id): valid ID for network connector
+
+    Returns:
+        json of succesfull operation. Otherwise error code from requests library.
+
+    """
     request = _rest_create_network_connector_endpoint(projectToken, projectId, region, az, endpointName, networkconnectorId)
     if 'Error' in str(request):
         return str(request)
     else:
         return request.json()
+
+
+def create_inter_project_connection(projectToken, region):
+    request = _rest_stub(projectToken, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        return request
+
+
+def create_inter_az_onnection(projectToken, region):
+    request = _rest_stub(projectToken, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        return request
+
 
