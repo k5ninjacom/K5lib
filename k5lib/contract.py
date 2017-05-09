@@ -122,7 +122,7 @@ def _rest_create_project(regionToken, domainId, region, projectName):
                          "is_domain": False,
                          "name": projectName
                      }
-                   }
+                 }
 
     url = 'https://identity.' + region + '.cloud.global.fujitsu.com/v3/projects?domain_id=' + domainId
 
@@ -145,22 +145,23 @@ def create_project(regionToken, domainId, region, projectName):
         request = request.json()
         return request
 
+#TODO: user details, object or simple list of variables?
+def _rest_create_user(globalToken,  ):
+    headers = {'Token': globalToken,
+               'Content-Type': 'application/json'}
 
-def _rest_create_user(projectToken, region):
-    headers = {'Content-Type': 'application/json',
-               'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
-
-    configData = {'key1': {
-                     'key2': [
-                          {
-                              'key3': 'value3'
-                          }
-                     ]
-                 }
+    configData = {"user_last_name": userDetails[1],
+                  "user_first_name": userDetails[0],
+                  "login_id": userDetails[2],
+                  "user_description": "Automated Account Setup",
+                  "mailaddress": userDetails[3],
+                  "user_status": "1",
+                  "password": userDetails[4],
+                  "language_code": "en",
+                  "role_code": "01"
     }
 
-    url = url = 'https://foobar.' + region + '.cloud.global.fujitsu.com/v2.0/ports'
+    url = 'https://k5-apiportal.paas.cloud.global.fujitsu.com/API/v1/api/users'
 
     try:
         request = requests.post(url, json=configData, headers=headers)
