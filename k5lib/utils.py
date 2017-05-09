@@ -13,7 +13,8 @@ def gen_passwd(length=16):
 
     Utility function to create a string.
     https://docs.python.org/3/library/secrets.html
-    create a alphanumeric password with at least one lowercase character, at least one uppercase character, and at least three digits
+    create a alphanumeric password with at least one lowercase character,
+    at least one uppercase character, and at least three digits
 
 
     Args:
@@ -34,7 +35,7 @@ def gen_passwd(length=16):
     return password
 
 
-def create_logfile(logName = 'default.log', logDir = 'log'):
+def create_logfile(logName='default.log', logDir='log'):
     """create_logfile.
 
     Utility function to create a log file
