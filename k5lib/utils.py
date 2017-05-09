@@ -5,6 +5,7 @@ import logging
 
 def gen_passwd(length=16):
     """gen_passwd.
+
     Utility function to create a string.
     https://docs.python.org/3/library/secrets.html
     create a alphanumeric password with at least one lowercase character, at least one uppercase character, and at least three digits
@@ -18,7 +19,6 @@ def gen_passwd(length=16):
         String.
 
     """
-
     alphabet = string.ascii_letters + string.digits
     while True:
         password = ''.join(choice(alphabet) for i in range(length))
@@ -31,6 +31,7 @@ def gen_passwd(length=16):
 
 def create_logfile(logName = 'default.log', logDir = 'log'):
     """create_logfile.
+
     Utility function to create a log file
 
     Args:
@@ -41,7 +42,6 @@ def create_logfile(logName = 'default.log', logDir = 'log'):
         none.
 
     """
-
     if not os.path.exists(logDir):
         os.makedirs(logDir)
     logging.basicConfig(filename=logDir + '/' + logName, level=logging.DEBUG)
@@ -51,6 +51,7 @@ def create_logfile(logName = 'default.log', logDir = 'log'):
 
 def _rest_stub(projectToken, region):
     """_rest_stub.
+
     Example internal rest call.
 
     Args:
@@ -61,7 +62,6 @@ def _rest_stub(projectToken, region):
         json of succesfull operation. Otherwise error code from requests library.
 
     """
-
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': projectToken}
@@ -90,6 +90,7 @@ def _rest_stub(projectToken, region):
 
 def stub(projectToken, region):
     """stub.
+
     Example call that use internal rest call to do actual job.
 
     Args:
@@ -100,7 +101,6 @@ def stub(projectToken, region):
         json of succesfull operation. Otherwise error code from requests library.
 
     """
-
     request = _rest_stub(projectToken, region)
     if 'Error' in str(request):
         return str(request)
