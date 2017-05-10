@@ -1,6 +1,7 @@
 import sys
 sys.path.append('k5lib')
 import k5lib
+import logging
 
 
 """
