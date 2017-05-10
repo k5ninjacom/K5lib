@@ -2,6 +2,7 @@ import sys
 sys.path.append('k5lib')
 import k5lib
 
+
 """
 This script will create a default.rc file into current folder
 
@@ -25,13 +26,13 @@ Domain (aka contract)
 Project name
 Region
 """
-# Create a log file
-k5lib.create_logfile('fillrc.log')
+
 
 
 
 def main():
-    logging.basicConfig(filename='fillrc.log', level=logging.DEBUG)
+    # Create a log file
+    k5lib.create_logfile('fillrc.log')
     logging.info('Started')
 
     userName = input("Username: ")
