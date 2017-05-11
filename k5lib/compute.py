@@ -52,7 +52,10 @@ def _rest_create_keypair(projectToken, projectId, region, az, keypairName='defau
 
     Args:
         projectToken (token): Valid K5 project scope token.
-        region: (string): region code eg fi-1
+        projectId: valid id for project
+        region (string): region code eg fi-1
+        az (string): az code eg fi-1a
+        keypairName (string) name of the keypair to be created.
 
     Returns:
         json of succesfull operation. Otherwise error code from requests library.
@@ -66,9 +69,9 @@ def _rest_create_keypair(projectToken, projectId, region, az, keypairName='defau
                       "name": keypairName,
                       "availability_zone": az
                        }
-    }
+                 }
 
-    'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + projectId + '/os-keypairs'
+    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + projectId + '/os-keypairs'
 
     try:
         request = requests.post(url, json=configData, headers=headers)
@@ -88,8 +91,10 @@ def create_keypair(projectToken, projectId, region, az, keypairName):
 
     Args:
         projectToken (token): Valid K5 project scope token.
-        projectId (id):
-        region: (string): region code eg fi-1
+        projectId: valid id for project
+        region (string): region code eg fi-1
+        az (string): az code eg fi-1a
+        keypairName (string) name of the keypair to be created.
 
     Returns:
         json of succesfull operation. Otherwise error code from requests library.
