@@ -72,10 +72,9 @@ def _rest_create_keypair(projectToken, projectId, region, az, keypairName='defau
                'X-Auth-Token': projectToken}
 
     configData = {"keypair": {
-                      "name": keypairName,
-                      "availability_zone": az
-                       }
-    }
+                  "name": keypairName,
+                  "availability_zone": az}
+                  }
 
     url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + projectId + '/os-keypairs'
 
