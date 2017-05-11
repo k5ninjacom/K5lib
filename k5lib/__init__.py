@@ -1,3 +1,8 @@
+"""k5lib public functions.
+
+k5lib is a collection of functions and utilities to communicate with Fujits K5 cloud REST API.
+
+"""
 from .authenticate import get_global_token
 from .authenticate import get_region_token
 from .authenticate import get_project_token

@@ -1,3 +1,8 @@
+"""image module.
+
+Image module provide functions to image service of Fujitsu K5 cloud REST API
+
+"""
 import requests
 import json
 import logging
@@ -6,19 +11,17 @@ log = logging.getLogger(__name__)
 
 
 def _rest_image_export(regionToken, region, projectId, image_id, containerName):
-    """
-    X-Auth-Token: String
+    """_rest_image_export.
 
-    image_id: String
-        Specify the allocated ID for the export target image.
+    Internal rest api function to export image into object storage
 
-    storage_container: String
-        URL of object storage where exported VM image
-       files are deployed. Specify using the following
-       format: /v1/AUTH_<tenantID>/<containerNAME>
+    :param regionToken:
+    :param region:
+    :param projectId:
+    :param image_id:
+    :param containerName:
+    :return:
 
-    Returns:
-       json object
     """
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
@@ -46,6 +49,18 @@ def _rest_image_export(regionToken, region, projectId, image_id, containerName):
 
 
 def export_image(regionToken, region, projectId, image_id, containerName):
+    """export_image.
+
+    Export image into object storage
+
+    :param regionToken:
+    :param region:
+    :param projectId:
+    :param image_id:
+    :param containerName:
+    :return:
+
+    """
     request = _rest_image_export(regionToken, region, projectId, image_id, containerName)
     if 'Error' in str(request):
         return str(request)
@@ -54,7 +69,7 @@ def export_image(regionToken, region, projectId, image_id, containerName):
 
 
 def _rest_get_export_status(projectToken, region, exportId):
-    """
+    """_rest_get_export_status.
 
     :param projectToken:
     :param region:
@@ -84,7 +99,7 @@ def _rest_get_export_status(projectToken, region, exportId):
 
 
 def get_export_status(projectToken, region, exportId):
-    """
+    """get_export_status
 
     :param projectToken:
     :param region:
@@ -105,7 +120,6 @@ def _rest_clone_vm(projectToken, projectId, region, imageName, volumeId):
     '”,”disk_format”:”‘$DISK_FORMAT'”, ”image_name”:”‘$NAME
     '”,”force”:’$FORCE’}}’
     """
-
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': projectToken

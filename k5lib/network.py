@@ -69,16 +69,13 @@ def create_network_connector_endpoint(projectToken, projectId, region, az, endpo
 
     Create a endpoint into specified network connector
 
-    Args:
-        projectToken (token): Valid K5 project scope token.
-        projectId (id): Valid K5 project ID
-        region: (string): region code eg fi-1
-        az (string): az code eg fi1-a
-        endpointName (string): Name of endpoint
-        networkconnectorId (id): valid ID for network connector
-
-    Returns:
-        json of succesfull operation. Otherwise error code from requests library.
+    :param projectToken: Valid K5 project scope token.
+    :param projectId: Valid K5 project ID
+    :param region: region code eg fi-1
+    :param az: az code eg fi1-a
+    :param endpointName: Name of endpoint
+    :param networkconnectorId: valid ID for network connector
+    :return: json of succesfull operation. Otherwise error code from requests library.
 
     """
     request = _rest_create_network_connector_endpoint(projectToken, projectId, region, az, endpointName, networkconnectorId)
@@ -89,6 +86,10 @@ def create_network_connector_endpoint(projectToken, projectId, region, az, endpo
 
 
 def create_inter_project_connection(projectToken, region):
+    # TODO:
+    # 1. create a network connector
+    # 2. create a endpoint1 (az1)
+    # 3. create a endpoint2 (az2)
     request = _rest_stub(projectToken, region)
     if 'Error' in str(request):
         return str(request)
@@ -97,8 +98,93 @@ def create_inter_project_connection(projectToken, region):
         return request
 
 
-def create_inter_az_onnection(projectToken, region):
-    request = _rest_stub(projectToken, region)
+def create_inter_az_connection(projectToken, projectId, region, az1, az2, endpointName=ep,):
+    # TODO:
+    # 1. create a network connector
+    # 2. create a endpoint1 (az1)
+    # 3. create a endpoint2 (az2)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        return request
+
+
+def _rest_create_port_on_network(projectToken, region, az, securitygrouId, ipAddress=None, subnetId=None):
+    """_rest_create_port_on_network.
+
+    :param projectToken:  Valid K5 project scope token.
+    :param region:  region code eg fi-1
+    :param az:
+    :param securitygrouId: securitygrouId (optional)
+    :param ipAddress: ip adress for port (optional)
+    :param subnetId: Valid ID for subnet
+    :return: json of succesfull operation. Otherwise error code from requests library.
+
+    """
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': projectToken}
+
+    if ipAddress is None:
+        configData = {"port": {
+                      "network_id": networkId,
+                      "name": portName,
+                      "admin_state_up": True,
+                      "availability_zone": az,
+                      "security_groups":
+                      [securitygrouId]}
+                      }
+    else:
+        configData = {"port": {
+                      "network_id": networkId,
+                      "name": portName,
+                      "admin_state_up": True,
+                      "availability_zone": az,
+                      "fixed_ips": [{
+                          "ip_address": ipAddress,
+                          "subnet_id": subnetId}],
+                      "security_groups":
+                      [securitygrouId]}
+                      }
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/ports'
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def create_port_on_network(projectToken, region, az, securitygrouId, ipAddress=none, subnetId=none):
+    """create_port_on_network.
+
+    :param projectToken:
+    :param region:
+    :param az:
+    :param securitygrouId:
+    :param ipAddress: (
+    :param subnetId:
+    :return:
+    """
+    """stub.
+
+    Example call that use internal rest call to do actual job.
+
+    Args:
+        projectToken (token): Valid K5 project scope token.
+        region: (string): region code eg fi-1
+
+    Returns:
+        json of succesfull operation. Otherwise error code from requests library.
+
+    """
+    request = create_port_on_network(projectToken, region, az, securitygrouId, ipAddress=none, subnetId=none)
     if 'Error' in str(request):
         return str(request)
     else:
