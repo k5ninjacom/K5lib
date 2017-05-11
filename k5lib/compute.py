@@ -6,13 +6,15 @@ log = logging.getLogger(__name__)
 
 
 def _rest_get_vnc_console_url(projectToken, projectId, region, serverId):
-    """
+    """get_vnc_console_url.
+
+    Get url for vm console access.
 
     :param projectToken:
     :param projectId:
     :param region:
     :param serverId:
-    :return:
+    :return: json of succesfull operation. Otherwise error code from requests library.
     """
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
@@ -23,7 +25,6 @@ def _rest_get_vnc_console_url(projectToken, projectId, region, serverId):
         }
     }
 
-    # from log:   https://compute.uk-1.cloud.global.fujitsu.com/v2/9c15ef58ce7e42098e1844b5d81202fe
     url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + projectId + '/servers/' + serverId + '/action'
 
     try:
@@ -38,6 +39,14 @@ def _rest_get_vnc_console_url(projectToken, projectId, region, serverId):
 
 
 def get_vnc_console_url(projectToken, projectId, region, serverId):
+    """
+
+    :param projectToken:
+    :param projectId:
+    :param region:
+    :param serverId:
+    :return:
+    """
     request = _rest_get_vnc_console_url(projectToken, projectId, region, serverId)
     if 'Error' in str(request):
         return str(request)
@@ -50,15 +59,12 @@ def _rest_create_keypair(projectToken, projectId, region, az, keypairName='defau
 
     Internal rest call to show keypair information.
 
-    Args:
-        projectToken (token): Valid K5 project scope token.
-        projectId: valid id for project
-        region (string): region code eg fi-1
-        az (string): az code eg fi-1a
-        keypairName (string) name of the keypair to be created.
-
-    Returns:
-        json of succesfull operation. Otherwise error code from requests library.
+    :param projectToken: Valid K5 project scope token.
+    :param projectId: valid id for project
+    :param region: region code eg fi-1
+    :param az: az code eg fi-1a
+    :param keypairName: name of the keypair to be created.
+    :return: json of succesfull operation. Otherwise error code from requests library.
 
     """
     headers = {'Content-Type': 'application/json',
@@ -69,7 +75,7 @@ def _rest_create_keypair(projectToken, projectId, region, az, keypairName='defau
                       "name": keypairName,
                       "availability_zone": az
                        }
-                 }
+    }
 
     url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + projectId + '/os-keypairs'
 
