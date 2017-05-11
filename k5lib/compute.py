@@ -111,5 +111,3 @@ def create_keypair(projectToken, projectId, region, az, keypairName):
     else:
         request = request.json()
         return request
-
-

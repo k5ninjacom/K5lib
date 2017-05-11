@@ -73,11 +73,11 @@ def rest_global_authenticate(user, password, contract):
         request = requests.post(url, json=configData, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
-         # Whoops it wasn't a 200
-         log.error(json.dumps(configData, indent=4))
-         return 'Error: ' + str(e)
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
     else:
-         return request
+        return request
 
 
 def get_global_token(user, password, contract):
@@ -86,7 +86,7 @@ def get_global_token(user, password, contract):
     if 'Error' in str(request):
         return str(request)
     else:
-       return request.headers['X-Subject-Token']
+        return request.headers['X-Subject-Token']
 
 
 def get_domain_id(user, password, contract):
