@@ -5,17 +5,15 @@ import logging
 log = logging.getLogger(__name__)
 
 
-
-
 def _rest_create_network_connector(projectToken, projectid, connectorName, region):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': projectToken}
 
-    configData = {"network_connector": {
-                     "name": connectorName,
-                     "tenant_id": projectid}
-    }
+    configData = {'network_connector': {
+                  'name': connectorName,
+                  'tenant_id': projectid}
+                  }
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connectors'
 
@@ -31,7 +29,7 @@ def _rest_create_network_connector(projectToken, projectid, connectorName, regio
 
 
 def create_network_connector(projectToken, projectid, connectorName, region):
-    request =  _rest_create_network_connector(projectToken, projectid, connectorName, region)
+    request = _rest_create_network_connector(projectToken, projectid, connectorName, region)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -106,5 +104,3 @@ def create_inter_az_onnection(projectToken, region):
     else:
         request = request.json()
         return request
-
-
