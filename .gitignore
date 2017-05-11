@@ -120,3 +120,8 @@ ENV/
 # Gradle:
 .idea/**/gradle.xml
 .idea/**/libraries
+.idea/k5lib.iml
+.idea/markdown-navigator/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
