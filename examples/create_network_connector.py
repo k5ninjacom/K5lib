@@ -20,4 +20,3 @@ projectId = k5lib.get_project_id(username, password, domain, projectName, region
 
 connectorId = k5lib.create_network_connector(projectToken, projectId, connectorName, region)
 print(connectorId)
-

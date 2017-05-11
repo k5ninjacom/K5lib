@@ -29,8 +29,6 @@ Region
 """
 
 
-
-
 def main():
     # Create a log file
     k5lib.create_logfile('fillrc.log')
@@ -64,6 +62,7 @@ def main():
     rcfile.close()
 
     logging.info('Finished')
+
 
 if __name__ == '__main__':
     main()

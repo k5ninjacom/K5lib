@@ -20,7 +20,7 @@ stackName = 'foobar'
 
 with open(templatefile, 'r') as file:
     template = file.read()
-print (template)
+print(template)
 
 stackInfo = k5lib.create_stack(projectToken, region, projectId, stackName, template)
 print(stackInfo)

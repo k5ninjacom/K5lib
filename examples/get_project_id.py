@@ -14,4 +14,3 @@ region = env['OS_REGION_NAME']
 
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 print(projectId)
-

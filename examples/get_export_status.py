@@ -14,9 +14,9 @@ region = env['OS_REGION_NAME']
 
 exportId = 'REPLACE with export job ID'
 
-projectToken = k5lib.get_project_token(username,password,domain,projectName,region)
+projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
-exportStatus = k5lib.get_export_status(projectToken, region,exportId)
-logging.info(json.dumps(exportStatus, indent = 4))
-print(json.dumps(exportStatus, indent = 4))
+exportStatus = k5lib.get_export_status(projectToken, region, exportId)
+logging.info(json.dumps(exportStatus, indent=4))
+print(json.dumps(exportStatus, indent=4))

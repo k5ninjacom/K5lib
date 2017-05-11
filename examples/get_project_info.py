@@ -14,4 +14,4 @@ projectName = env['OS_PROJECT_NAME']
 region = env['OS_REGION_NAME']
 
 projectInfo = k5lib.get_project_info(username, password, domain, projectName, region)
-print(json.dumps(projectInfo, indent = 2))
+print(json.dumps(projectInfo, indent=2))

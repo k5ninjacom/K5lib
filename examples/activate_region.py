@@ -15,4 +15,4 @@ domainId = k5lib.get_domain_id(username, password, domain)
 regionId = 'fi-1'
 
 response = k5lib.activate_region(globalToken, domainId, regionId)
-print (response)
+print(response)

@@ -4,6 +4,7 @@ import logging
 
 log = logging.getLogger(__name__)
 
+
 def _rest_create_stack(projectToken, region, projectId, stackName, template):
     """Summary
     Param:
@@ -25,14 +26,14 @@ def _rest_create_stack(projectToken, region, projectId, stackName, template):
     """
 
     headers = {'Content-Type': 'application/json',
-               'Accept' : 'application/json',
+               'Accept': 'application/json',
                'X-Auth-Token': projectToken}
 
-    configData = { "stack_name": stackName,
-                 "template": template,
-                 "disable_rollback": True,
-                 "timeout_mins": 60
-    }
+    configData = {"stack_name": stackName,
+                  "template": template,
+                  "disable_rollback": True,
+                  "timeout_mins": 60
+                  }
 # from portal https://orchestration.fi-1.cloud.global.fujitsu.com/v1/e77679bd08104b0483d5cd5aba0f704d
 # from log:   https://orchestration.fi-1.cloud.global.fujitsu.com/v1/9c15ef58ce7e42098e1844b5d81202fe/stacks
     url = 'https://orchestration.' + region + '.cloud.global.fujitsu.com/v1/' + projectId + '/stacks'
@@ -70,10 +71,10 @@ def _rest_get_stack_info(projectToken, projectId, region, stackName, stackId):
 
     """
     headers = {'Content-Type': 'application/json',
-        'X-Auth-Token': projectToken
-    }
+               'X-Auth-Token': projectToken
+               }
 
-    #https://vmimport.uk-1.cloud.global.fujitsu.com/v1/imageexport/1b70eaf3-5afb-40f4-9b44-076b376a0bcf/status
+    #  https://vmimport.uk-1.cloud.global.fujitsu.com/v1/imageexport/1b70eaf3-5afb-40f4-9b44-076b376a0bcf/status
     url = 'https://orchestration.' + region + '.cloud.global.fujitsu.com/v1/' + projectId + '/stacks/' + stackName + '/' + stackId
 
     try:
@@ -131,8 +132,3 @@ def _rest_find_stack(projectToken, projectId, region, stackName):
 
 def find_stack(projectToken, projectId, region, stackName):
     return
-
-
-
-
-

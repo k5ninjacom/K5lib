@@ -12,11 +12,11 @@ domain = env['OS_USER_DOMAIN_NAME']
 projectName = env['OS_PROJECT_NAME']
 region = env['OS_REGION_NAME']
 
-projectToken = k5lib.get_project_token(username,password,domain,projectName,region)
+projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
 volumeId = 'REPLACE WITH volumeId'
 imageName = 'mgmt_exported_OS'
 
-imageId = k5lib.clone_vm( projectToken, projectId, region, imageName, volumeId)
+imageId = k5lib.clone_vm(projectToken, projectId, region, imageName, volumeId)
 print(imageId)

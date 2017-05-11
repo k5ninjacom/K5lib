@@ -22,7 +22,7 @@ stackId = 'REPLACE WITH STACK ID'
 stackInfo = k5lib.get_stack_info(projectToken, projectId, region, stackName, stackId)
 
 logging.info(json.dumps(stackInfo, indent=4))
-print(json.dumps(stackInfo, indent = 4))
+print(json.dumps(stackInfo, indent=4))
 
 stackOutput = stackInfo["stack"]["outputs"]
 
@@ -39,9 +39,3 @@ for i in outputDict:
         counter += 1
 
 print(outputList)
-
-
-
-
-
-
