@@ -34,13 +34,12 @@ def _rest_image_export(regionToken, region, projectId, image_id, containerName):
     # 'https://import-export.uk-1.cloud.global.fujitsu.com/v1/imageexport'
     url = 'https://import-export.' + region + '.cloud.global.fujitsu.com/v1/imageexport'
 
-
     try:
         request = requests.post(url, json=configData, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
-        log.error(json.dumps(configData, indent= 4))
+        log.error(json.dumps(configData, indent=4))
         return 'Error: ' + str(e)
     else:
         return request
@@ -64,10 +63,10 @@ def _rest_get_export_status(projectToken, region, exportId):
 
     """
     headers = {'Content-Type': 'application/json',
-        'X-Auth-Token': projectToken
-    }
+               'X-Auth-Token': projectToken
+               }
 
-    #https://vmimport.uk-1.cloud.global.fujitsu.com/v1/imageexport/1b70eaf3-5afb-40f4-9b44-076b376a0bcf/status
+    # https://vmimport.uk-1.cloud.global.fujitsu.com/v1/imageexport/1b70eaf3-5afb-40f4-9b44-076b376a0bcf/status
     url = 'https://vmimport.' + region + '.cloud.global.fujitsu.com/v1/imageexport/' + exportId + '/status'
 
     try:
@@ -100,7 +99,7 @@ def get_export_status(projectToken, region, exportId):
         return request.json()
 
 
-def _rest_clone_vm( projectToken, projectId, region, imageName, volumeId):
+def _rest_clone_vm(projectToken, projectId, region, imageName, volumeId):
     """
     $BLOCKSTORAGE / v2 /$PROJECT_ID / volumes /$VOLUME_ID / action - H “X - Auth - Token: $OS_AUTH_TOKEN” -H “Content - Type: application / json” -d ‘{“os - volume_upload_image”: {“container_format”:”‘$CONTAINER_FORMAT
     '”,”disk_format”:”‘$DISK_FORMAT'”, ”image_name”:”‘$NAME
@@ -108,9 +107,9 @@ def _rest_clone_vm( projectToken, projectId, region, imageName, volumeId):
     """
 
     headers = {'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'X-Auth-Token': projectToken
-    }
+               'Accept': 'application/json',
+               'X-Auth-Token': projectToken
+               }
 
     """
     ‘{
@@ -132,7 +131,7 @@ def _rest_clone_vm( projectToken, projectId, region, imageName, volumeId):
     }
 
     # 'https://blockstorage.uk-1.cloud.global.fujitsu.com/v2/e6d6b965219a4b94b84a173dde0605b8'
-    url = 'https://blockstorage.' + region + '.cloud.global.fujitsu.com/v2/' + projectId + '/volumes/' + volumeId +'/action'
+    url = 'https://blockstorage.' + region + '.cloud.global.fujitsu.com/v2/' + projectId + '/volumes/' + volumeId + '/action'
 
     try:
         request = requests.post(url, json=configData, headers=headers)
@@ -150,19 +149,19 @@ def _rest_clone_vm( projectToken, projectId, region, imageName, volumeId):
         return request
 
 
-def clone_vm( projectToken, projectId, region, imageName, volumeId):
-    request = _rest_clone_vm( projectToken, projectId, region, imageName, volumeId)
+def clone_vm(projectToken, projectId, region, imageName, volumeId):
+    request = _rest_clone_vm(projectToken, projectId, region, imageName, volumeId)
     if 'Error' in str(request):
         return str(request)
     else:
         return request.json()
 
 
-#curl -X GET -s $BLOCKSTORAGE/v2/$PROJECT_ID/volumes/$VOLUME_ID
+# curl -X GET -s $BLOCKSTORAGE/v2/$PROJECT_ID/volumes/$VOLUME_ID
 def _rest_get_image_info(projectToken, projectId, region, volumeId):
     headers = {'Content-Type': 'application/json',
-        'X-Auth-Token': projectToken
-    }
+               'X-Auth-Token': projectToken
+               }
 
     # 'https://blockstorage.uk-1.cloud.global.fujitsu.com/v2/e6d6b965219a4b94b84a173dde0605b8'
     url = 'https://blockstorage.' + region + '.cloud.global.fujitsu.com/v2/' + projectId + '/volumes/' + volumeId
@@ -188,14 +187,16 @@ def get_image_info(projectToken, projectId, region, volumeId):
     else:
         return request.json()
 
+
 def _rest_get_image_import_queue_status(projectToken, region):
     """
     GET /v1/imageimport{?start, limit}
 
     """
     headers = {'Content-Type': 'application/json',
-           'X-Auth-Token': projectToken
-           }
+               'X-Auth-Token': projectToken
+               }
+
     url = 'https://vmimport.' + region + '.cloud.global.fujitsu.com/v1/imageimport'
 
     try:
@@ -211,10 +212,10 @@ def _rest_get_image_import_queue_status(projectToken, region):
     else:
         return request
 
+
 def get_image_import_queue_status(projectToken, region):
     request = _rest_get_image_import_queue_status(projectToken, region)
     if 'Error' in str(request):
         return str(request)
     else:
         return request.json()
-
