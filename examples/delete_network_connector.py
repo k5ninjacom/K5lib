@@ -33,7 +33,7 @@ counter = 0
 for i in outputDict:
     if 'mhaNet' in str(i['name']):
         print('deleting connector: ', str(i['name']) )
-        k5lib.delete_network_connector(projectToken, region, str(i['id']))
+        print(k5lib.delete_network_connector(projectToken, region, str(i['id'])))
         counter += 1
 
 print('deleted: ', counter )

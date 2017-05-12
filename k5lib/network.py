@@ -275,6 +275,49 @@ def get_port_id(projectToken, region, portName):
         return outputList[0]
 
 
+def _rest_delete_port(projectToken, region, portId):
+    """_rest_delete_port
+
+    :param projectToken:
+    :param region:
+    :param portId:
+    :return:
+
+    """
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': projectToken}
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/ports/' + portId
+
+    try:
+        request = requests.delete(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def delete_port(projectToken, region, portId):
+    """delete_port
+
+    :param projectToken:
+    :param region:
+    :param portId:
+    :return:
+
+    """
+    request = _rest_delete_port(projectToken, region, portId)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        return request
+
+
 def _rest_list_network_connectors(projectToken, region):
     """_rest_stub.
 
