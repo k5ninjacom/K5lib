@@ -27,5 +27,6 @@ from .compute import get_vnc_console_url
 from .compute import create_keypair
 from .network import create_network_connector
 from .network import create_network_connector_endpoint
+from .network import list_network_connectors
 from .utils import create_logfile
 from .utils import gen_passwd

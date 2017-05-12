@@ -161,19 +161,70 @@ def _rest_create_port_on_network(projectToken, region, az, securitygrouId, ipAdd
         return request
 
 
-def create_port_on_network(projectToken, region, az, securitygrouId, ipAddress=none, subnetId=none):
+def create_port_on_network(projectToken, region, az, securitygrouId, ipAddress=None, subnetId=None):
     """create_port_on_network.
 
     :param projectToken:
     :param region:
     :param az:
     :param securitygrouId:
-    :param ipAddress: (
-    :param subnetId:
+    :param ipAddress: (optional)
+    :param subnetId: (optional)
     :return:  json of succesfull operation. Otherwise error code from requests library.
 
     """
-    request = create_port_on_network(projectToken, region, az, securitygrouId, ipAddress=none, subnetId=none)
+    request = create_port_on_network(projectToken, region, az, securitygrouId, ipAddress, subnetId)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        return request
+
+
+def _rest_list_network_connectors(projectToken, region):
+    """_rest_stub.
+
+    Example internal rest call.
+
+    Args:
+        projectToken (token): Valid K5 project scope token.
+        region: (string): region code eg fi-1
+
+    Returns:
+        json of succesfull operation. Otherwise error code from requests library.
+
+    """
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': projectToken}
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connectors'
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def list_network_connectors(projectToken, region):
+    """stub.
+
+    Example call that use internal rest call to do actual job.
+
+    Args:
+        projectToken (token): Valid K5 project scope token.
+        region: (string): region code eg fi-1
+
+    Returns:
+        json of succesfull operation. Otherwise error code from requests library.
+
+    """
+    request = _rest_list_network_connectors(projectToken, region)
     if 'Error' in str(request):
         return str(request)
     else:
