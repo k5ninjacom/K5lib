@@ -27,7 +27,7 @@ def gen_passwd(length=16):
     """
     alphabet = string.ascii_letters + string.digits
     # We need to have minimum 5 characters
-    if lenght < 5:
+    if length < 5:
         length == 5
     while True:
         password = ''.join(random.choice(alphabet) for i in range(length))
