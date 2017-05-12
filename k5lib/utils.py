@@ -4,6 +4,7 @@ Utility functions for k5lib other modules.
 
 """
 import string
+import random
 import os
 import logging
 
