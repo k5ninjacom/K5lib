@@ -25,4 +25,4 @@ print(networkconnectorsinfo)
 # print(connectorEndpoint)
 # connectstatus = k5lib.connect_network_connector_endpoint(projectToken, region, endpointId, portId)
 
-print(connectstatus)
+# print(connectstatus)
