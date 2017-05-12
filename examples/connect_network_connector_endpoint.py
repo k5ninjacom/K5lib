@@ -26,7 +26,7 @@ print(json.dumps(networkconnectorsinfo, indent=2))
 
 
 
-print(outputList)
+print(ncid)
 
 # connectorEndpoint = k5lib.create_network_connector_endpoint(projectToken, projectId, region, az, endpointName01)
 # print(connectorEndpoint)
