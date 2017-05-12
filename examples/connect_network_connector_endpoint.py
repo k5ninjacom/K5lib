@@ -36,8 +36,8 @@ print(outputList[0])
 networkconnectorId = outputList[0]
 
 connectorEndpoint = k5lib.create_network_connector_endpoint(projectToken, projectId, region, az, endpointName01, networkconnectorId)
-print(connectorEndpoint)
+print(json.dumps(connectorEndpoint, indent=2))
 
-# connectstatus = k5lib.connect_network_connector_endpoint(projectToken, region, endpointId, portId)
+connectstatus = k5lib.connect_network_connector_endpoint(projectToken, region, endpointId, portId)
+print(json.dumps(connectstatus, indent=2))
 
-# print(connectstatus)
