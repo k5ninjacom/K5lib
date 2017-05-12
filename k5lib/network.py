@@ -314,7 +314,6 @@ def delete_port(projectToken, region, portId):
     if 'Error' in str(request):
         return str(request)
     else:
-        request = request.json()
         return request
 
 
