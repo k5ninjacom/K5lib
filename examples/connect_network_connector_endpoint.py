@@ -23,7 +23,7 @@ print(endpointName01)
 connectorName = 'mhaNetworkConnector-' + k5lib.gen_passwd(6)
 print(connectorName)
 
-portName = 'mha-port-' +  + k5lib.gen_passwd(6)
+portName = 'mha-port-' + k5lib.gen_passwd(6)
 print(portName)
 
 
