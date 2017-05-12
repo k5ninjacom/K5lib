@@ -5,7 +5,7 @@ import logging
 log = logging.getLogger(__name__)
 
 
-def _rest_create_network_connector(projectToken, projectid, connectorName, region):
+def _rest_create_network_connector(projectToken, projectid, region, connectorName):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': projectToken}
@@ -28,8 +28,8 @@ def _rest_create_network_connector(projectToken, projectid, connectorName, regio
         return request
 
 
-def create_network_connector(projectToken, projectid, connectorName, region):
-    request = _rest_create_network_connector(projectToken, projectid, connectorName, region)
+def create_network_connector(projectToken, projectid, region, connectorName):
+    request = _rest_create_network_connector(projectToken, projectid, region, connectorName)
     if 'Error' in str(request):
         return str(request)
     else:
