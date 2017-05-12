@@ -264,7 +264,7 @@ def get_port_id(projectToken, region, portName):
 
         # Get ID of our connector from info
         outputList = []
-        outputDict = request['network_connectors']
+        outputDict = request['ports']
 
         counter = 0
         for i in outputDict:
