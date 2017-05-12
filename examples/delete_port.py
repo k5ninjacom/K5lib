@@ -21,19 +21,19 @@ projectToken = k5lib.get_project_token(username, password, domain, projectName, 
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
 
-connector_endpoints = k5lib.list_network_connector_endpoints(projectToken, region)
-print((json.dumps(connector_endpoints, indent=2)))
+ports = k5lib.list_ports(projectToken, region)
+print((json.dumps(ports, indent=2)))
 
 # loop trough connectors and find ones with 'mhaNe' on name, then delete it
 request = connector_endpoints
 outputList = []
-outputDict = request['network_connector_endpoints']
+outputDict = request['ports']
 
 counter = 0
 for i in outputDict:
     if 'mhaNet' in str(i['name']):
-        print('deleting connector endpoint: ', str(i['name']) )
-        k5lib.delete_network_connector_endpoint(projectToken, region, str(i['id']))
+        print('deleting port: ', str(i['name']) )
+        print(k5lib.delete_port(projectToken, region, str(i['id'])))
         counter += 1
 
 print('deleted: ', counter )
