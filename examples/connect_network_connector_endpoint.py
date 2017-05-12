@@ -30,7 +30,8 @@ print(networkconnectorId)
 connectorEndpointlist = k5lib.list_network_connector_endpoints(projectToken, region)
 print(json.dumps(connectorEndpointlist, indent=2))
 
-connectorEnpointId = k5lib.get_co
+connectorEnpointId = k5lib.get_network_connector_endpoint_id(projectToken, region, endpointName01)
+print(connectorEnpointId)
 
 # connectstatus = k5lib.connect_network_connector_endpoint(projectToken, region, endpointId, portId)
 # print(json.dumps(connectstatus, indent=2))
