@@ -60,12 +60,15 @@ print(json.dumps(connectorEndpointlist, indent=2))
 
 
 print ('port')
-
 # Create a new network port
 newPort = k5lib.create_port_on_network(projectToken, region, az, portName, securityGroupId, networkId)
 print(newPort)
 
 # Get ID for new port to verify ID:s are the same
+portId = k5lib.get_port_id(projectToken, region, portName)
+print(portId)
+
+# List ports
 portList = k5lib.list_ports(projectToken, region)
 print(json.dumps(portList, indent=2))
 

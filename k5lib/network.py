@@ -243,6 +243,37 @@ def list_ports(projectToken, region):
         return request
 
 
+def get_port_id(projectToken, region, portName):
+    """stub.
+
+    Example call that use internal rest call to do actual job.
+
+    Args:
+        projectToken (token): Valid K5 project scope token.
+        region: (string): region code eg fi-1
+
+    Returns:
+        json of succesfull operation. Otherwise error code from requests library.
+
+    """
+    request = _rest_list_ports(projectToken, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+
+        # Get ID of our connector from info
+        outputList = []
+        outputDict = request['network_connectors']
+
+        counter = 0
+        for i in outputDict:
+            if str(i['name']) == connectorName:
+                outputList.append(str(i['id']))
+                counter += 1
+
+        return outputList[0]
+
 
 def _rest_list_network_connectors(projectToken, region):
     """_rest_stub.
