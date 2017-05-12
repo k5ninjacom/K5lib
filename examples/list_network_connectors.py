@@ -5,7 +5,7 @@ sys.path.append('k5lib')
 import k5lib
 
 # Create a log file
-k5lib.create_logfile('list_regions.log')
+k5lib.create_logfile('list_network_connectors.log')
 
 
 username = env['OS_USERNAME']
