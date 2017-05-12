@@ -99,7 +99,7 @@ def _rest_get_export_status(projectToken, region, exportId):
 
 
 def get_export_status(projectToken, region, exportId):
-    """get_export_status
+    """get_export_status.
 
     :param projectToken:
     :param region:
@@ -115,10 +115,12 @@ def get_export_status(projectToken, region, exportId):
 
 
 def _rest_clone_vm(projectToken, projectId, region, imageName, volumeId):
-    """
+    """_rest_clone_vm.
+
     $BLOCKSTORAGE / v2 /$PROJECT_ID / volumes /$VOLUME_ID / action - H “X - Auth - Token: $OS_AUTH_TOKEN” -H “Content - Type: application / json” -d ‘{“os - volume_upload_image”: {“container_format”:”‘$CONTAINER_FORMAT
     '”,”disk_format”:”‘$DISK_FORMAT'”, ”image_name”:”‘$NAME
     '”,”force”:’$FORCE’}}’
+
     """
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
@@ -164,6 +166,16 @@ def _rest_clone_vm(projectToken, projectId, region, imageName, volumeId):
 
 
 def clone_vm(projectToken, projectId, region, imageName, volumeId):
+    """clone_vm.
+
+    :param projectToken:
+    :param projectId:
+    :param region:
+    :param imageName:
+    :param volumeId:
+    :return:
+
+    """
     request = _rest_clone_vm(projectToken, projectId, region, imageName, volumeId)
     if 'Error' in str(request):
         return str(request)
@@ -173,6 +185,15 @@ def clone_vm(projectToken, projectId, region, imageName, volumeId):
 
 # curl -X GET -s $BLOCKSTORAGE/v2/$PROJECT_ID/volumes/$VOLUME_ID
 def _rest_get_image_info(projectToken, projectId, region, volumeId):
+    """_rest_get_image_info.
+
+    :param projectToken:
+    :param projectId:
+    :param region:
+    :param volumeId:
+    :return:
+
+    """
     headers = {'Content-Type': 'application/json',
                'X-Auth-Token': projectToken
                }
@@ -195,6 +216,15 @@ def _rest_get_image_info(projectToken, projectId, region, volumeId):
 
 
 def get_image_info(projectToken, projectId, region, volumeId):
+    """get_image_info.
+
+    :param projectToken:
+    :param projectId:
+    :param region:
+    :param volumeId:
+    :return:
+
+    """
     request = _rest_get_image_info(projectToken, projectId, region, volumeId)
     if 'Error' in str(request):
         return str(request)
@@ -203,7 +233,8 @@ def get_image_info(projectToken, projectId, region, volumeId):
 
 
 def _rest_get_image_import_queue_status(projectToken, region):
-    """
+    """_rest_get_image_import_queue_status.
+
     GET /v1/imageimport{?start, limit}
 
     """
@@ -228,6 +259,13 @@ def _rest_get_image_import_queue_status(projectToken, region):
 
 
 def get_image_import_queue_status(projectToken, region):
+    """get_image_import_queue_status.
+
+    :param projectToken:
+    :param region:
+    :return:
+
+    """
     request = _rest_get_image_import_queue_status(projectToken, region)
     if 'Error' in str(request):
         return str(request)

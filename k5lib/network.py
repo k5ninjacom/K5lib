@@ -170,18 +170,7 @@ def create_port_on_network(projectToken, region, az, securitygrouId, ipAddress=n
     :param securitygrouId:
     :param ipAddress: (
     :param subnetId:
-    :return:
-    """
-    """stub.
-
-    Example call that use internal rest call to do actual job.
-
-    Args:
-        projectToken (token): Valid K5 project scope token.
-        region: (string): region code eg fi-1
-
-    Returns:
-        json of succesfull operation. Otherwise error code from requests library.
+    :return:  json of succesfull operation. Otherwise error code from requests library.
 
     """
     request = create_port_on_network(projectToken, region, az, securitygrouId, ipAddress=none, subnetId=none)
