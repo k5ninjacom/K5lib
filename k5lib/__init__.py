@@ -33,5 +33,6 @@ from .network import list_network_connector_endpoints
 from .network import get_network_connector_endpoint_id
 from .network import connect_network_connector_endpoint
 from .network import create_port_on_network
+from .network import list_ports
 from .utils import create_logfile
 from .utils import gen_passwd

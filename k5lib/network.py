@@ -192,6 +192,58 @@ def create_port_on_network(projectToken, region, az, portName, securitygroupId, 
         return request.json()['port'].get('id')
 
 
+def _rest_list_ports(projectToken, region):
+    """_rest_list_ports.
+
+    Example internal rest call.
+
+    Args:
+        projectToken (token): Valid K5 project scope token.
+        region: (string): region code eg fi-1
+
+    Returns:
+        json of succesfull operation. Otherwise error code from requests library.
+
+    """
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': projectToken}
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/ports'
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def list_ports(projectToken, region):
+    """list_ports.
+
+    Example call that use internal rest call to do actual job.
+
+    Args:
+        projectToken (token): Valid K5 project scope token.
+        region: (string): region code eg fi-1
+
+    Returns:
+        json of succesfull operation. Otherwise error code from requests library.
+
+    """
+    request = _rest_list_ports(projectToken, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        return request
+
+
+
 def _rest_list_network_connectors(projectToken, region):
     """_rest_stub.
 

@@ -17,9 +17,9 @@ az = 'fi-1a'
 securityGroupId = '91630e71-2555-4dcb-a720-0dd3c643f478'
 networkId ='6809bf51-a224-4f16-a77e-754c3033b1b6'
 
-endpointName01 = 'mhaNetworkConnector-ep04'
-connectorName = 'mhaNetworkConnector04'
-portName = 'mha-port04'
+endpointName01 = 'mhaNetworkConnector-ep' + k5lib.gen_passwd(4)
+connectorName = 'mhaNetworkConnector-' +  + k5lib.gen_passwd(4)
+portName = 'mha-port-' +  + k5lib.gen_passwd(4)
 
 projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
@@ -52,6 +52,7 @@ print(connectorEnpointId)
 connectorEndpointlist = k5lib.list_network_connector_endpoints(projectToken, region)
 print(json.dumps(connectorEndpointlist, indent=2))
 
+
 print ('port')
 
 # Create a new network port
@@ -59,8 +60,8 @@ newPort = k5lib.create_port_on_network(projectToken, region, az, portName, secur
 print(newPort)
 
 # Get ID for new port to verify ID:s are the same
-portList = 'portlist'
-print(portList)
+portList = k5lib.list_ports(projectToken, region)
+print(json.dumps(portList, indent=2))
 
 
 # connect = k5lib.connect_network_connector_endpoint(projectToken, region, connectorEnpointId, portId)
