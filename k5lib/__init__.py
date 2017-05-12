@@ -27,6 +27,7 @@ from .compute import get_vnc_console_url
 from .compute import create_keypair
 from .network import create_network_connector
 from .network import list_network_connectors
+from .network import get_network_connector_id
 from .network import create_network_connector_endpoint
 from .network import connect_network_connector_endpoint
 from .network import list_network_connector_endpoints

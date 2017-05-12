@@ -14,30 +14,19 @@ projectName = env['OS_PROJECT_NAME']
 region = env['OS_REGION_NAME']
 az = 'fi-1a'
 endpointName01 = 'mhaNetworkConnector-ep01'
-
 connectorName = 'mhaNetworkConnector'
 
 projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
-networkconnectorsinfo = k5lib.list_network_connectors(projectToken, region)
-print(json.dumps(networkconnectorsinfo, indent=2))
+networkconnectorId = k5lib.get_network_connector_id(projectToken, region, connectorName)
+print(networkconnectorId)
 
-# Get ID of our connector from info
-outputList = []
-outputDict = networkconnectorsinfo['network_connectors']
+#connectorEndpoint = k5lib.create_network_connector_endpoint(projectToken, projectId, region, az, endpointName01, networkconnectorId)
 
-counter = 0
-for i in outputDict:
-    if str(i['name']) == connectorName:
-        outputList.append(str(i['id']))
-        counter += 1
-print(outputList[0])
-networkconnectorId = outputList[0]
+connectorEndpointinfo = k5lib.list_network_connector_endpoints(projectToken, region)
+print(json.dumps(connectorEndpointinfo, indent=2))
 
-connectorEndpoint = k5lib.create_network_connector_endpoint(projectToken, projectId, region, az, endpointName01, networkconnectorId)
-print(json.dumps(connectorEndpoint, indent=2))
-
-connectstatus = k5lib.connect_network_connector_endpoint(projectToken, region, endpointId, portId)
-print(json.dumps(connectstatus, indent=2))
+# connectstatus = k5lib.connect_network_connector_endpoint(projectToken, region, endpointId, portId)
+# print(json.dumps(connectstatus, indent=2))
 

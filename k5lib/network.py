@@ -232,6 +232,38 @@ def list_network_connectors(projectToken, region):
         return request
 
 
+def get_network_connector_id(projectToken, region, connectorName):
+    """get_network_connector_id.
+
+    Returns ID of networkconnector.
+
+    Args:
+        projectToken (token): Valid K5 project scope token.
+        region: (string): region code eg fi-1
+        connectorName: Name of the connector
+
+    Returns:
+        json of succesfull operation. Otherwise error code from requests library.
+
+    """
+    request = _rest_list_network_connectors
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        # Get ID of our connector from info
+        outputList = []
+        outputDict = request['network_connectors']
+
+        counter = 0
+        for i in outputDict:
+            if str(i['name']) == connectorName:
+                outputList.append(str(i['id']))
+                counter += 1
+        print(outputList[0])
+        return outputList[0]
+
+
 def _rest_list_network_connector_endpoints(projectToken, region):
     """_rest_list_network_connector_endpoints.
 
@@ -281,6 +313,37 @@ def list_network_connector_endpoints(projectToken, region):
     else:
         request = request.json()
         return request
+
+
+def get_network_connector_endpoint_id(projectToken, region, endpointName):
+    """list_network_connector_endpoints.
+
+    Example call that use internal rest call to do actual job.
+
+    Args:
+        projectToken (token): Valid K5 project scope token.
+        region: (string): region code eg fi-1
+
+    Returns:
+        If query is succesful ID of endpoint or empty list. Otherwise error from requests library
+
+    """
+    request = _rest_list_network_connector_endpoints(projectToken, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        # Get ID of our connector endpoint from info
+        outputList = []
+        outputDict = request['network_connector']
+
+        counter = 0
+        for i in outputDict:
+            if str(i['name']) == endpointName:
+                outputList.append(str(i['id']))
+                counter += 1
+        print(outputList[0])
+        return outputList[0]
 
 
 def _rest_connect_network_connector_endpoint(projectToken, region, endpointId, portId):
