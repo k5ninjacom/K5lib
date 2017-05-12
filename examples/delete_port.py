@@ -31,7 +31,7 @@ outputDict = request['ports']
 
 counter = 0
 for i in outputDict:
-    if 'mhaNet' in str(i['name']):
+    if 'mha' in str(i['name']):
         print('deleting port: ', str(i['name']) )
         print(k5lib.delete_port(projectToken, region, str(i['id'])))
         counter += 1
