@@ -98,7 +98,7 @@ def create_inter_project_connection(projectToken, region):
         return request
 
 
-def create_inter_az_connection(projectToken, projectId, region, az1, az2, endpointName=ep,):
+def create_inter_az_connection(projectToken, projectId, region, az1, az2, endpointName=None):
     # TODO:
     # 1. create a network connector
     # 2. create a endpoint1 (az1)
