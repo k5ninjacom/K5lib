@@ -31,7 +31,7 @@ print(json.dumps(networkconnectorsinfo, indent=2))
 
 
 outputList = []
-outputDict = networkconnectorsinfo['network_connectors']['name']
+outputDict = networkconnectorsinfo['network_connectors']
 
 counter = 0
 for i in outputDict:
