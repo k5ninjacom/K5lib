@@ -23,7 +23,7 @@ projectId = k5lib.get_project_id(username, password, domain, projectName, region
 networkconnectorsinfo = k5lib.list_network_connectors(projectToken, region)
 print(json.dumps(networkconnectorsinfo, indent=2))
 
-outputDict = networkconnectorsinfo["network_connectors"]["name"]
+outputDict = networkconnectorsinfo
 
 counter = 0
 for i in outputDict:
