@@ -343,7 +343,7 @@ def get_network_connector_endpoint_id(projectToken, region, endpointName):
             if str(i['name']) == endpointName:
                 outputList.append(str(i['id']))
                 counter += 1
-        print(outputList[0])
+
         return outputList[0]
 
 
