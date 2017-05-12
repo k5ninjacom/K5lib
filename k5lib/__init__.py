@@ -28,6 +28,7 @@ from .compute import create_keypair
 from .network import create_network_connector
 from .network import list_network_connectors
 from .network import get_network_connector_id
+from .network import delete_network_connector
 from .network import create_network_connector_endpoint
 from .network import list_network_connector_endpoints
 from .network import get_network_connector_endpoint_id
