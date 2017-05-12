@@ -20,7 +20,7 @@ networkId ='6809bf51-a224-4f16-a77e-754c3033b1b6'
 endpointName01 = 'mhaNetworkConnector-ep' + k5lib.gen_passwd(6)
 print(endpointName01)
 
-connectorName = 'mhaNetworkConnector-' +  + k5lib.gen_passwd(6)
+connectorName = 'mhaNetworkConnector-' + k5lib.gen_passwd(6)
 print(connectorName)
 
 portName = 'mha-port-' +  + k5lib.gen_passwd(6)
