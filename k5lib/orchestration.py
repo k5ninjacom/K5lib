@@ -1,3 +1,8 @@
+"""orchestration module.
+
+orchestration module provide functions to orchestration service of Fujitsu K5 cloud REST API
+
+"""
 import requests
 import json
 import logging
@@ -6,7 +11,8 @@ log = logging.getLogger(__name__)
 
 
 def _rest_create_stack(projectToken, region, projectId, stackName, template):
-    """Summary
+    """_rest_create_stack.
+
     Param:
        stackName: The name of a stack to be created.
                   Specify a string of halfwidth
@@ -23,8 +29,8 @@ def _rest_create_stack(projectToken, region, projectId, stackName, template):
                   line feeds with (\n).
     Returns:
         TYPE: Description
-    """
 
+    """
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': projectToken}
@@ -50,6 +56,16 @@ def _rest_create_stack(projectToken, region, projectId, stackName, template):
 
 
 def create_stack(projectToken, region, projectId, stackName, template):
+    """create_stack.
+
+    :param projectToken:
+    :param region:
+    :param projectId:
+    :param stackName:
+    :param template:
+    :return:
+
+    """
     request = _rest_create_stack(projectToken, region, projectId, stackName, template)
     if 'Error' in str(request):
         return str(request)
@@ -58,7 +74,7 @@ def create_stack(projectToken, region, projectId, stackName, template):
 
 
 def _rest_get_stack_info(projectToken, projectId, region, stackName, stackId):
-    """
+    """_rest_get_stack_info.
 
     :param projectToken:
     :param projectId:
@@ -92,6 +108,16 @@ def _rest_get_stack_info(projectToken, projectId, region, stackName, stackId):
 
 
 def get_stack_info(projectToken, projectId, region, stackName, stackId):
+    """get_stack_info.
+
+    :param projectToken:
+    :param projectId:
+    :param region:
+    :param stackName:
+    :param stackId:
+    :return:
+
+    """
     request = _rest_get_stack_info(projectToken, projectId, region, stackName, stackId)
     if 'Error' in str(request):
         return str(request)
@@ -100,7 +126,7 @@ def get_stack_info(projectToken, projectId, region, stackName, stackId):
 
 
 def _rest_list_stacks(projectToken, projectId, region):
-    """
+    """_rest_list_stacks.
 
     :param projectToken: string
     :param projectId: string
@@ -114,11 +140,19 @@ def _rest_list_stacks(projectToken, projectId, region):
 
 
 def list_stacks(projectToken, projectId, region):
+    """list_stacks.
+
+    :param projectToken:
+    :param projectId:
+    :param region:
+    :return:
+    """
     return
 
 
 def _rest_find_stack(projectToken, projectId, region, stackName):
-    """
+    """_rest_find_stack.
+
     :param projectToken:
     :param projectId:
     :param region:
@@ -126,9 +160,19 @@ def _rest_find_stack(projectToken, projectId, region, stackName):
     :return:
 
     GET /v1/{tenant_id}/stacks/{stack_name}
+
     """
     return
 
 
 def find_stack(projectToken, projectId, region, stackName):
+    """find_stack.
+
+    :param projectToken:
+    :param projectId:
+    :param region:
+    :param stackName:
+    :return:
+
+    """
     return
