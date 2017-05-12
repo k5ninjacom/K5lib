@@ -19,8 +19,11 @@ connectorName = 'mhaNetworkConnector'
 projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
-networkconnectorId = k5lib.get_network_connector_id(projectToken, region, connectorName)
-print(networkconnectorId)
+networkConnectorList = k5lib.list_network_connectors(projectToken, region)
+print((json.dumps(networkConnectorList, indent=2)))
+
+#networkconnectorId = k5lib.get_network_connector_id(projectToken, region, connectorName)
+#print(networkconnectorId)
 
 #connectorEndpoint = k5lib.create_network_connector_endpoint(projectToken, projectId, region, az, endpointName01, networkconnectorId)
 
