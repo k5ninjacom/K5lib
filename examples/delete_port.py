@@ -33,7 +33,7 @@ counter = 0
 for i in outputDict:
     if 'mha' in str(i['name']):
         print('deleting port: ', str(i['name']) )
-        print(k5lib.delete_port(projectToken, region, str(i['id'])))
+        print(json.dumps(k5lib.delete_port(projectToken, region, str(i['id']))))
         counter += 1
 
 print('deleted: ', counter )
