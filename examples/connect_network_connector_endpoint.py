@@ -15,6 +15,7 @@ region = env['OS_REGION_NAME']
 az = 'fi-1a'
 endpointName01 = 'mhaNetworkConnector-ep01'
 connectorName = 'mhaNetworkConnector'
+securityGroupId = '91630e71-2555-4dcb-a720-0dd3c643f478'
 
 projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
@@ -36,7 +37,7 @@ print(networkconnectorId)
 connectorEnpointId = k5lib.get_network_connector_endpoint_id(projectToken, region, endpointName01)
 print(connectorEnpointId)
 
-portId = k5lib.create_port_on_network(projectToken, region, az, securitygroupId)
+portId = k5lib.create_port_on_network(projectToken, region, az, securityGroupId)
 print(portId)
 
 # connect = k5lib.connect_network_connector_endpoint(projectToken, region, endpointId, portId)
