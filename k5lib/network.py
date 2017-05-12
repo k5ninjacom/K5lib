@@ -295,7 +295,7 @@ def _rest_delete_port(projectToken, region, portId):
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
-        log.error(json.dumps(configData, indent=4))
+        log.error(e)
         return 'Error: ' + str(e)
     else:
         return request
