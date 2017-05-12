@@ -17,9 +17,9 @@ az = 'fi-1a'
 securityGroupId = '91630e71-2555-4dcb-a720-0dd3c643f478'
 networkId ='6809bf51-a224-4f16-a77e-754c3033b1b6'
 
-endpointName01 = 'mhaNetworkConnector-ep03'
-connectorName = 'mhaNetworkConnector03'
-portName = 'mha-port03'
+endpointName01 = 'mhaNetworkConnector-ep04'
+connectorName = 'mhaNetworkConnector04'
+portName = 'mha-port04'
 
 projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)

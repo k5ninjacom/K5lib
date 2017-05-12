@@ -90,7 +90,7 @@ def create_network_connector_endpoint(projectToken, projectId, region, az, endpo
     if 'Error' in str(request):
         return str(request)
     else:
-        return request.json()
+        return request.json()['network_connector_endpoint']['id']
 
 
 def create_inter_project_connection(projectToken, region):
