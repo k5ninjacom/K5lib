@@ -110,7 +110,7 @@ def create_inter_az_connection(projectToken, projectId, region, az1, az2, endpoi
         return request
 
 
-def _rest_create_port_on_network(projectToken, region, az, securitygrouId, ipAddress=None, subnetId=None):
+def _rest_create_port_on_network(projectToken, region, az, securitygroupId, ipAddress=None, subnetId=None):
     """_rest_create_port_on_network.
 
     :param projectToken:  Valid K5 project scope token.
@@ -133,7 +133,7 @@ def _rest_create_port_on_network(projectToken, region, az, securitygrouId, ipAdd
                       "admin_state_up": True,
                       "availability_zone": az,
                       "security_groups":
-                      [securitygrouId]}
+                      [securitygroupId]}
                       }
     else:
         configData = {"port": {
@@ -145,7 +145,7 @@ def _rest_create_port_on_network(projectToken, region, az, securitygrouId, ipAdd
                           "ip_address": ipAddress,
                           "subnet_id": subnetId}],
                       "security_groups":
-                      [securitygrouId]}
+                      [securitygroupId]}
                       }
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/ports'
@@ -173,12 +173,11 @@ def create_port_on_network(projectToken, region, az, securitygrouId, ipAddress=N
     :return:  json of succesfull operation. Otherwise error code from requests library.
 
     """
-    request = create_port_on_network(projectToken, region, az, securitygrouId, ipAddress, subnetId)
+    request = _rest_create_port_on_networ(projectToken, region, az, securitygroupId, ipAddress, subnetId)
     if 'Error' in str(request):
         return str(request)
     else:
-        request = request.json()
-        return request
+        return request.json()['network_connector'].get('id')
 
 
 def _rest_list_network_connectors(projectToken, region):
