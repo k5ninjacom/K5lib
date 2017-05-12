@@ -246,7 +246,7 @@ def get_network_connector_id(projectToken, region, connectorName):
         json of succesfull operation. Otherwise error code from requests library.
 
     """
-    request = _rest_list_network_connectors
+    request = _rest_list_network_connectors(projectToken, region)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -335,7 +335,7 @@ def get_network_connector_endpoint_id(projectToken, region, endpointName):
         request = request.json()
         # Get ID of our connector endpoint from info
         outputList = []
-        outputDict = request['network_connector']
+        outputDict = request['network_connector_endpoints']
 
         counter = 0
         for i in outputDict:
