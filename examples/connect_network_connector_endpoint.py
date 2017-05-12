@@ -21,15 +21,10 @@ projectToken = k5lib.get_project_token(username, password, domain, projectName, 
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
 networkconnectorsinfo = k5lib.list_network_connectors(projectToken, region)
+ncid = networkconnectorsinfo.json().get('id')
 print(json.dumps(networkconnectorsinfo, indent=2))
 
-outputDict = networkconnectorsinfo
 
-counter = 0
-for i in outputDict:
-    if str(i['name']) == connectorName:
-        outputList.append(str(i['id']))
-        counter += 1
 
 print(outputList)
 
