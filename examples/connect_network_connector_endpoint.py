@@ -35,12 +35,9 @@ for i in outputDict:
 print(outputList[0])
 networkconnectorId = outputList[0]
 
+connectorEndpoint = k5lib.create_network_connector_endpoint(projectToken, projectId, region, az, endpointName01)
+print(connectorEndpoint)
 
-
-
-
-# connectorEndpoint = k5lib.create_network_connector_endpoint(projectToken, projectId, region, az, endpointName01)
-# print(connectorEndpoint)
 # connectstatus = k5lib.connect_network_connector_endpoint(projectToken, region, endpointId, portId)
 
 # print(connectstatus)
