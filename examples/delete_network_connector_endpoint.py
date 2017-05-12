@@ -5,7 +5,7 @@ sys.path.append('k5lib')
 import k5lib
 
 # Create a log file
-k5lib.create_logfile('connect_network_connector_endpoint.log')
+k5lib.create_logfile('delete_network_connector_endpoint.log')
 
 username = env['OS_USERNAME']
 password = env['OS_PASSWORD']
