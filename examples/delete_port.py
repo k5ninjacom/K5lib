@@ -25,7 +25,7 @@ ports = k5lib.list_ports(projectToken, region)
 print((json.dumps(ports, indent=2)))
 
 # loop trough connectors and find ones with 'mhaNe' on name, then delete it
-request = connector_endpoints
+request = ports
 outputList = []
 outputDict = request['ports']
 
