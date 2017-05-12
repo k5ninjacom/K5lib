@@ -73,6 +73,6 @@ portList = k5lib.list_ports(projectToken, region)
 print(json.dumps(portList, indent=2))
 
 
-# connect = k5lib.connect_network_connector_endpoint(projectToken, region, connectorEnpointId, portId)
-# print(json.dumps(connect, indent=2))
+connect = k5lib.connect_network_connector_endpoint(projectToken, region, connectorEnpointId, portId)
+print(json.dumps(connect, indent=2))
 
