@@ -20,7 +20,7 @@ projectToken = k5lib.get_project_token(username, password, domain, projectName, 
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
 networkconnectorsinfo = k5lib.list_network_connectors(projectToken, region)
-prin(networkconnectorsinfo)
+print(networkconnectorsinfo)
 # connectorEndpoint = k5lib.create_network_connector_endpoint(projectToken, projectId, region, az, endpointName01)
 # print(connectorEndpoint)
 # connectstatus = k5lib.connect_network_connector_endpoint(projectToken, region, endpointId, portId)
