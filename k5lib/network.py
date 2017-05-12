@@ -268,7 +268,7 @@ def get_port_id(projectToken, region, portName):
 
         counter = 0
         for i in outputDict:
-            if str(i['name']) == connectorName:
+            if str(i['name']) == portName:
                 outputList.append(str(i['id']))
                 counter += 1
 
