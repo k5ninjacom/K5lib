@@ -110,15 +110,17 @@ def create_inter_az_connection(projectToken, projectId, region, az1, az2, endpoi
         return request
 
 
-def _rest_create_port_on_network(projectToken, region, az, securitygroupId, ipAddress=None, subnetId=None):
+def _rest_create_port_on_network(projectToken, region, az, portName, securitygroupId, networkId, subnetId=None, ipAddress=None):
     """_rest_create_port_on_network.
 
-    :param projectToken:  Valid K5 project scope token.
-    :param region:  region code eg fi-1
+    :param projectToken:
+    :param region:
     :param az:
-    :param securitygrouId: securitygrouId (optional)
-    :param ipAddress: ip adress for port (optional)
-    :param subnetId: Valid ID for subnet
+    :param portName:
+    :param securitygroupId:
+    :param networkId:
+    :param subnetId:
+    :param ipAddress:
     :return: json of succesfull operation. Otherwise error code from requests library.
 
     """
@@ -161,19 +163,21 @@ def _rest_create_port_on_network(projectToken, region, az, securitygroupId, ipAd
         return request
 
 
-def create_port_on_network(projectToken, region, az, securityGroupId, ipAddress=None, subnetId=None):
+def create_port_on_network(projectToken, region, az, portName, securitygroupId, networkId, subnetId=None, ipAddress=None):
     """create_port_on_network.
 
     :param projectToken:
     :param region:
     :param az:
-    :param securitygrouId:
-    :param ipAddress: (optional)
-    :param subnetId: (optional)
-    :return:  json of succesfull operation. Otherwise error code from requests library.
+    :param portName:
+    :param securitygroupId:
+    :param networkId:
+    :param subnetId:
+    :param ipAddress:
+    :return:   json of succesfull operation. Otherwise error code from requests library.
 
     """
-    request = _rest_create_port_on_network(projectToken, region, az, securityGroupId, ipAddress, subnetId)
+    request = _rest_create_port_on_network(projectToken, region, az, portName, securitygroupId, networkId, subnetId, ipAddress)
     if 'Error' in str(request):
         return str(request)
     else:
