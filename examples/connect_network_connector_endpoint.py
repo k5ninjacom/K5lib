@@ -21,7 +21,7 @@ projectToken = k5lib.get_project_token(username, password, domain, projectName, 
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
 networkconnectorsinfo = k5lib.list_network_connectors(projectToken, region)
-ncid = networkconnectorsinfo.json().get('id')
+ncid = networkconnectorsinfo.get('id')
 print(json.dumps(networkconnectorsinfo, indent=2))
 
 
