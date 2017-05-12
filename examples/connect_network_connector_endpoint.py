@@ -14,7 +14,7 @@ projectName = env['OS_PROJECT_NAME']
 region = env['OS_REGION_NAME']
 az = 'fi-1a'
 endpointName01 = 'mhaNetworkConnector-ep01'
-connectorName = 'mhaNetworkConnector'
+connectorName = 'mhaNetworkConnector01'
 portName = 'mha-port02'
 
 securityGroupId = '91630e71-2555-4dcb-a720-0dd3c643f478'

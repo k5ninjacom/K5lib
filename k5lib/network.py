@@ -29,12 +29,20 @@ def _rest_create_network_connector(projectToken, projectid, region, connectorNam
 
 
 def create_network_connector(projectToken, projectid, region, connectorName):
+    """create_network_connector.
+
+    :param projectToken:
+    :param projectid:
+    :param region:
+    :param connectorName:
+    :return: Network connector ID or error from requests library
+
+    """
     request = _rest_create_network_connector(projectToken, projectid, region, connectorName)
     if 'Error' in str(request):
         return str(request)
     else:
-        r = request.json()
-        return r
+        return request.json()['network_connector']['id']
 
 
 def _rest_create_network_connector_endpoint(projectToken, projectId, region, az, endpointName, networkconnectorId):
