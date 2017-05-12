@@ -251,6 +251,7 @@ def get_network_connector_id(projectToken, region, connectorName):
         return str(request)
     else:
         request = request.json()
+
         # Get ID of our connector from info
         outputList = []
         outputDict = request['network_connectors']
@@ -260,7 +261,7 @@ def get_network_connector_id(projectToken, region, connectorName):
             if str(i['name']) == connectorName:
                 outputList.append(str(i['id']))
                 counter += 1
-        print(outputList[0])
+
         return outputList[0]
 
 
