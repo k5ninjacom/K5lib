@@ -21,12 +21,12 @@ projectToken = k5lib.get_project_token(username, password, domain, projectName, 
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
 networkconnectorsinfo = k5lib.list_network_connectors(projectToken, region)
-ncid = networkconnectorsinfo.get('id')
+ncname = networkconnectorsinfo[network_connectors[name]
 print(json.dumps(networkconnectorsinfo, indent=2))
 
 
 
-print(ncid)
+print(ncname)
 
 # connectorEndpoint = k5lib.create_network_connector_endpoint(projectToken, projectId, region, az, endpointName01)
 # print(connectorEndpoint)
