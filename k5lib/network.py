@@ -181,7 +181,7 @@ def create_port_on_network(projectToken, region, az, portName, securitygroupId, 
     if 'Error' in str(request):
         return str(request)
     else:
-        return request.json()['network_connector'].get('id')
+        return request.json()['port'].get('id')
 
 
 def _rest_list_network_connectors(projectToken, region):
