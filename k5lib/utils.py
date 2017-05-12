@@ -28,7 +28,7 @@ def gen_passwd(length=16):
     """
     alphabet = string.ascii_letters + string.digits
     while True:
-        password = ''.join(choice(alphabet) for i in range(length))
+        password = ''.join(random.choice(alphabet) for i in range(length))
         if (any(c.islower() for c in password)
             and any(c.isupper() for c in password)
                 and sum(c.isdigit() for c in password) >= 3):
