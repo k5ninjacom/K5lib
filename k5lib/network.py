@@ -281,3 +281,52 @@ def list_network_connector_endpoints(projectToken, region):
     else:
         request = request.json()
         return request
+
+
+def _rest_connect_network_connector_endpoint(projectToken, region, endpointId, portId):
+    """_rest_connect_network_connector_endpoint.
+
+    :param projectToken:
+    :param region:
+    :param endpointId:
+    :param portId:
+    :return:     json of succesfull operation. Otherwise error code from requests library.
+
+    """
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': projectToken}
+
+    configData = {"interface": {
+                  "port_id": portId}
+                  }
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connector_endpoints/' + endpointId + '/connect'
+
+    try:
+        request = requests.put(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def connect_network_connector_endpoint(projectToken, region, endpointId, portId):
+    """connect_network_connector_endpoint.
+
+    :param projectToken:
+    :param region:
+    :param endpointId:
+    :param portId:
+    :return:     json of succesfull operation. Otherwise error code from requests library.
+
+    """
+    request = _rest_connect_network_connector_endpoint(projectToken, region, endpointId, portId)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        return request
