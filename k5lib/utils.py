@@ -19,14 +19,16 @@ def gen_passwd(length=16):
 
 
     Args:
-        lenght (int): lenght of returned string.
-        logDir: (string): Working folder for log file
+        lenght (int): lenght of returned string. MIN = 5
 
     Returns:
         String.
 
     """
     alphabet = string.ascii_letters + string.digits
+    # We need to have minimum 5 characters
+    if lenght < 5:
+        length == 5
     while True:
         password = ''.join(random.choice(alphabet) for i in range(length))
         if (any(c.islower() for c in password)
