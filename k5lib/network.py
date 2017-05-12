@@ -173,7 +173,7 @@ def create_port_on_network(projectToken, region, az, securitygrouId, ipAddress=N
     :return:  json of succesfull operation. Otherwise error code from requests library.
 
     """
-    request = _rest_create_port_on_networ(projectToken, region, az, securitygroupId, ipAddress, subnetId)
+    request = _rest_create_port_on_network(projectToken, region, az, securitygroupId, ipAddress, subnetId)
     if 'Error' in str(request):
         return str(request)
     else:
