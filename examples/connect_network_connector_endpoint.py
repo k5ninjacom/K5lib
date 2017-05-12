@@ -17,9 +17,15 @@ az = 'fi-1a'
 securityGroupId = '91630e71-2555-4dcb-a720-0dd3c643f478'
 networkId ='6809bf51-a224-4f16-a77e-754c3033b1b6'
 
-endpointName01 = 'mhaNetworkConnector-ep' + k5lib.gen_passwd(4)
-connectorName = 'mhaNetworkConnector-' +  + k5lib.gen_passwd(4)
-portName = 'mha-port-' +  + k5lib.gen_passwd(4)
+endpointName01 = 'mhaNetworkConnector-ep' + k5lib.gen_passwd(6)
+print(endpointName01)
+
+connectorName = 'mhaNetworkConnector-' +  + k5lib.gen_passwd(6)
+print(connectorName)
+
+portName = 'mha-port-' +  + k5lib.gen_passwd(6)
+print(portName)
+
 
 projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
