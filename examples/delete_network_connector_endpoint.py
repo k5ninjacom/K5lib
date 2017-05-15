@@ -25,9 +25,8 @@ connector_endpoints = k5lib.list_network_connector_endpoints(projectToken, regio
 print((json.dumps(connector_endpoints, indent=2)))
 
 # loop trough connectors and find ones with 'mhaNe' on name, then delete it
-request = connector_endpoints
 outputList = []
-outputDict = request['network_connector_endpoints']
+outputDict = connector_endpoints['network_connector_endpoints']
 
 counter = 0
 for i in outputDict:

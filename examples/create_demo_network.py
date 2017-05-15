@@ -1,3 +1,13 @@
+"""Demo foobar network.
+
+Two az
+Two project
+Inter az and project connectors
+Internal networks and subnets
+Routing between networks and internet
+demonetwork.png
+
+"""
 from os import environ as env
 import sys
 import json

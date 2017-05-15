@@ -93,24 +93,37 @@ def create_network_connector_endpoint(projectToken, projectId, region, az, endpo
         return request.json()['network_connector_endpoint']['id']
 
 
-def create_inter_project_connection(projectToken, region):
-    # TODO:
-    # 1. create a network connector
-    # 2. create a endpoint1 (az1)
-    # 3. create a endpoint2 (az2)
-    request = _rest_stub(projectToken, region)
-    if 'Error' in str(request):
-        return str(request)
+def _rest_create_inter_project_connection(projectToken, region, routerId, portId):
+    """_rest_create_inter_project_connection.
+
+    https://allthingscloud.eu/2017/01/18/k5-inter-project-routing-fully-automated-shared-services-api-deployment/
+
+    :param projectToken:
+    :param region:
+    :param routerId:
+    :param portId:
+    :return:
+    """
+    headers = {'Accept': 'application/json',
+               'X-Auth-Token': projectToken}
+
+    configData = {"port_id": port}
+
+    url = 'https://networking-ex.' + region + '.cloud.global.fujitsu.com/v2.0/routers/' + routerId + '/add_cross_project_router_interface'
+
+    try:
+        request = requests.put(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
     else:
-        request = request.json()
         return request
 
 
-def create_inter_az_connection(projectToken, projectId, region, az1, az2, endpointName=None):
-    # TODO:
-    # 1. create a network connector
-    # 2. create a endpoint1 (az1)
-    # 3. create a endpoint2 (az2)
+def create_inter_project_connection(projectToken, region, routerId, portId):
+    request = _rest_create_inter_project_connection(projectToken, region, routerId, portId)
     if 'Error' in str(request):
         return str(request)
     else:

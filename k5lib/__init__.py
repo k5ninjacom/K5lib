@@ -37,7 +37,7 @@ from .network import disconnect_network_connector_endpoint
 from .network import delete_network_connector_endpoint
 from .network import create_port_on_network
 from .network import list_ports
-from .network import delete_port
 from .network import get_port_id
+from .network import delete_port
 from .utils import create_logfile
 from .utils import gen_passwd
