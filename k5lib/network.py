@@ -107,7 +107,7 @@ def _rest_create_inter_project_connection(projectToken, region, routerId, portId
     headers = {'Accept': 'application/json',
                'X-Auth-Token': projectToken}
 
-    configData = {"port_id": port}
+    configData = {"port_id": portId}
 
     url = 'https://networking-ex.' + region + '.cloud.global.fujitsu.com/v2.0/routers/' + routerId + '/add_cross_project_router_interface'
 
