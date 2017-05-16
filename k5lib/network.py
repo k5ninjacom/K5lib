@@ -11,9 +11,9 @@ def _rest_create_network_connector(projectToken, projectid, region, connectorNam
                'X-Auth-Token': projectToken}
 
     configData = {'network_connector': {
-                  'name': connectorName,
-                  'tenant_id': projectid}
-                  }
+        'name': connectorName,
+        'tenant_id': projectid}
+    }
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connectors'
 
@@ -51,12 +51,12 @@ def _rest_create_network_connector_endpoint(projectToken, projectId, region, az,
                'X-Auth-Token': projectToken}
 
     configData = {"network_connector_endpoint": {
-                      "name": endpointName,
-                      "network_connector_id": networkconnectorId,
-                      "endpoint_type": "availability_zone",
-                      "location": az,
-                      "tenant_id": projectId
-                 }
+        "name": endpointName,
+        "network_connector_id": networkconnectorId,
+        "endpoint_type": "availability_zone",
+        "location": az,
+        "tenant_id": projectId
+    }
     }
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connector_endpoints'
@@ -83,10 +83,11 @@ def create_network_connector_endpoint(projectToken, projectId, region, az, endpo
     :param az: az code eg fi1-a
     :param endpointName: Name of endpoint
     :param networkconnectorId: valid ID for network connector
-    :return: json of succesfull operation. Otherwise error code from requests library.
+    :return: ID of connector if succesfull. Otherwise error code from requests library.
 
     """
-    request = _rest_create_network_connector_endpoint(projectToken, projectId, region, az, endpointName, networkconnectorId)
+    request = _rest_create_network_connector_endpoint(projectToken, projectId, region, az, endpointName,
+                                                      networkconnectorId)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -123,12 +124,117 @@ def _rest_create_inter_project_connection(projectToken, region, routerId, portId
 
 
 def create_inter_project_connection(projectToken, region, routerId, portId):
+    """create_inter_project_connection.
+
+    Add an interface from a subnet in a different project to the router in the project.
+
+    :param projectToken: projectToken for target project
+    :param region: Region of target project
+    :param routerId: ID of the router at target project
+    :param portId: ID of port at source project
+    :return: ID of inter project connection if succesfull. Otherwise error code from requests library.
+    """
     request = _rest_create_inter_project_connection(projectToken, region, routerId, portId)
     if 'Error' in str(request):
         return str(request)
     else:
-        request = request.json()
+        return request.json()['id']
+
+
+def _rest_delete_inter_project_connection(projectToken, region, routerId, portId):
+    """_rest_delete_inter_project_connection.
+
+    :param projectToken:
+    :param region:
+    :param routerId:
+    :param portId:
+    :return:
+    """
+    headers = {'Accept': 'application/json',
+               'X-Auth-Token': projectToken}
+
+    configData = {"port_id": portId}
+
+    url = 'https://networking-ex.' + region + '.cloud.global.fujitsu.com/v2.0/routers/' + routerId + '/remove_cross_project_router_interface'
+
+    try:
+        request = requests.put(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
         return request
+
+
+def delete_inter_project_connection(projectToken, region, routerId, portId):
+    """delete_inter_project_connection.
+
+    delete an interface from a subnet in a different project to the router in the project.
+
+    :param projectToken: projectToken for target project
+    :param region: Region of target project
+    :param routerId: ID of the router at target project
+    :param portId: ID of port at source project
+    :return: ID of inter project connection if succesfull. Otherwise error code from requests library.
+    """
+    request = _rest_delete_inter_project_connection(projectToken, region, routerId, portId)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()['id']
+
+
+def _rest_update_inter_project_connection(projectToken, region, routerId, routes):
+    """_rest_update_inter_project_connection.
+
+    :param projectToken:
+    :param region:
+    :param routerId:
+    :param routes:  List of dictionaries in format:
+        {"nexthop":"IPADDRESS",
+         "destination":"CIDR"}
+    :return:
+    """
+    headers = {'Accept': 'application/json',
+               'X-Auth-Token': projectToken}
+
+    configData = {"router": {
+        "routes": routes}
+    }
+
+    url = 'https://networking-ex.' + region + '.cloud.global.fujitsu.com/v2.0/routers/' + routerId
+
+    try:
+        request = requests.put(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def update_inter_project_connection(projectToken, region, routerId, routes):
+    """update_inter_project_connection.
+
+     Update an interface from a subnet in a different project to the router in the project.
+
+    :param projectToken:
+    :param region:
+    :param routerId:
+    :param routes: List of dictionaries in format:
+          {"nexthop":"IPADDRESS",
+           "destination":"CIDR"}
+    :return:
+    """
+    request = _rest_update_inter_project_connection(projectToken, region, route)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()['id']
 
 
 def _rest_create_port_on_network(projectToken, region, az, portName, securitygroupId, networkId, subnetId=None, ipAddress=None):
@@ -151,25 +257,25 @@ def _rest_create_port_on_network(projectToken, region, az, portName, securitygro
 
     if ipAddress is None:
         configData = {"port": {
-                      "network_id": networkId,
-                      "name": portName,
-                      "admin_state_up": True,
-                      "availability_zone": az,
-                      "security_groups":
-                      [securitygroupId]}
-                      }
+            "network_id": networkId,
+            "name": portName,
+            "admin_state_up": True,
+            "availability_zone": az,
+            "security_groups":
+                [securitygroupId]}
+        }
     else:
         configData = {"port": {
-                      "network_id": networkId,
-                      "name": portName,
-                      "admin_state_up": True,
-                      "availability_zone": az,
-                      "fixed_ips": [{
-                          "ip_address": ipAddress,
-                          "subnet_id": subnetId}],
-                      "security_groups":
-                      [securitygroupId]}
-                      }
+            "network_id": networkId,
+            "name": portName,
+            "admin_state_up": True,
+            "availability_zone": az,
+            "fixed_ips": [{
+                "ip_address": ipAddress,
+                "subnet_id": subnetId}],
+            "security_groups":
+                [securitygroupId]}
+        }
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/ports'
 
@@ -184,7 +290,8 @@ def _rest_create_port_on_network(projectToken, region, az, portName, securitygro
         return request
 
 
-def create_port_on_network(projectToken, region, az, portName, securitygroupId, networkId, subnetId=None, ipAddress=None):
+def create_port_on_network(projectToken, region, az, portName, securitygroupId, networkId, subnetId=None,
+                           ipAddress=None):
     """create_port_on_network.
 
     :param projectToken:
@@ -198,7 +305,8 @@ def create_port_on_network(projectToken, region, az, portName, securitygroupId, 
     :return:   json of succesfull operation. Otherwise error code from requests library.
 
     """
-    request = _rest_create_port_on_network(projectToken, region, az, portName, securitygroupId, networkId, subnetId, ipAddress)
+    request = _rest_create_port_on_network(projectToken, region, az, portName, securitygroupId, networkId, subnetId,
+                                           ipAddress)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -562,8 +670,8 @@ def _rest_connect_network_connector_endpoint(projectToken, region, endpointId, p
                'X-Auth-Token': projectToken}
 
     configData = {"interface": {
-                  "port_id": portId}
-                  }
+        "port_id": portId}
+    }
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connector_endpoints/' + endpointId + '/connect'
 
@@ -611,8 +719,8 @@ def _rest_disconnect_network_connector_endpoint(projectToken, region, endpointId
                'X-Auth-Token': projectToken}
 
     configData = {"interface": {
-                  "port_id": portId}
-                  }
+        "port_id": portId}
+    }
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connector_endpoints/' + endpointId + '/disconnect'
 
