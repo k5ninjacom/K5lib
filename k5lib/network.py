@@ -220,7 +220,7 @@ def _rest_update_inter_project_connection(projectToken, region, routerId, routes
 def update_inter_project_connection(projectToken, region, routerId, routes):
     """update_inter_project_connection.
 
-     Update an interface from a subnet in a different project to the router in the project.
+     Update the routing information between different tenants within the same domain.
 
     :param projectToken:
     :param region:
@@ -230,7 +230,7 @@ def update_inter_project_connection(projectToken, region, routerId, routes):
            "destination":"CIDR"}
     :return:
     """
-    request = _rest_update_inter_project_connection(projectToken, region, route)
+    request = _rest_update_inter_project_connection(projectToken, region, routerId, routes)
     if 'Error' in str(request):
         return str(request)
     else:
