@@ -19,8 +19,6 @@ k5lib.create_logfile('create_subnet.log')
 projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 networkId = k5lib.create_network(projectToken, region, az, networkName)
 print(networkId)
-# wait for network to be created
-time.sleep(15)
 subnet = k5lib.create_subnet(projectToken, region, networkId, cidr, networkName + 'subnet', '4', az)
 #subnet = k5lib.create_subnet(projectToken, region, networkId, cidr, )
 print(subnet)
