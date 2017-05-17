@@ -65,6 +65,18 @@ def recursive_items(dictionary):
         else:
             yield (key, value)
 
+
+def replace_none_values(dictionary):
+    for key, value in dictionary.items():
+        if type(value) is dict:
+            yield (key, value)
+            yield from replace_none_values(value)
+        else:
+            if value is None:
+                value = ''
+            yield (key, value)
+
+
 def dict_iter(nested):
     for key, value in nested.items():
         if isinstance(value, abc.Mapping):
