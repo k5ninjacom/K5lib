@@ -15,6 +15,6 @@ az = 'fi-1a'
 k5lib.create_logfile('create_network.log')
 
 
-projectToken = k5lib.get_project_token(username, password, domain, projectname, region)
+projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 network = k5lib.create_network(projectToken, region, az, networkName)
 print(network)
