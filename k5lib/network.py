@@ -909,7 +909,7 @@ def create_subnet(project_token, region,  network_id, cidr, subnet_name='subnet'
     :return: Subnet ID if succesfull, otherwise error from request library
 
     """
-    request = _rest_create_subnet(projectToken, region, az, networkId, cidr, subnetName='subnet', version='4')
+    request = _rest_create_subnet(project_token, region, az, network_id, cidr, subnet_name='subnet', version='4')
     if 'Error' in str(request):
         return str(request)
     else:
