@@ -862,9 +862,9 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
 
     # Verify optional variables are empty strings
     for i, variable in enumerate(configData):
-        print(variables[i])
-        if variables[i] is None:
-            variables[i] = ''
+        print(configData[i])
+        if configData[i] is None:
+            configData[i] = ''
 
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/subnets'
