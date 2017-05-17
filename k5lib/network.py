@@ -912,7 +912,7 @@ def create_subnet(project_token, region,  network_id, cidr, subnet_name='subnet'
     # Verify optional variables are empty strings
     variables = [az, allocation_pools, dns_nameservers, host_routes, gateway_ip]
     for i in variables:
-        if variables[i] == None:
+        if variables[i] is None:
             varables[i] = ''
 
     request = _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, version, az,
