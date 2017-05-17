@@ -850,7 +850,7 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
 
     configData = {"subnet": {
                   "name": subnet_name,
-                  "networkId": network_id,
+                  "network_id": network_id,
                   "ip_version": version,
                   "cidr": cidr,
                   "availability_zone": az,
