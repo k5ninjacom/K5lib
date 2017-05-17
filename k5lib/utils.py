@@ -7,7 +7,7 @@ import string
 import random
 import os
 import logging
-
+from collections import abc
 
 def gen_passwd(length=16):
     """gen_passwd.
@@ -57,6 +57,13 @@ def create_logfile(logName='default.log', logDir='log'):
     logging.info('Logging started')
     return
 
+
+def dict_iter(nested):
+    for key, value in nested.items():
+        if isinstance(value, abc.Mapping):
+            yield from dict_iter(value)
+        else:
+            yield key, value
 
 def _rest_stub(projectToken, region):
     """_rest_stub.
