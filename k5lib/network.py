@@ -872,7 +872,8 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
     #        value = ''
 
     for key, value in recursive_items(configData):
-        print(key, value)
+        if value is None:
+            print(key, value)
 
 #    print(dict_iter(configData))
 #    for key, value in configData[subnet].items():
