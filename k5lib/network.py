@@ -870,7 +870,7 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
     #    if value is None:
     #        value = ''
 
-    for key, value in configData.items():
+    for key, value in configData[subnet].items():
         print(value)
         if value is None:
             print(key)
