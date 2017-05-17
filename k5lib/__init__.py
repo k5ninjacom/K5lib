@@ -40,6 +40,7 @@ from .network import create_inter_project_connection
 from .network import delete_inter_project_connection
 from .network import update_inter_project_connection
 from .network import create_network
+from .network import create_subnet
 from .network import list_ports
 from .network import get_port_id
 from .network import delete_port

@@ -840,3 +840,78 @@ def create_network(projectToken, region, az, networkName):
         return str(request)
     else:
         return request.json()['network']['id']
+
+
+def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name='subnet', version='4', az=None,
+                        allocation_pools=None, dns_nameservers=None, host_routes=None, gateway_ip=None):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    configData = {"subnet": {
+                  "name": subnet_name,
+                  "networkId": network_id,
+                  "ip_version": version,
+                  "cidr": cidr,
+                  "availability_zone": az,
+                  "allocation_pools": allocation_pools,
+                  "dns_nameservers": dns_nameservers,
+                  "host_routes": host_routes,
+                  "gateway_ip": gateway_ip}
+    }
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/subnets'
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def create_subnet(project_token, region,  network_id, cidr, subnet_name='subnet', version='4', az=None,
+                        allocation_pools=None, dns_nameservers=None, host_routes=None, gateway_ip=None):
+    """create_subnet.
+
+    Create a subnet.
+
+    :param project_token: Valid K5 project token
+    :param region: K5 Region eg 'fi-1'
+    :param network_id: ID for network
+    :param cidr: (string). For example:'192.168.199.0/24'
+    :param subnet_name: (optional) Name of the subnet, eg 'subnet'
+    :param version: IP version '4' or '6'
+    :param az: AZ name eg f1-1a
+    :param allocation_pools: (optional) (Dict)
+                             The start and end addresses for the allocation pools.
+    :param dns_nameservers: (optional)
+                            A list of DNS name servers for the subnet.
+                            For example ["8.8.8.7", "8.8.8.8"].
+                            The specified IP addresses are displayed in sorted order in ascending order.
+                            The lowest IP address will be the primary DNS address.
+    :param host_routes: (optional)
+                        A list of host route dictionaries for the subnet. For example:
+                        "host_routes":[
+                             {
+                             "destination":"0.0.0.0/0",
+                             "nexthop":"172.16.1.254"
+                              },
+                             {
+                             "destination":"192.168.0.0/24",
+                             "nexthop":"192.168.0.1"
+                             }
+                        ]
+    :param gateway_ip: (optional)
+    :return: Subnet ID if succesfull, otherwise error from request library
+
+    """
+    request = _rest_create_subnet(projectToken, region, az, networkId, cidr, subnetName='subnet', version='4')
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        return request
