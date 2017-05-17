@@ -861,10 +861,10 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
                   }
 
     # Remove optional variables that are empty.
-    for key in list(configData['subnet']):
-        if configData['subnet'][key] is None:
-            print('key: ', key, 'value:', configData['subnet'][key])
-            del configData['subnet'][key]
+#    for key in list(configData['subnet']):
+#        if configData['subnet'][key] is None:
+#            print('key: ', key, 'value:', configData['subnet'][key])
+#            del configData['subnet'][key]
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/subnets'
 
@@ -921,5 +921,4 @@ def create_subnet(project_token, region,  network_id, cidr, subnet_name='subnet'
     if 'Error' in str(request):
         return str(request)
     else:
-        request = request.json()
-        return request
+        return request.json()['subnet']['id']
