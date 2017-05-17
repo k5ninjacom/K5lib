@@ -73,7 +73,7 @@ def replace_none_values(dictionary):
             yield from replace_none_values(value)
         else:
             if value is None:
-                value = ''
+                dictionary[key] = ''
             yield (key, value)
 
 
