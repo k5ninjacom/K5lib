@@ -7,7 +7,7 @@ username = env['OS_USERNAME']
 password = env['OS_PASSWORD']
 domain = env['OS_USER_DOMAIN_NAME']
 region = env['OS_REGION_NAME']
-projectName = envenv['OS_PROJECT_NAME']
+projectName = env['OS_PROJECT_NAME']
 networkName = 'foobar-network'
 az = 'fi-1a'
 
