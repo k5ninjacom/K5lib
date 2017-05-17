@@ -861,10 +861,9 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
                   }
 
     # Remove optional variables that are empty.
-#    for key in list(configData['subnet']):
-#        if configData['subnet'][key] is None:
-#            print('key: ', key, 'value:', configData['subnet'][key])
-#            del configData['subnet'][key]
+    for key in list(configData['subnet']):
+        if configData['subnet'][key] is None:
+            del configData['subnet'][key]
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/subnets'
 
@@ -879,7 +878,7 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
         return request
 
 
-def create_subnet(project_token, region,  network_id, cidr, subnet_name='subnet', version='4', az=None,
+def create_subnet(project_token, region, network_id, cidr, subnet_name='subnet', version='4', az=None,
                   allocation_pools=None, dns_nameservers=None, host_routes=None, gateway_ip=None):
     """create_subnet.
 
@@ -915,7 +914,6 @@ def create_subnet(project_token, region,  network_id, cidr, subnet_name='subnet'
     :return: Subnet ID if succesfull, otherwise error from request library
 
     """
-
     request = _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, version, az,
                                   allocation_pools, dns_nameservers, host_routes, gateway_ip)
     if 'Error' in str(request):
