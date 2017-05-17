@@ -840,4 +840,4 @@ def create_network(projectToken, region, az, networkName):
         return str(request)
     else:
         request = request.json()
-        return request
+        return request.json()['network']['id']

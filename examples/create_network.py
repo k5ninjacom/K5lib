@@ -8,7 +8,7 @@ password = env['OS_PASSWORD']
 domain = env['OS_USER_DOMAIN_NAME']
 region = env['OS_REGION_NAME']
 projectName = env['OS_PROJECT_NAME']
-networkName = 'foobar-network'
+networkName = 'foobar-network-' + k5lib.gen_passwd(6)
 az = 'fi-1a'
 
 # Create a log file
