@@ -4,9 +4,6 @@
 import requests
 import json
 import logging
-from .utils import recursive_items
-from .utils import replace_none_values
-from .utils import delete_none_values
 
 log = logging.getLogger(__name__)
 
