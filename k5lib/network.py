@@ -4,7 +4,7 @@
 import requests
 import json
 import logging
-from .utils import dict_iter
+from .utils import recursive_items
 
 log = logging.getLogger(__name__)
 
@@ -871,7 +871,10 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
     #    if value is None:
     #        value = ''
 
-    print(dict_iter(configData))
+    for key, value in recursive_items(configData):
+        print(key, value)
+
+#    print(dict_iter(configData))
 #    for key, value in configData[subnet].items():
 #        print(value)
 #        if value is None:

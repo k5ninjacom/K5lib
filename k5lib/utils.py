@@ -57,6 +57,13 @@ def create_logfile(logName='default.log', logDir='log'):
     logging.info('Logging started')
     return
 
+def recursive_items(dictionary):
+    for key, value in dictionary.items():
+        if type(value) is dict:
+            yield (key, value)
+            yield from recursive_items(value)
+        else:
+            yield (key, value)
 
 def dict_iter(nested):
     for key, value in nested.items():
