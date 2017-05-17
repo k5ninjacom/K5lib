@@ -867,7 +867,8 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
     #        configData[i] = ''
 
     for value in configData.values():
-        print(value)
+        if value is None:
+            value = ''
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/subnets'
 
