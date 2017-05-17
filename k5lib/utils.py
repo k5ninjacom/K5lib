@@ -73,7 +73,7 @@ def delete_none_values(dictionary):
             yield from replace_none_values(value)
         else:
             if value is None:
-                print(dictionary.pop(key))
+               del dictionary.pop(key)
             yield (key, value)
 
 
