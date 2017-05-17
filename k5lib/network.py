@@ -875,9 +875,10 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
 
 #    print(configData['subnet'])
 
-    for key in configData['subnet']:
+    for  key in configData['subnet']:
         if configData['subnet'][key] is None:
-            print(key, configData['subnet'][key])
+            print('key: ', key, 'value:' configData['subnet'][key])
+            del configData['subnet'][key]
 
 #    for key, value in delete_none_values(configData):
 #            print(key, value)
