@@ -66,6 +66,17 @@ def recursive_items(dictionary):
             yield (key, value)
 
 
+def delete_none_values(dictionary):
+    for key, value in dictionary.items():
+        if type(value) is dict:
+            yield (key, value)
+            yield from replace_none_values(value)
+        else:
+            if value is None:
+                dictionary.pop(key)
+            yield (key, value)
+
+
 def replace_none_values(dictionary):
     for key, value in dictionary.items():
         if type(value) is dict:

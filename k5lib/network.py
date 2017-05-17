@@ -6,6 +6,7 @@ import json
 import logging
 from .utils import recursive_items
 from .utils import replace_none_values
+from .utils import delete_none_values
 
 log = logging.getLogger(__name__)
 
@@ -871,7 +872,7 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
     #for value in configData.values():
     #    if value is None:
     #        value = ''
-    for key, value in replace_none_values(configData):
+    for key, value in delete_none_values(configData):
             print(key, value)
 
 #    for key, value in recursive_items(configData):
