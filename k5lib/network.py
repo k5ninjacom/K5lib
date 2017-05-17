@@ -1,3 +1,6 @@
+"""network module
+   .. module:: network
+"""
 import requests
 import json
 import logging
@@ -789,6 +792,50 @@ def delete_network_connector_endpoint(projectToken, region, connectorEndpointId)
 
     """
     request = _rest_delete_network_connector_endpoint(projectToken, region, connectorEndpointId)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        return request
+
+
+def _rest_create_network(projectToken, region, az, networkName):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': projectToken}
+
+    configData = {"network": {
+                  "name": networkName,
+                  "admin_state_up": True,
+                  "availability_zone": az}
+                  }
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/networks'
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def create_network(projectToken, region, az, networkName):
+    """create_network.
+
+    Create a network into project.
+
+    :param projectToken: Valid K5 project token.
+    :param region: Region
+    :param az: AZ for example fi-1a
+    :param networkName: Name of the network.
+    :return: ID of network if suucesfull, otherwise error from requests lib
+
+    """
+    request = _rest_create_network(projectToken, region, az, networkName)
     if 'Error' in str(request):
         return str(request)
     else:
