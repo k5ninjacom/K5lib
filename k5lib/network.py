@@ -860,6 +860,13 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
                   "gateway_ip": gateway_ip}
                   }
 
+    # Verify optional variables are empty strings
+    for i, variable in enumerate(configData):
+        print(variables[i])
+        if variables[i] is None:
+            variables[i] = ''
+
+
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/subnets'
 
     try:
@@ -909,12 +916,6 @@ def create_subnet(project_token, region,  network_id, cidr, subnet_name='subnet'
     :return: Subnet ID if succesfull, otherwise error from request library
 
     """
-    # Verify optional variables are empty strings
-    variables = [az, allocation_pools, dns_nameservers, host_routes, gateway_ip]
-    for i, variable in enumerate(variables):
-        if variables[i] is None:
-            variables[i] = ' '
-
 
     request = _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, version, az,
                                   allocation_pools, dns_nameservers, host_routes, gateway_ip)
