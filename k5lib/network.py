@@ -839,5 +839,4 @@ def create_network(projectToken, region, az, networkName):
     if 'Error' in str(request):
         return str(request)
     else:
-        request = request.json()
         return request.json()['network']['id']
