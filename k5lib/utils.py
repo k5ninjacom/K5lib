@@ -79,22 +79,10 @@ def replace_none_values(dictionary):
             yield (key, value)
 
 
-def _rest_stub(projectToken, region):
-    """_rest_stub.
-
-    Example internal rest call.
-
-    Args:
-        projectToken (token): Valid K5 project scope token.
-        region: (string): region code eg fi-1
-
-    Returns:
-        json of succesfull operation. Otherwise error code from requests library.
-
-    """
+def _rest_stub(project_token, region):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     configData = {'key1': {
                      'key2': [
@@ -118,22 +106,9 @@ def _rest_stub(projectToken, region):
         return request
 
 
-def stub(projectToken, region):
-    """stub.
-
-    Example call that use internal rest call to do actual job.
-
-    Args:
-        projectToken (token): Valid K5 project scope token.
-        region: (string): region code eg fi-1
-
-    Returns:
-        json of succesfull operation. Otherwise error code from requests library.
-
-    """
-    request = _rest_stub(projectToken, region)
+def stub(project_token, region):
+    request = _rest_stub(project_token, region)
     if 'Error' in str(request):
         return str(request)
     else:
-        request = request.json()
-        return request
+        return request.json()

@@ -161,57 +161,42 @@ def get_stack_info(projectToken, projectId, region, stackName, stackId):
         return request.json()
 
 
+def _rest_list_stacks(project_token, region, project_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    url = 'https://orchestration.' + region + '.cloud.global.fujitsu.com/v1/' + project_id + '/stacks/'
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
 
 
-
-def _rest_list_stacks(projectToken, projectId, region):
-    """_rest_list_stacks.
-
-    :param projectToken: string
-    :param projectId: string
-    :param region: string
-    :return: json
-
-    GET /v1/{tenant_id}/stacks{?status,name,limit,marker,sort_keys,sort_dir}
-
-    """
-    return
+def list_stacks(project_token, region, project_id):
+    request = _rest_list_stacks(project_token, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
 
 
-def list_stacks(projectToken, projectId, region):
-    """list_stacks.
+def get_stack_id(project_token, region, project_id, stack_name):
+    request = _rest_list_stacks(project_token, region, project_id)
 
-    :param projectToken:
-    :param projectId:
-    :param region:
-    :return:
-    """
-    return
-
-
-def _rest_find_stack(projectToken, projectId, region, stackName):
-    """_rest_find_stack.
-
-    :param projectToken:
-    :param projectId:
-    :param region:
-    :param stackName:
-    :return:
-
-    GET /v1/{tenant_id}/stacks/{stack_name}
-
-    """
-    return
-
-
-def find_stack(projectToken, projectId, region, stackName):
-    """find_stack.
-
-    :param projectToken:
-    :param projectId:
-    :param region:
-    :param stackName:
-    :return:
-
-    """
-    return
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        outputDict = request["stacks"]
+        counter = 0
+        for i in outputDict:
+            if stack_name in str(i['name']):
+                returnValue = (str(i['id']))
+                counter += 1
+        return returnValue

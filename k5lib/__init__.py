@@ -18,7 +18,7 @@ from .orchestration import create_stack
 from .orchestration import delete_stack
 from .orchestration import get_stack_info
 from .orchestration import list_stacks
-from .orchestration import find_stack
+from .orchestration import get_stack_id
 from .image import export_image
 from .image import clone_vm
 from .image import get_image_info

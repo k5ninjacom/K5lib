@@ -860,7 +860,7 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
                   "gateway_ip": gateway_ip}
                   }
 
-    # Remove optional variables that are empty.
+    # Remove optional variables that are empty. This prevents 400 errors from api.
     for key in list(configData['subnet']):
         if configData['subnet'][key] is None:
             del configData['subnet'][key]
