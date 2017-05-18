@@ -8,14 +8,14 @@ import logging
 log = logging.getLogger(__name__)
 
 
-def _rest_create_network_connector(projectToken, projectid, region, connectorName):
+def _rest_create_network_connector(project_token, project_id, region, connector_name):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     configData = {'network_connector': {
-        'name': connectorName,
-        'tenant_id': projectid}
+        'name': connector_name,
+        'tenant_id': project_id}
     }
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connectors'
@@ -31,34 +31,34 @@ def _rest_create_network_connector(projectToken, projectid, region, connectorNam
         return request
 
 
-def create_network_connector(projectToken, projectid, region, connectorName):
+def create_network_connector(project_token, project_id, region, connector_name):
     """create_network_connector.
 
-    :param projectToken:
-    :param projectid:
+    :param project_token: A valid K5 project token
+    :param project_id:
     :param region:
-    :param connectorName:
+    :param connector_name:
     :return: Network connector ID or error from requests library
 
     """
-    request = _rest_create_network_connector(projectToken, projectid, region, connectorName)
+    request = _rest_create_network_connector(project_token, project_id, region, connector_name)
     if 'Error' in str(request):
         return str(request)
     else:
         return request.json()['network_connector']['id']
 
 
-def _rest_create_network_connector_endpoint(projectToken, projectId, region, az, endpointName, networkconnectorId):
+def _rest_create_network_connector_endpoint(project_token, project_id, region, az, endpointName, networkconnectorId):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     configData = {"network_connector_endpoint": {
         "name": endpointName,
         "network_connector_id": networkconnectorId,
         "endpoint_type": "availability_zone",
         "location": az,
-        "tenant_id": projectId
+        "tenant_id": project_id
     }
     }
 
@@ -75,13 +75,13 @@ def _rest_create_network_connector_endpoint(projectToken, projectId, region, az,
         return request
 
 
-def create_network_connector_endpoint(projectToken, projectId, region, az, endpointName, networkconnectorId):
+def create_network_connector_endpoint(project_token, project_id, region, az, endpointName, networkconnectorId):
     """create_network_connector_endpoint.
 
     Create a endpoint into specified network connector
 
-    :param projectToken: Valid K5 project scope token.
-    :param projectId: Valid K5 project ID
+    :param project_token: A valid K5 project token.
+    :param project_id: Valid K5 project ID
     :param region: region code eg fi-1
     :param az: az code eg fi1-a
     :param endpointName: Name of endpoint
@@ -89,7 +89,7 @@ def create_network_connector_endpoint(projectToken, projectId, region, az, endpo
     :return: ID of connector if succesfull. Otherwise error code from requests library.
 
     """
-    request = _rest_create_network_connector_endpoint(projectToken, projectId, region, az, endpointName,
+    request = _rest_create_network_connector_endpoint(project_token, project_id, region, az, endpointName,
                                                       networkconnectorId)
     if 'Error' in str(request):
         return str(request)
@@ -97,19 +97,19 @@ def create_network_connector_endpoint(projectToken, projectId, region, az, endpo
         return request.json()['network_connector_endpoint']['id']
 
 
-def _rest_create_inter_project_connection(projectToken, region, routerId, portId):
+def _rest_create_inter_project_connection(project_token, region, routerId, portId):
     """_rest_create_inter_project_connection.
 
     https://allthingscloud.eu/2017/01/18/k5-inter-project-routing-fully-automated-shared-services-api-deployment/
 
-    :param projectToken:
+    :param project_token: A valid K5 project token
     :param region:
     :param routerId:
     :param portId:
     :return:
     """
     headers = {'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     configData = {"port_id": portId}
 
@@ -126,35 +126,35 @@ def _rest_create_inter_project_connection(projectToken, region, routerId, portId
         return request
 
 
-def create_inter_project_connection(projectToken, region, routerId, portId):
+def create_inter_project_connection(project_token, region, routerId, portId):
     """create_inter_project_connection.
 
     Add an interface from a subnet in a different project to the router in the project.
 
-    :param projectToken: projectToken for target project
+    :param project_token: A valid K5 project token.
     :param region: Region of target project
     :param routerId: ID of the router at target project
     :param portId: ID of port at source project
     :return: ID of inter project connection if succesfull. Otherwise error code from requests library.
     """
-    request = _rest_create_inter_project_connection(projectToken, region, routerId, portId)
+    request = _rest_create_inter_project_connection(project_token, region, routerId, portId)
     if 'Error' in str(request):
         return str(request)
     else:
         return request.json()['id']
 
 
-def _rest_delete_inter_project_connection(projectToken, region, routerId, portId):
+def _rest_delete_inter_project_connection(project_token, region, routerId, portId):
     """_rest_delete_inter_project_connection.
 
-    :param projectToken:
+    :param project_token: A valid K5 project token
     :param region:
     :param routerId:
     :param portId:
     :return:
     """
     headers = {'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     configData = {"port_id": portId}
 
@@ -171,28 +171,28 @@ def _rest_delete_inter_project_connection(projectToken, region, routerId, portId
         return request
 
 
-def delete_inter_project_connection(projectToken, region, routerId, portId):
+def delete_inter_project_connection(project_token, region, routerId, portId):
     """delete_inter_project_connection.
 
     delete an interface from a subnet in a different project to the router in the project.
 
-    :param projectToken: projectToken for target project
+    :param project_token: A valid K5 project token project_token for target project
     :param region: Region of target project
     :param routerId: ID of the router at target project
     :param portId: ID of port at source project
     :return: ID of inter project connection if succesfull. Otherwise error code from requests library.
     """
-    request = _rest_delete_inter_project_connection(projectToken, region, routerId, portId)
+    request = _rest_delete_inter_project_connection(project_token, region, routerId, portId)
     if 'Error' in str(request):
         return str(request)
     else:
         return request.json()['id']
 
 
-def _rest_update_inter_project_connection(projectToken, region, routerId, routes):
+def _rest_update_inter_project_connection(project_token, region, routerId, routes):
     """_rest_update_inter_project_connection.
 
-    :param projectToken:
+    :param project_token: A valid K5 project token
     :param region:
     :param routerId:
     :param routes:  List of dictionaries in format:
@@ -201,7 +201,7 @@ def _rest_update_inter_project_connection(projectToken, region, routerId, routes
     :return:
     """
     headers = {'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     configData = {"router": {
         "routes": routes}
@@ -220,48 +220,36 @@ def _rest_update_inter_project_connection(projectToken, region, routerId, routes
         return request
 
 
-def update_inter_project_connection(projectToken, region, routerId, routes):
+def update_inter_project_connection(project_token, region, routerId, routes):
     """update_inter_project_connection.
 
      Update the routing information between different tenants within the same domain.
 
-    :param projectToken:
+    :param project_token: A valid K5 project token
     :param region:
     :param routerId:
     :param routes: List of dictionaries in format:
-          {"nexthop":"IPADDRESS",
-           "destination":"CIDR"}
+                    {"nexthop":"IPADDRESS",
+                     "destination":"CIDR"}
     :return:
+
     """
-    request = _rest_update_inter_project_connection(projectToken, region, routerId, routes)
+    request = _rest_update_inter_project_connection(project_token, region, routerId, routes)
     if 'Error' in str(request):
         return str(request)
     else:
         return request.json()['id']
 
 
-def _rest_create_port_on_network(projectToken, region, az, portName, securitygroupId, networkId, subnetId=None, ipAddress=None):
-    """_rest_create_port_on_network.
-
-    :param projectToken:
-    :param region:
-    :param az:
-    :param portName:
-    :param securitygroupId:
-    :param networkId:
-    :param subnetId:
-    :param ipAddress:
-    :return: json of succesfull operation. Otherwise error code from requests library.
-
-    """
+def _rest_create_port_on_network(project_token, region, az, port_name, securitygroupId, networkId, subnetId=None, ipAddress=None):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     if ipAddress is None:
         configData = {"port": {
             "network_id": networkId,
-            "name": portName,
+            "name": port_name,
             "admin_state_up": True,
             "availability_zone": az,
             "security_groups":
@@ -270,7 +258,7 @@ def _rest_create_port_on_network(projectToken, region, az, portName, securitygro
     else:
         configData = {"port": {
             "network_id": networkId,
-            "name": portName,
+            "name": port_name,
             "admin_state_up": True,
             "availability_zone": az,
             "fixed_ips": [{
@@ -293,14 +281,14 @@ def _rest_create_port_on_network(projectToken, region, az, portName, securitygro
         return request
 
 
-def create_port_on_network(projectToken, region, az, portName, securitygroupId, networkId, subnetId=None,
+def create_port_on_network(project_token, region, az, port_name, securitygroupId, networkId, subnetId=None,
                            ipAddress=None):
     """create_port_on_network.
 
-    :param projectToken:
+    :param project_token: A valid K5 project token
     :param region:
     :param az:
-    :param portName:
+    :param port_name:
     :param securitygroupId:
     :param networkId:
     :param subnetId:
@@ -308,7 +296,7 @@ def create_port_on_network(projectToken, region, az, portName, securitygroupId, 
     :return:   json of succesfull operation. Otherwise error code from requests library.
 
     """
-    request = _rest_create_port_on_network(projectToken, region, az, portName, securitygroupId, networkId, subnetId,
+    request = _rest_create_port_on_network(project_token, region, az, port_name, securitygroupId, networkId, subnetId,
                                            ipAddress)
     if 'Error' in str(request):
         return str(request)
@@ -316,22 +304,10 @@ def create_port_on_network(projectToken, region, az, portName, securitygroupId, 
         return request.json()['port'].get('id')
 
 
-def _rest_list_ports(projectToken, region):
-    """_rest_list_ports.
-
-    Example internal rest call.
-
-    Args:
-        projectToken (token): Valid K5 project scope token.
-        region: (string): region code eg fi-1
-
-    Returns:
-        json of succesfull operation. Otherwise error code from requests library.
-
-    """
+def _rest_list_ports(project_token, region):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/ports'
 
@@ -346,20 +322,15 @@ def _rest_list_ports(projectToken, region):
         return request
 
 
-def list_ports(projectToken, region):
+def list_ports(project_token, region):
     """list_ports.
 
-    Example call that use internal rest call to do actual job.
-
-    Args:
-        projectToken (token): Valid K5 project scope token.
-        region: (string): region code eg fi-1
-
-    Returns:
-        json of succesfull operation. Otherwise error code from requests library.
+    :param project_token:
+    :param region:
+    :return: JSON if succesfull. Otherwise error code from requests library.
 
     """
-    request = _rest_list_ports(projectToken, region)
+    request = _rest_list_ports(project_token, region)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -367,20 +338,18 @@ def list_ports(projectToken, region):
         return request
 
 
-def get_port_id(projectToken, region, portName):
-    """stub.
+def get_port_id(project_token, region, port_name):
+    """get_port_id.
 
-    Example call that use internal rest call to do actual job.
+    Get ID of the port.
 
-    Args:
-        projectToken (token): Valid K5 project scope token.
-        region: (string): region code eg fi-1
-
-    Returns:
-        json of succesfull operation. Otherwise error code from requests library.
+    :param project_token:
+    :param region:
+    :param port_name:
+    :return: JSON if succesfull. Otherwise error code from requests library.
 
     """
-    request = _rest_list_ports(projectToken, region)
+    request = _rest_list_ports(project_token, region)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -392,17 +361,17 @@ def get_port_id(projectToken, region, portName):
 
         counter = 0
         for i in outputDict:
-            if str(i['name']) == portName:
+            if str(i['name']) == port_name:
                 outputList.append(str(i['id']))
                 counter += 1
 
         return outputList[0]
 
 
-def _rest_delete_port(projectToken, region, portId):
+def _rest_delete_port(project_token, region, portId):
     """_rest_delete_port
 
-    :param projectToken:
+    :param project_token: A valid K5 project token
     :param region:
     :param portId:
     :return:
@@ -410,7 +379,7 @@ def _rest_delete_port(projectToken, region, portId):
     """
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/ports/' + portId
 
@@ -425,38 +394,26 @@ def _rest_delete_port(projectToken, region, portId):
         return request
 
 
-def delete_port(projectToken, region, portId):
-    """delete_port
+def delete_port(project_token, region, portId):
+    """delete_port.
 
-    :param projectToken:
+    :param project_token: A valid K5 project token
     :param region:
     :param portId:
     :return:
 
     """
-    request = _rest_delete_port(projectToken, region, portId)
+    request = _rest_delete_port(project_token, region, portId)
     if 'Error' in str(request):
         return str(request)
     else:
         return request
 
 
-def _rest_list_network_connectors(projectToken, region):
-    """_rest_stub.
-
-    Example internal rest call.
-
-    Args:
-        projectToken (token): Valid K5 project scope token.
-        region: (string): region code eg fi-1
-
-    Returns:
-        json of succesfull operation. Otherwise error code from requests library.
-
-    """
+def _rest_list_network_connectors(project_token, region):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connectors'
 
@@ -471,20 +428,15 @@ def _rest_list_network_connectors(projectToken, region):
         return request
 
 
-def list_network_connectors(projectToken, region):
-    """stub.
+def list_network_connectors(project_token, region):
+    """list_network_connectors.
 
-    Example call that use internal rest call to do actual job.
-
-    Args:
-        projectToken (token): Valid K5 project scope token.
-        region: (string): region code eg fi-1
-
-    Returns:
-        json of succesfull operation. Otherwise error code from requests library.
+    :param project_token: A valid K5 project token
+    :param region:
+    :return: JSON that contains network connectors if succesfull. Otherwise error from requests library.
 
     """
-    request = _rest_list_network_connectors(projectToken, region)
+    request = _rest_list_network_connectors(project_token, region)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -492,21 +444,16 @@ def list_network_connectors(projectToken, region):
         return request
 
 
-def get_network_connector_id(projectToken, region, connectorName):
+def get_network_connector_id(project_token, region, connector_name):
     """get_network_connector_id.
 
-    Returns ID of networkconnector.
-
-    Args:
-        projectToken (token): Valid K5 project scope token.
-        region: (string): region code eg fi-1
-        connectorName: Name of the connector
-
-    Returns:
-        json of succesfull operation. Otherwise error code from requests library.
+    :param project_token: A valid K5 project token.
+    :param region:
+    :param connector_name:
+    :return: ID of the connector if succesfull. Otherwise error from requests library
 
     """
-    request = _rest_list_network_connectors(projectToken, region)
+    request = _rest_list_network_connectors(project_token, region)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -518,20 +465,20 @@ def get_network_connector_id(projectToken, region, connectorName):
 
         counter = 0
         for i in outputDict:
-            if str(i['name']) == connectorName:
+            if str(i['name']) == connector_name:
                 outputList.append(str(i['id']))
                 counter += 1
 
         return outputList[0]
 
 
-def _rest_delete_network_connector(projectToken, region, networkConnectorId):
+def _rest_delete_network_connector(project_token, region, networkConnectorId):
     """_rest_stub.
 
     Example internal rest call.
 
     Args:
-        projectToken (token): Valid K5 project scope token.
+        project_token (token): Valid K5 project scope token.
         region: (string): region code eg fi-1
 
     Returns:
@@ -540,7 +487,7 @@ def _rest_delete_network_connector(projectToken, region, networkConnectorId):
     """
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connectors' + '/' + networkConnectorId
 
@@ -555,20 +502,20 @@ def _rest_delete_network_connector(projectToken, region, networkConnectorId):
         return request
 
 
-def delete_network_connector(projectToken, region, networkConnectorId):
+def delete_network_connector(project_token, region, networkConnectorId):
     """stub.
 
     Example call that use internal rest call to do actual job.
 
     Args:
-        projectToken (token): Valid K5 project scope token.
+        project_token (token): Valid K5 project scope token.
         region: (string): region code eg fi-1
 
     Returns:
         json of succesfull operation. Otherwise error code from requests library.
 
     """
-    request = _rest_list_network_connectors(projectToken, region)
+    request = _rest_list_network_connectors(project_token, region)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -576,13 +523,13 @@ def delete_network_connector(projectToken, region, networkConnectorId):
         return request
 
 
-def _rest_list_network_connector_endpoints(projectToken, region):
+def _rest_list_network_connector_endpoints(project_token, region):
     """_rest_list_network_connector_endpoints.
 
     Example internal rest call.
 
     Args:
-        projectToken (token): Valid K5 project scope token.
+        project_token (token): Valid K5 project scope token.
         region: (string): region code eg fi-1
 
     Returns:
@@ -591,7 +538,7 @@ def _rest_list_network_connector_endpoints(projectToken, region):
     """
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connector_endpoints'
 
@@ -606,20 +553,20 @@ def _rest_list_network_connector_endpoints(projectToken, region):
         return request
 
 
-def list_network_connector_endpoints(projectToken, region):
+def list_network_connector_endpoints(project_token, region):
     """list_network_connector_endpoints.
 
     Example call that use internal rest call to do actual job.
 
     Args:
-        projectToken (token): Valid K5 project scope token.
+        project_token (token): Valid K5 project scope token.
         region: (string): region code eg fi-1
 
     Returns:
         json of succesfull operation. Otherwise error code from requests library.
 
     """
-    request = _rest_list_network_connector_endpoints(projectToken, region)
+    request = _rest_list_network_connector_endpoints(project_token, region)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -627,20 +574,20 @@ def list_network_connector_endpoints(projectToken, region):
         return request
 
 
-def get_network_connector_endpoint_id(projectToken, region, endpointName):
+def get_network_connector_endpoint_id(project_token, region, endpointName):
     """list_network_connector_endpoints.
 
     Example call that use internal rest call to do actual job.
 
     Args:
-        projectToken (token): Valid K5 project scope token.
+        project_token (token): Valid K5 project scope token.
         region: (string): region code eg fi-1
 
     Returns:
         If query is succesful ID of endpoint or empty list. Otherwise error from requests library
 
     """
-    request = _rest_list_network_connector_endpoints(projectToken, region)
+    request = _rest_list_network_connector_endpoints(project_token, region)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -658,10 +605,10 @@ def get_network_connector_endpoint_id(projectToken, region, endpointName):
         return outputList[0]
 
 
-def _rest_connect_network_connector_endpoint(projectToken, region, endpointId, portId):
+def _rest_connect_network_connector_endpoint(project_token, region, endpointId, portId):
     """_rest_connect_network_connector_endpoint.
 
-    :param projectToken:
+    :param project_token: A valid K5 project token
     :param region:
     :param endpointId:
     :param portId:
@@ -670,7 +617,7 @@ def _rest_connect_network_connector_endpoint(projectToken, region, endpointId, p
     """
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     configData = {"interface": {
         "port_id": portId}
@@ -689,17 +636,17 @@ def _rest_connect_network_connector_endpoint(projectToken, region, endpointId, p
         return request
 
 
-def connect_network_connector_endpoint(projectToken, region, endpointId, portId):
+def connect_network_connector_endpoint(project_token, region, endpointId, portId):
     """connect_network_connector_endpoint.
 
-    :param projectToken:
+    :param project_token: A valid K5 project token
     :param region:
     :param endpointId:
     :param portId:
     :return:     json of succesfull operation. Otherwise error code from requests library.
 
     """
-    request = _rest_connect_network_connector_endpoint(projectToken, region, endpointId, portId)
+    request = _rest_connect_network_connector_endpoint(project_token, region, endpointId, portId)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -707,10 +654,10 @@ def connect_network_connector_endpoint(projectToken, region, endpointId, portId)
         return request
 
 
-def _rest_disconnect_network_connector_endpoint(projectToken, region, endpointId, portId):
+def _rest_disconnect_network_connector_endpoint(project_token, region, endpointId, portId):
     """_rest_disconnect_network_connector_endpoint.
 
-    :param projectToken:
+    :param project_token: A valid K5 project token
     :param region:
     :param endpointId:
     :param portId:
@@ -719,7 +666,7 @@ def _rest_disconnect_network_connector_endpoint(projectToken, region, endpointId
     """
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     configData = {"interface": {
         "port_id": portId}
@@ -738,17 +685,17 @@ def _rest_disconnect_network_connector_endpoint(projectToken, region, endpointId
         return request
 
 
-def disconnect_network_connector_endpoint(projectToken, region, endpointId, portId):
+def disconnect_network_connector_endpoint(project_token, region, endpointId, portId):
     """disconnect_network_connector_endpoint.
 
-    :param projectToken:
+    :param project_token: A valid K5 project token
     :param region:
     :param endpointId:
     :param portId:
     :return:     json of succesfull operation. Otherwise error code from requests library.
 
     """
-    request = _rest_disconnect_network_connector_endpoint(projectToken, region, endpointId, portId)
+    request = _rest_disconnect_network_connector_endpoint(project_token, region, endpointId, portId)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -756,10 +703,10 @@ def disconnect_network_connector_endpoint(projectToken, region, endpointId, port
         return request
 
 
-def _rest_delete_network_connector_endpoint(projectToken, region, connectorEndpointId):
+def _rest_delete_network_connector_endpoint(project_token, region, connectorEndpointId):
     """_rest_delete_network_connector_endpoint.
 
-    :param projectToken:
+    :param project_token: A valid K5 project token
     :param region:
     :param connectorEndpointId:
     :return:
@@ -767,7 +714,7 @@ def _rest_delete_network_connector_endpoint(projectToken, region, connectorEndpo
     """
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connector_endpoints' + '/' + connectorEndpointId
 
@@ -782,16 +729,16 @@ def _rest_delete_network_connector_endpoint(projectToken, region, connectorEndpo
         return request
 
 
-def delete_network_connector_endpoint(projectToken, region, connectorEndpointId):
+def delete_network_connector_endpoint(project_token, region, connectorEndpointId):
     """delete_network_connector_endpoint.
 
-    :param projectToken:
+    :param project_token: A valid K5 project token
     :param region:
     :param connectorEndpointId:
     :return:
 
     """
-    request = _rest_delete_network_connector_endpoint(projectToken, region, connectorEndpointId)
+    request = _rest_delete_network_connector_endpoint(project_token, region, connectorEndpointId)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -799,10 +746,10 @@ def delete_network_connector_endpoint(projectToken, region, connectorEndpointId)
         return request
 
 
-def _rest_create_network(projectToken, region, az, networkName):
+def _rest_create_network(project_token, region, az, networkName):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     configData = {"network": {
                   "name": networkName,
@@ -823,19 +770,19 @@ def _rest_create_network(projectToken, region, az, networkName):
         return request
 
 
-def create_network(projectToken, region, az, networkName):
+def create_network(project_token, region, az, networkName):
     """create_network.
 
     Create a network into project.
 
-    :param projectToken: Valid K5 project token.
+    :param project_token: A valid K5 project token.
     :param region: Region
     :param az: AZ for example fi-1a
     :param networkName: Name of the network.
     :return: ID of network if suucesfull, otherwise error from requests lib
 
     """
-    request = _rest_create_network(projectToken, region, az, networkName)
+    request = _rest_create_network(project_token, region, az, networkName)
     if 'Error' in str(request):
         return str(request)
     else:
