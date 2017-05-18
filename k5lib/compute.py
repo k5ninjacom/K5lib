@@ -5,27 +5,17 @@ import logging
 log = logging.getLogger(__name__)
 
 
-def _rest_get_vnc_console_url(projectToken, projectId, region, serverId):
-    """get_vnc_console_url.
-
-    Get url for vm console access.
-
-    :param projectToken:
-    :param projectId:
-    :param region:
-    :param serverId:
-    :return: json of succesfull operation. Otherwise error code from requests library.
-    """
+def _rest_get_vnc_console_url(project_token, project_id, region, server_id):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     configData = {'os-getVNCConsole': {
         'type': 'novnc'
         }
     }
 
-    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + projectId + '/servers/' + serverId + '/action'
+    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/servers/' + server_id + '/action'
 
     try:
         request = requests.post(url, json=configData, headers=headers)
@@ -38,45 +28,35 @@ def _rest_get_vnc_console_url(projectToken, projectId, region, serverId):
         return request
 
 
-def get_vnc_console_url(projectToken, projectId, region, serverId):
+def get_vnc_console_url(project_token, project_id, region, server_id):
     """
+    Get a url to connect VNC into vm console.
 
-    :param projectToken:
-    :param projectId:
-    :param region:
-    :param serverId:
-    :return:
+    :param project_token: Valid K5 project token.
+    :param project_id: K5 project ID
+    :param region: K5 region name
+    :param server_id: server ID
+    :return: JSON if succesfull. Otherwise error from requests library.
+
     """
-    request = _rest_get_vnc_console_url(projectToken, projectId, region, serverId)
+    request = _rest_get_vnc_console_url(project_token, project_id, region, server_id)
     if 'Error' in str(request):
         return str(request)
     else:
         return request.json()
 
 
-def _rest_create_keypair(projectToken, projectId, region, az, keypairName='default'):
-    """_rest_showkeypair.
-
-    Internal rest call to show keypair information.
-
-    :param projectToken: Valid K5 project scope token.
-    :param projectId: valid id for project
-    :param region: region code eg fi-1
-    :param az: az code eg fi-1a
-    :param keypairName: name of the keypair to be created.
-    :return: json of succesfull operation. Otherwise error code from requests library.
-
-    """
+def _rest_create_keypair(project_token, project_id, region, az, keypair_name='default'):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': projectToken}
+               'X-Auth-Token': project_token}
 
     configData = {"keypair": {
-                  "name": keypairName,
+                  "name": keypair_name,
                   "availability_zone": az}
                   }
 
-    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + projectId + '/os-keypairs'
+    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/os-keypairs'
 
     try:
         request = requests.post(url, json=configData, headers=headers)
@@ -89,23 +69,19 @@ def _rest_create_keypair(projectToken, projectId, region, az, keypairName='defau
         return request
 
 
-def create_keypair(projectToken, projectId, region, az, keypairName):
-    """create_keypair.
+def create_keypair(project_token, project_id, region, az, keypair_name):
+    """
+    Create a keypair to logging in vm.
 
-    Create a new keypair.
-
-    Args:
-        projectToken (token): Valid K5 project scope token.
-        projectId: valid id for project
-        region (string): region code eg fi-1
-        az (string): az code eg fi-1a
-        keypairName (string) name of the keypair to be created.
-
-    Returns:
-        json of succesfull operation. Otherwise error code from requests library.
+    :param project_token: Valid K5 project token.
+    :param project_id: K5 project ID.
+    :param region: K5 region name.
+    :param az: K5 availability zone name.
+    :param keypair_name: Name of keypair.
+    :return: JSON if succesfull. Otherwise error from requests library.
 
     """
-    request = _rest_create_keypair(projectToken, projectId, region, az, keypairName)
+    request = _rest_create_keypair(project_token, project_id, region, az, keypair_name)
     if 'Error' in str(request):
         return str(request)
     else:
