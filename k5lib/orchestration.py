@@ -73,6 +73,43 @@ def create_stack(projectToken, region, projectId, stackName, template):
         return request.json()
 
 
+def _rest_delete_stack(project_token, region, project_id, stack_name, stack_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    url = 'https://orchestration.' + region + '.cloud.global.fujitsu.com/v1/' + project_id + '/stacks' + '/' + stack_name + '/' + stack_id
+
+    try:
+        request = requests.delete(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def delete_stack(project_token, region, project_id, stack_name, stack_id):
+    """delete_stack.
+
+    :param project_token:
+    :param region:
+    :param project_id:
+    :param stack_name:
+    :param stack_id:
+    :return:
+
+    """
+    request = _rest_delete_stack(project_token, region, project_id, stack_name, stack_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        return request
+
+
 def _rest_get_stack_info(projectToken, projectId, region, stackName, stackId):
     """_rest_get_stack_info.
 
@@ -90,7 +127,6 @@ def _rest_get_stack_info(projectToken, projectId, region, stackName, stackId):
                'X-Auth-Token': projectToken
                }
 
-    #  https://vmimport.uk-1.cloud.global.fujitsu.com/v1/imageexport/1b70eaf3-5afb-40f4-9b44-076b376a0bcf/status
     url = 'https://orchestration.' + region + '.cloud.global.fujitsu.com/v1/' + projectId + '/stacks/' + stackName + '/' + stackId
 
     try:
@@ -115,7 +151,7 @@ def get_stack_info(projectToken, projectId, region, stackName, stackId):
     :param region:
     :param stackName:
     :param stackId:
-    :return:
+    :return: JSON if succesfull otherwise error code from requests library.
 
     """
     request = _rest_get_stack_info(projectToken, projectId, region, stackName, stackId)
@@ -123,6 +159,9 @@ def get_stack_info(projectToken, projectId, region, stackName, stackId):
         return str(request)
     else:
         return request.json()
+
+
+
 
 
 def _rest_list_stacks(projectToken, projectId, region):

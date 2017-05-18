@@ -15,6 +15,7 @@ from .contract import list_regions
 from .contract import activate_region
 from .contract import create_project
 from .orchestration import create_stack
+from .orchestration import delete_stack
 from .orchestration import get_stack_info
 from .orchestration import list_stacks
 from .orchestration import find_stack
