@@ -5,11 +5,10 @@ import logging
 log = logging.getLogger(__name__)
 
 
-# Rest call to list regions
-def rest_list_regions(globalToken):
+def _rest_list_regions(global_token):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': globalToken}
+               'X-Auth-Token': global_token}
 
     url = 'https://identity.gls.cloud.global.fujitsu.com/v3/regions'
 
@@ -23,11 +22,14 @@ def rest_list_regions(globalToken):
         return request
 
 
-# list regions
-# returns list of regions
-def list_regions(domainToken):
+def list_regions(domain_token):
+    """
 
-    request = rest_list_regions(domainToken)
+    :param domain_token: Valid K5 domain token.
+    :return: JSON if succesfull. Otherwise error from requests library.
+
+    """
+    request = _rest_list_regions(domain_token)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -44,13 +46,12 @@ def list_regions(domainToken):
         return regionsList
 
 
-# Show region
-def rest_show_region(domainToken, regionId):
+def _rest_show_region(domain_token, region_id):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': domainToken}
+               'X-Auth-Token': domain_token}
 
-    url = 'https://identity.gls.cloud.global.fujitsu.com/v3/regions/' + regionId
+    url = 'https://identity.gls.cloud.global.fujitsu.com/v3/regions/' + region_id
 
     try:
         request = requests.get(url, headers=headers)
@@ -66,30 +67,35 @@ def rest_show_region(domainToken, regionId):
         return request
 
 
-def show_region(domainToken, regionId):
-    request = rest_show_region(domainToken, regionId)
+def show_region(domain_token, region_id):
+    """
+
+    :param domain_token: Valid K5 region token.
+    :param region_id: ID of the region.
+    :return: JSON if succesfull. Otherwise error from requests library.
+
+    """
+    request = _rest_show_region(domain_token, region_id)
     if 'Error' in str(request):
         return str(request)
     else:
         return request.json()
 
 
-# https:// contract.gls.cloud.global.fujitsu.com
-# POST /v1/contracts/{domain_id}?action=startRegion
-def rest_activate_region(domainToken, domainId, regionId):
+def _rest_activate_region(domain_token, domain_id, region_id):
     headers = {'Content-Type': 'application/json',
-               'X-Auth-Token': domainToken}
+               'X-Auth-Token': domain_token}
 
     configData = {'contract': {
                      'regions': [
                           {
-                              'id': regionId
+                              'id': region_id
                           }
                      ]
                  }
     }
 
-    url = 'https://contract.gls.cloud.global.fujitsu.com/v1/contracts/' + domainId + '?action=startRegion'
+    url = 'https://contract.gls.cloud.global.fujitsu.com/v1/contracts/' + domain_id + '?action=startRegion'
 
     try:
         request = requests.post(url, json=configData, headers=headers)
@@ -102,28 +108,38 @@ def rest_activate_region(domainToken, domainId, regionId):
         return request
 
 
-def activate_region(domainToken, domainId, regionId):
-    request = rest_activate_region(domainToken, domainId, regionId)
+def activate_region(domain_token, domain_id, region_id):
+    """
+
+    Activate region for the domain.
+
+    :param domain_token: Valid K5 region token.
+    :param domain_id: ID of the domain.
+    :param region_id: ID of the region.
+    :return: JSON if succesfull. Otherwise error from requests library.
+
+    """
+    request = _rest_activate_region(domain_token, domain_id, region_id)
     if 'Error' in str(request):
         return str(request)
     else:
         return request.json()
 
 
-def _rest_create_project(regionToken, domainId, region, projectName):
+def _rest_create_project(region_token, domain_id, region, project_name):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
-               'X-Auth-Token': regionToken}
+               'X-Auth-Token': region_token}
 
     configData = {"project": {
                      "description": "Programatically created project",
-                     "domain_id": domainId,
+                     "domain_id": domain_id,
                      "enabled": True,
                      "is_domain": False,
-                     "name": projectName}
+                     "name": project_name}
                   }
 
-    url = 'https://identity.' + region + '.cloud.global.fujitsu.com/v3/projects?domain_id=' + domainId
+    url = 'https://identity.' + region + '.cloud.global.fujitsu.com/v3/projects?domain_id=' + domain_id
 
     try:
         request = requests.post(url, json=configData, headers=headers)
@@ -136,8 +152,16 @@ def _rest_create_project(regionToken, domainId, region, projectName):
         return request
 
 
-def create_project(regionToken, domainId, region, projectName):
-    request = _rest_create_project(regionToken, domainId, region, projectName)
+def create_project(region_token, domain_id, region, project_name):
+    """
+
+    :param region_token: Valid K5 region token.
+    :param domain_id: ID of the domain.
+    :param region: K5 region name
+    :param project_name: Project name.
+    :return: JSON if succesfull. Otherwise error from requests library.
+    """
+    request = _rest_create_project(region_token, domain_id, region, project_name)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -146,8 +170,8 @@ def create_project(regionToken, domainId, region, projectName):
 
 
 # TODO: user details, object or simple list of variables?
-def _rest_create_user(globalToken):
-    headers = {'Token': globalToken,
+def _rest_create_user(global_token):
+    headers = {'Token': global_token,
                'Content-Type': 'application/json'}
 
     configData = {"user_last_name": userDetails[1],
@@ -174,8 +198,8 @@ def _rest_create_user(globalToken):
         return request
 
 
-def create_user(projectToken, region):
-    request = _rest_stub(projectToken, region)
+def create_user(project_token, region):
+    request = _rest_stub(project_token, region)
     if 'Error' in str(request):
         return str(request)
     else:
