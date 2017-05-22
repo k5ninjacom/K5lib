@@ -1,0 +1,6 @@
+include LICENSE
+include test.sh
+include *.md
+include examples
+recursive-include doc/_build/html *.html *.css *.js *.png *.gif *.eot *.svg *.ttf *.woff
+include doc/_build/html
