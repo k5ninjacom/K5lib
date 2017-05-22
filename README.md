@@ -1,6 +1,13 @@
+# K5lib
 K5lib is a Python 3 library for Fujitsu K5 cloud enviroment. It providers access to K5 REST api and simplifies usage of it.
 
-Project follows a semantic versíoning (http://semver.org/)
+Project follows a semantic versíoning (http://semver.org/) and is considered to be in initial development phase, hence version starts with 0.
+
+
+
+**Home Page:**
+
+http://k5ninja.com
 
 **Installation:**
 
