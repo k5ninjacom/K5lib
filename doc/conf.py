@@ -27,7 +27,7 @@ sys.path.insert(0, os.path.abspath('/home/mika/Projects/k5lib'))
 
 import sphinx_rtd_theme
 html_theme = "sphinx_rtd_theme"
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme_path = ["_themes",]
 
 # -- General configuration ------------------------------------------------
 
