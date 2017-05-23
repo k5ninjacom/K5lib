@@ -1,7 +1,5 @@
 include LICENSE
-include test.sh
 include *.md
-include *.in
 recursive-include examples *.py
 recursive-include doc/_build/html *.html *.css *.js *.png *.gif *.eot *.svg *.ttf *.woff
 

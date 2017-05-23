@@ -15,6 +15,12 @@ pip3 install k5lib
 #### Requirements
 requests library.
 
+#### Contributing
+All contributions to library are welcomed. Project has a minimal test framework in place. Verify that your contributed code / documentation pass tests by running test.sh at library root folder.
+
+#### Documentation
+Open file doc/_build/html/index.html with your web browser.
+
 #### Versionhistory
 0.1.0
 - Initial release.
