@@ -1,3 +1,9 @@
+"""
+network module.
+
+ Functions related networks, routers, network connectors, vpn  etc are here.
+
+"""
 import requests
 import json
 import logging
@@ -76,7 +82,7 @@ def _rest_create_network_connector_endpoint(project_token, project_id, region, a
 def create_network_connector_endpoint(project_token, project_id, region, az, endpoint_name, networkconnector_id):
     """
 
-    Create a endpoint into specified network connector
+    Create a endpoint into specified network connector.
 
     :param project_token: A valid K5 project token.
     :param project_id: Valid K5 project ID
@@ -256,6 +262,7 @@ def _rest_create_port_on_network(project_token, region, az, port_name, securityg
 def create_port_on_network(project_token, region, az, port_name, securitygroup_id, network_id, subnet_id=None,
                            ip_address=None):
     """
+    Create a port on network.
 
     :param project_token: A valid K5 project token
     :param region: K5 region name.
@@ -367,7 +374,7 @@ def delete_port(project_token, region, port_id):
     :param project_token: A valid K5 project token
     :param region: K5 region name.
     :param port_id: Port ID.
-    :return:  JSON if succesfull. Otherwise error code from requests library.
+    :return: JSON if succesfull. Otherwise error code from requests library.
 
     """
     request = _rest_delete_port(project_token, region, port_id)
@@ -397,6 +404,7 @@ def _rest_list_network_connectors(project_token, region):
 
 def list_network_connectors(project_token, region):
     """
+    List network connectors visible for project in region.
 
     :param project_token: A valid K5 project token
     :param region: K5 region name.
@@ -413,6 +421,7 @@ def list_network_connectors(project_token, region):
 
 def get_network_connector_id(project_token, region, connector_name):
     """
+    Get ID of network connector.
 
     :param project_token: A valid K5 project token.
     :param region: K5 region name.
@@ -459,7 +468,6 @@ def _rest_delete_network_connector(project_token, region, networkConnector_id):
 
 def delete_network_connector(project_token, region, networkConnector_id):
     """
-
     Delete network connector.
 
     :param project_token: A valid K5 project token.

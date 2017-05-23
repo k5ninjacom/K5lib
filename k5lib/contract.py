@@ -1,3 +1,10 @@
+"""
+contract module.
+
+ Functions related contract, regions, user account, projects etc are here.
+
+"""
+
 import requests
 import json
 import logging
@@ -24,6 +31,7 @@ def _rest_list_regions(global_token):
 
 def list_regions(domain_token):
     """
+    List K5 regions.
 
     :param domain_token: Valid K5 domain token.
     :return: JSON if succesfull. Otherwise error from requests library.
@@ -69,6 +77,7 @@ def _rest_show_region(domain_token, region_id):
 
 def show_region(domain_token, region_id):
     """
+    Show detailed region info.
 
     :param domain_token: Valid K5 region token.
     :param region_id: ID of the region.
@@ -154,12 +163,14 @@ def _rest_create_project(region_token, domain_id, region, project_name):
 
 def create_project(region_token, domain_id, region, project_name):
     """
+    Create a new project into domain.
 
     :param region_token: Valid K5 region token.
     :param domain_id: ID of the domain.
     :param region: K5 region name
     :param project_name: Project name.
     :return: JSON if succesfull. Otherwise error from requests library.
+
     """
     request = _rest_create_project(region_token, domain_id, region, project_name)
     if 'Error' in str(request):
@@ -199,6 +210,15 @@ def _rest_create_user(global_token):
 
 
 def create_user(project_token, region):
+    """
+    Create new user.
+
+    At the moment this is a placeholder, actual implementation is WIP.
+
+    :param project_token:
+    :param region:
+    :return:
+    """
     request = _rest_stub(project_token, region)
     if 'Error' in str(request):
         return str(request)

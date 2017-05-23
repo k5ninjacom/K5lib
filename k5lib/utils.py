@@ -40,16 +40,12 @@ def gen_passwd(length=16):
 
 
 def create_logfile(logName='default.log', logDir='log'):
-    """create_logfile.
+    """
+    Create a log file.
 
-    Utility function to create a log file
-
-    Args:
-        logname (string): name of log file.
-        logDir: (string): Working folder for log file
-
-    Returns:
-        none.
+    :param logName: name of log file.
+    :param logDir: Working folder for log file
+    :return: none
 
     """
     if not os.path.exists(logDir):
@@ -59,20 +55,20 @@ def create_logfile(logName='default.log', logDir='log'):
     return
 
 
-def recursive_items(dictionary):
+def _recursive_items(dictionary):
     for key, value in dictionary.items():
         if type(value) is dict:
             yield (key, value)
-            yield from recursive_items(value)
+            yield from _recursive_items(value)
         else:
             yield (key, value)
 
 
-def replace_none_values(dictionary):
+def _replace_none_values(dictionary):
     for key, value in dictionary.items():
         if type(value) is dict:
             yield (key, value)
-            yield from replace_none_values(value)
+            yield from _replace_none_values(value)
         else:
             if value is None:
                 dictionary[key] = ''
@@ -107,6 +103,13 @@ def _rest_stub(project_token, region):
 
 
 def stub(project_token, region):
+    """
+    Stub for default function call.
+
+    :param project_token:
+    :param region:
+    :return:
+    """
     request = _rest_stub(project_token, region)
     if 'Error' in str(request):
         return str(request)

@@ -1,3 +1,9 @@
+"""
+Compute module.
+
+ Compute module provide functions to compute service of Fujitsu K5 cloud REST API
+
+"""
 import requests
 import json
 import logging

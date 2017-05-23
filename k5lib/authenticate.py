@@ -1,3 +1,9 @@
+"""
+Authentication module.
+
+ Authentication module provide functions to authentication service of Fujitsu K5 cloud REST API
+
+"""
 import requests
 import json
 import logging
