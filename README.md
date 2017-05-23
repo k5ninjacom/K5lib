@@ -21,6 +21,9 @@ All contributions to library are welcomed. Project has a minimal test framework 
 #### Documentation
 Open file doc/_build/html/index.html with your web browser.
 
+#### Examples
+Examples folder contains example use cases for many of the library functions.
+
 #### Versionhistory
 0.1.0
 - Initial release.
