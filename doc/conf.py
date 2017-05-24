@@ -19,7 +19,10 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('/home/mika/Projects/k5lib'))
+
+print(os.getcwd())
+sys.path.insert(0, os.path.relpath('../'))
+#sys.path.insert(0, os.path.abspath('/home/mika/Projects/k5lib'))
 
 # Read the docs theme
 # https://github.com/rtfd/sphinx_rtd_theme#via-git-or-download
