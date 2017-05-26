@@ -312,6 +312,76 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="k5lib.network.create_security_group">
+<code class="descclassname">k5lib.network.</code><code class="descname">create_security_group</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>name</em>, <em>description</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.create_security_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a security group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> &#8211; Valid K5 project token</li>
+<li><strong>region</strong> &#8211; K5 Region eg &#8216;fi-1&#8217;</li>
+<li><strong>name</strong> &#8211; Name of security group</li>
+<li><strong>description</strong> &#8211; Description for security group.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Security group ID if succesfull, otherwise error from request library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="k5lib.network.create_security_group_rule">
+<code class="descclassname">k5lib.network.</code><code class="descname">create_security_group_rule</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>security_group_id</em>, <em>direction</em>, <em>port_range_min=None</em>, <em>port_range_max=None</em>, <em>remote_ip_prefix=None</em>, <em>protocol=None</em>, <em>remote_group_id=None</em>, <em>ethertype='IPv4'</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.create_security_group_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create security group rule.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> &#8211; Valid K5 project token</li>
+<li><strong>region</strong> &#8211; K5 Region eg &#8216;fi-1&#8217;</li>
+<li><strong>security_group_id</strong> &#8211; ID of the security group.</li>
+<li><strong>direction</strong> &#8211; Ingress or egress: The direction in which the security group rule is applied.
+For a compute instance, an ingress security group rule is applied to incoming (ingress)
+traffic for that instance. An egress rule is applied to traffic leaving the instance.</li>
+<li><strong>port_range_min</strong> &#8211; The minimum port number in the range that is matched by the security group rule.
+When the protocol is TCP or UDP, this value must be less than or equal to the value of
+the port_range_max attribute. If this value is not specified, the security group rule
+matches all numbers of port. If port_range_min is 0, all port numbers are allowed regardless
+of port_range_max.
+When the protocol is ICMP, this value must be an ICMP type. If this value is not specified,
+the security group rule matches all ICMP types.</li>
+<li><strong>port_range_max</strong> &#8211; The maximum port number in the range that is matched by the security group rule.
+When the protocol is TCP or UDP , the port_range_min attribute constrains the port_range_max
+attribute.
+When the protocol is ICMP, this value must be an ICMP code. If this value is not specified,
+the security group rule matches all ICMP codes.</li>
+<li><strong>remote_ip_prefix</strong> &#8211; The remote IP prefix to be associated with this security group rule. You can specify
+either remote_group_id or remote_ip_prefix in the request body. This attribute matches the
+specified IP prefix as the source or destination IP address of the IP packet.
+If direction is ingress matches source, otherwise matches destination.</li>
+<li><strong>protocol</strong> &#8211; The protocol that is matched by the security group rule. Valid values are null, tcp, udp, icmp,
+and digits between 0-and 255.</li>
+<li><strong>ethertype</strong> &#8211; Must be IPv4, and addresses represented in CIDR must match the ingress or egress rules. If this
+values is not specified, IPv4 is set.</li>
+<li><strong>remote_group_id</strong> &#8211; The remote group ID to be associated with this security group rule. You can specify either
+remote_group_id or remote_ip_prefix.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Security group ID if succesfull, otherwise error from request library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="k5lib.network.create_subnet">
 <code class="descclassname">k5lib.network.</code><code class="descname">create_subnet</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>network_id</em>, <em>cidr</em>, <em>subnet_name='subnet'</em>, <em>version='4'</em>, <em>az=None</em>, <em>allocation_pools=None</em>, <em>dns_nameservers=None</em>, <em>host_routes=None</em>, <em>gateway_ip=None</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.create_subnet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a subnet.</p>

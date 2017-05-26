@@ -817,11 +817,11 @@ def create_security_group(project_token, region, name, description):
     """
     Create a security group.
 
-   :param project_token: Valid K5 project token
-   :param region: K5 Region eg 'fi-1'
-   :param name: Name of security group
-   :param description: Description for security group.
-   :return: Security group ID if succesfull, otherwise error from request library
+    :param project_token: Valid K5 project token
+    :param region: K5 Region eg 'fi-1'
+    :param name: Name of security group
+    :param description: Description for security group.
+    :return: Security group ID if succesfull, otherwise error from request library.
 
     """
     request = _rest_create_security_group(project_token, region, name, description)
@@ -831,23 +831,29 @@ def create_security_group(project_token, region, name, description):
         return request.json()['security_group']['id']
 
 
-def _rest_create_security_group_rule(project_token, region, security_group_id, direction,):
+def _rest_create_security_group_rule(project_token, region, security_group_id, direction, port_range_min, port_range_max,  remote_ip_prefix, protocol, ethertype,  remote_group_id):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
 
-    configData = {"security_group_rule": {
-                     "direction": direction,
-                     "port_range_min": "80",
-                     "ethertype": "IPv4",
-                     "port_range_max": "80",
-                     "protocol": "tcp",
-                     "remote_group_id": "85cc3048-abc3-43cc-89b3-377341426ac5",
-                     "security_group_id": security_group_id
+    configData = {'security_group_rule': {
+                     'direction': direction,
+                     'port_range_min': port_range_min,
+                     'ethertype': ethertype,
+                     'port_range_max': port_range_max,
+                     'protocol': protocol,
+                     'remote_group_id': remote_group_id,
+                     'security_group_id': security_group_id,
+                     'remote_ip_prefix': remote_ip_prefix
     }
     }
 
-    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/security-groups/' security_group_id
+    # Remove optional variables that are empty. This prevents 400 errors from api.
+    for key in list(configData['security_group_rule']):
+        if configData['security_group_rule'][key] is None:
+            del configData['security_group_rule'][key]
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/security-groups/' + security_group_id
 
     try:
         request = requests.post(url, json=configData, headers=headers)
@@ -860,8 +866,45 @@ def _rest_create_security_group_rule(project_token, region, security_group_id, d
         return request
 
 
-def create_security_group_rule(project_token, region, name, description):
-    request = _rest_create_security_group_rule(project_token, region, name, description)
+def create_security_group_rule(project_token, region, security_group_id, direction, port_range_min=None,
+                               port_range_max=None, remote_ip_prefix=None, protocol=None, remote_group_id=None,
+                               ethertype='IPv4'):
+    """
+    Create security group rule.
+
+    :param project_token: Valid K5 project token
+    :param region: K5 Region eg 'fi-1'
+    :param security_group_id: ID of the security group.
+    :param direction: Ingress or egress: The direction in which the security group rule is applied.
+                      For a compute instance, an ingress security group rule is applied to incoming (ingress)
+                      traffic for that instance. An egress rule is applied to traffic leaving the instance.
+    :param port_range_min: The minimum port number in the range that is matched by the security group rule.
+                           When the protocol is TCP or UDP, this value must be less than or equal to the value of
+                           the port_range_max attribute. If this value is not specified, the security group rule
+                           matches all numbers of port. If port_range_min is 0, all port numbers are allowed regardless
+                           of port_range_max.
+                           When the protocol is ICMP, this value must be an ICMP type. If this value is not specified,
+                           the security group rule matches all ICMP types.
+    :param port_range_max: The maximum port number in the range that is matched by the security group rule.
+                           When the protocol is TCP or UDP , the port_range_min attribute constrains the port_range_max
+                           attribute.
+                           When the protocol is ICMP, this value must be an ICMP code. If this value is not specified,
+                           the security group rule matches all ICMP codes.
+    :param remote_ip_prefix: The remote IP prefix to be associated with this security group rule. You can specify
+                             either remote_group_id or remote_ip_prefix in the request body. This attribute matches the
+                             specified IP prefix as the source or destination IP address of the IP packet.
+                             If direction is ingress matches source, otherwise matches destination.
+    :param protocol: The protocol that is matched by the security group rule. Valid values are null, tcp, udp, icmp,
+                     and digits between 0-and 255.
+    :param ethertype: Must be IPv4, and addresses represented in CIDR must match the ingress or egress rules. If this
+                      values is not specified, IPv4 is set.
+    :param remote_group_id: The remote group ID to be associated with this security group rule. You can specify either
+                            remote_group_id or remote_ip_prefix.
+    :return: Security group ID if succesfull, otherwise error from request library.
+
+    """
+    request = _rest_create_security_group_rule(project_token, region, security_group_id, direction, port_range_min, port_range_max,  remote_ip_prefix,
+                                               protocol, remote_group_id, ethertype)
     if 'Error' in str(request):
         return str(request)
     else:
