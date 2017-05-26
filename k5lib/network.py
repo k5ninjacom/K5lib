@@ -787,3 +787,82 @@ def create_subnet(project_token, region, network_id, cidr, subnet_name='subnet',
         return str(request)
     else:
         return request.json()['subnet']['id']
+
+
+def _rest_create_security_group(project_token, region, name, description):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    configData = {'security_group': {
+                     'name': name,
+                     'description': description
+                      }
+                  }
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/security-groups'
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def create_security_group(project_token, region, name, description):
+    """
+    Create a security group.
+
+   :param project_token: Valid K5 project token
+   :param region: K5 Region eg 'fi-1'
+   :param name: Name of security group
+   :param description: Description for security group.
+   :return: Security group ID if succesfull, otherwise error from request library
+
+    """
+    request = _rest_create_security_group(project_token, region, name, description)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()['security_group']['id']
+
+
+def _rest_create_security_group_rule(project_token, region, security_group_id, direction,):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    configData = {"security_group_rule": {
+                     "direction": direction,
+                     "port_range_min": "80",
+                     "ethertype": "IPv4",
+                     "port_range_max": "80",
+                     "protocol": "tcp",
+                     "remote_group_id": "85cc3048-abc3-43cc-89b3-377341426ac5",
+                     "security_group_id": security_group_id
+    }
+    }
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/security-groups/' security_group_id
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def create_security_group_rule(project_token, region, name, description):
+    request = _rest_create_security_group_rule(project_token, region, name, description)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()['security_group_rule']['id']
