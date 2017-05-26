@@ -45,5 +45,7 @@ from .network import create_subnet
 from .network import list_ports
 from .network import get_port_id
 from .network import delete_port
+from .network import create_security_group
+from .network import create_security_group_rule
 from .utils import create_logfile
 from .utils import gen_passwd
