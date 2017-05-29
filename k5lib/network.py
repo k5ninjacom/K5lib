@@ -958,3 +958,72 @@ def create_router(project_token, region, name=None, az=None, admin_state_up=None
         return str(request)
     else:
         return request.json()
+
+
+def _rest_update_router(project_token, region, router_id, name, az, admin_state_up, network_id, route_table):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    configData = {'router': {
+                     'name': name,
+                     'availability_zone': az,
+                     'admin_state_up': admin_state_up,
+                     'external_gateway_info': {
+                         'network_id': network_id
+                      },
+                     'routes': {
+                         route_table,
+                      }
+                      }
+                  }
+    # Remove optional variables that are empty. This prevents 400 errors from api.
+    for key in list(configData['router']):
+        if configData['router'][key] is None:
+            del configData['router'][key]
+    if configData['router']['external_gateway_info']['network_id']is None:
+        del configData['router']['external_gateway_info']['network_id']
+        del configData['router']['external_gateway_info']
+    if configData['router']['routes'] is None:
+        del configData['router']['routes']
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/routers/' + router_id
+
+    try:
+        request = requests.put(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def update_router(project_token, region, router_id, name=None, az=None, admin_state_up=None, network_id=None, route_table=None):
+    """
+    Update router.
+
+    :param project_token: Valid K5 project token
+    :param region: K5 Region eg 'fi-1'
+    :param router_id: ID of the router
+    :param name: Name of the router.
+    :param az: AZ name eg f1-1a.
+    :param admin_state_up: The administrative state of the
+                           router, which is up (true) or down (false).
+    :param network_id: ID of external network.
+    :param route_table: [
+           {
+            "nexthop":"10.1.0.10",
+            "destination":"40.0.1.0/24"
+           }
+           ]
+    :return: JSON if succesfull otherwise error from reguests library.
+
+    """
+    request = _rest_update_router(project_token, region, router_id, name, az, admin_state_up, network_id, route_table)
+
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
