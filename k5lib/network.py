@@ -908,3 +908,53 @@ def create_security_group_rule(project_token, region, security_group_id, directi
         return str(request)
     else:
         return request.json()['security_group_rule']['id']
+
+
+def _rest_create_router(project_token, region, name, az, admin_state_up):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    configData = {'router': {
+                     'name': name,
+                     'availability_zone': az,
+                     'admin_state_up': admin_state_up
+                      }
+                  }
+
+    # Remove optional variables that are empty. This prevents 400 errors from api.
+    for key in list(configData['router']):
+        if configData['router'][key] is None:
+            del configData['router'][key]
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/routers'
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def create_router(project_token, region, name=None, az=None, admin_state_up=None):
+    """
+    Create router.
+
+    :param project_token: Valid K5 project token
+    :param region: K5 Region eg 'fi-1'
+    :param name: Name of the router.
+    :param az: AZ name eg f1-1a.
+    :param admin_state_up: The administrative state of the
+                           router, which is up (true) or down (false).
+    :return: Router ID if succesfull, otherwise error from request library.
+
+    """
+    request = _rest_create_router(project_token, region, name, az, admin_state_up)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()

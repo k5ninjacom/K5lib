@@ -336,7 +336,7 @@
 
 <dl class="function">
 <dt id="k5lib.network.create_security_group_rule">
-<code class="descclassname">k5lib.network.</code><code class="descname">create_security_group_rule</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>security_group_id</em>, <em>direction</em>, <em>port_range_min=None</em>, <em>port_range_max=None</em>, <em>remote_ip_prefix=None</em>, <em>protocol=None</em>, <em>remote_group_id=None</em>, <em>ethertype='IPv4'</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.create_security_group_rule" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">k5lib.network.</code><code class="descname">create_security_group_rule</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>security_group_id</em>, <em>direction</em>, <em>ethertype='IPv4'</em>, <em>protocol=None</em>, <em>port_range_min=None</em>, <em>port_range_max=None</em>, <em>remote_ip_prefix=None</em>, <em>remote_group_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.create_security_group_rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create security group rule.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -349,6 +349,10 @@
 <li><strong>direction</strong> &#8211; Ingress or egress: The direction in which the security group rule is applied.
 For a compute instance, an ingress security group rule is applied to incoming (ingress)
 traffic for that instance. An egress rule is applied to traffic leaving the instance.</li>
+<li><strong>ethertype</strong> &#8211; Must be IPv4, and addresses represented in CIDR must match the ingress or egress rules. If this
+values is not specified, IPv4 is set.</li>
+<li><strong>protocol</strong> &#8211; The protocol that is matched by the security group rule. Valid values are null, tcp, udp, icmp,
+and digits between 0-and 255.</li>
 <li><strong>port_range_min</strong> &#8211; The minimum port number in the range that is matched by the security group rule.
 When the protocol is TCP or UDP, this value must be less than or equal to the value of
 the port_range_max attribute. If this value is not specified, the security group rule
@@ -365,10 +369,6 @@ the security group rule matches all ICMP codes.</li>
 either remote_group_id or remote_ip_prefix in the request body. This attribute matches the
 specified IP prefix as the source or destination IP address of the IP packet.
 If direction is ingress matches source, otherwise matches destination.</li>
-<li><strong>protocol</strong> &#8211; The protocol that is matched by the security group rule. Valid values are null, tcp, udp, icmp,
-and digits between 0-and 255.</li>
-<li><strong>ethertype</strong> &#8211; Must be IPv4, and addresses represented in CIDR must match the ingress or egress rules. If this
-values is not specified, IPv4 is set.</li>
 <li><strong>remote_group_id</strong> &#8211; The remote group ID to be associated with this security group rule. You can specify either
 remote_group_id or remote_ip_prefix.</li>
 </ul>
