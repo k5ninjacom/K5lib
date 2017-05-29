@@ -831,7 +831,7 @@ def create_security_group(project_token, region, name, description):
         return request.json()['security_group']['id']
 
 
-def _rest_create_security_group_rule(project_token, region, security_group_id, direction, port_range_min, port_range_max,  remote_ip_prefix, protocol, ethertype,  remote_group_id):
+def _rest_create_security_group_rule(project_token, region, security_group_id, direction, ethertype, protocol, port_range_min, port_range_max, remote_ip_prefix, remote_group_id):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
@@ -866,9 +866,8 @@ def _rest_create_security_group_rule(project_token, region, security_group_id, d
         return request
 
 
-def create_security_group_rule(project_token, region, security_group_id, direction, port_range_min=None,
-                               port_range_max=None, remote_ip_prefix=None, protocol=None, remote_group_id=None,
-                               ethertype='IPv4'):
+def create_security_group_rule(project_token, region, security_group_id, direction, ethertype='IPv4', protocol=None,
+                               port_range_min=None, port_range_max=None, remote_ip_prefix=None, remote_group_id=None):
     """
     Create security group rule.
 
@@ -878,6 +877,10 @@ def create_security_group_rule(project_token, region, security_group_id, directi
     :param direction: Ingress or egress: The direction in which the security group rule is applied.
                       For a compute instance, an ingress security group rule is applied to incoming (ingress)
                       traffic for that instance. An egress rule is applied to traffic leaving the instance.
+    :param ethertype: Must be IPv4, and addresses represented in CIDR must match the ingress or egress rules. If this
+                      values is not specified, IPv4 is set.
+    :param protocol: The protocol that is matched by the security group rule. Valid values are null, tcp, udp, icmp,
+                     and digits between 0-and 255.
     :param port_range_min: The minimum port number in the range that is matched by the security group rule.
                            When the protocol is TCP or UDP, this value must be less than or equal to the value of
                            the port_range_max attribute. If this value is not specified, the security group rule
@@ -894,17 +897,13 @@ def create_security_group_rule(project_token, region, security_group_id, directi
                              either remote_group_id or remote_ip_prefix in the request body. This attribute matches the
                              specified IP prefix as the source or destination IP address of the IP packet.
                              If direction is ingress matches source, otherwise matches destination.
-    :param protocol: The protocol that is matched by the security group rule. Valid values are null, tcp, udp, icmp,
-                     and digits between 0-and 255.
-    :param ethertype: Must be IPv4, and addresses represented in CIDR must match the ingress or egress rules. If this
-                      values is not specified, IPv4 is set.
     :param remote_group_id: The remote group ID to be associated with this security group rule. You can specify either
                             remote_group_id or remote_ip_prefix.
     :return: Security group ID if succesfull, otherwise error from request library.
 
     """
-    request = _rest_create_security_group_rule(project_token, region, security_group_id, direction, port_range_min, port_range_max,  remote_ip_prefix,
-                                               protocol, remote_group_id, ethertype)
+    request = _rest_create_security_group_rule(project_token, region, security_group_id, direction, ethertype, protocol,
+                                               port_range_min, port_range_max,  remote_ip_prefix, remote_group_id)
     if 'Error' in str(request):
         return str(request)
     else:
