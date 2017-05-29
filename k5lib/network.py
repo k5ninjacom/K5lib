@@ -853,7 +853,7 @@ def _rest_create_security_group_rule(project_token, region, security_group_id, d
         if configData['security_group_rule'][key] is None:
             del configData['security_group_rule'][key]
 
-    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/security-groups/' + security_group_id
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/security-group-rules'
 
     try:
         request = requests.post(url, json=configData, headers=headers)
