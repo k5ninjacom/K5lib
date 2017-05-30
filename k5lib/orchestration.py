@@ -144,14 +144,14 @@ def _rest_list_stacks(project_token, region, project_id):
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
 
-    url = 'https://orchestration.' + region + '.cloud.global.fujitsu.com/v1/' + project_id + '/stacks/'
+    url = 'https://orchestration.' + region + '.cloud.global.fujitsu.com/v1/' + project_id + '/stacks'
 
     try:
         request = requests.get(url, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
-        log.error(json.dumps(configData, indent=4))
+        log.error('Error: ' + str(e))
         return 'Error: ' + str(e)
     else:
         return request
