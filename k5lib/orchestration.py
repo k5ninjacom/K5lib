@@ -69,7 +69,7 @@ def _rest_delete_stack(project_token, region, project_id, stack_name, stack_id):
     url = 'https://orchestration.' + region + '.cloud.global.fujitsu.com/v1/' + project_id + '/stacks' + '/' + stack_name + '/' + stack_id
 
     try:
-        request = requests.delete(url, json=configData, headers=headers)
+        request = requests.delete(url, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
