@@ -195,5 +195,7 @@ def get_stack_id(project_token, region, project_id, stack_name):
         for i in outputDict:
             if stack_name in str(i['stack_name']):
                 returnValue = (str(i['id']))
+            else
+                returnValue = None
                 counter += 1
         return returnValue
