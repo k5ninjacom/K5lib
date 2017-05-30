@@ -190,7 +190,7 @@ def get_stack_id(project_token, region, project_id, stack_name):
     if 'Error' in str(request):
         return str(request)
     else:
-        outputDict = request.json(["stacks"])
+        outputDict = request.json()["stacks"]
         counter = 0
         for i in outputDict:
             if stack_name in str(i['name']):
