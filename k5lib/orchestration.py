@@ -157,7 +157,7 @@ def _rest_list_stacks(project_token, region, project_id):
         return request
 
 
-def list_stacks(project_token, region):
+def list_stacks(project_token, region, project_id):
     """
     List stacks in project.
 
@@ -167,7 +167,7 @@ def list_stacks(project_token, region):
     :return: JSON if succesfull. Otherwise error code from requests library.
 
     """
-    request = _rest_list_stacks(project_token, region)
+    request = _rest_list_stacks(project_token, region, project_id)
     if 'Error' in str(request):
         return str(request)
     else:
