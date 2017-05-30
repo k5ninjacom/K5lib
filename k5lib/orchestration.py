@@ -88,14 +88,13 @@ def delete_stack(project_token, region, project_id, stack_name, stack_id):
     :param project_id: ID of the project
     :param stack_name: Name of the stack
     :param stack_id: ID of the stack
-    :return: JSON if succesfull. Otherwise error code from requests library.
+    :return: Http return code 204 if succesful. Otherwise error code from requests library.
 
     """
     request = _rest_delete_stack(project_token, region, project_id, stack_name, stack_id)
     if 'Error' in str(request):
         return str(request)
     else:
-        request = request.json()
         return request
 
 

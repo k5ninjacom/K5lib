@@ -957,7 +957,7 @@ def create_router(project_token, region, name=None, az=None, admin_state_up=None
     if 'Error' in str(request):
         return str(request)
     else:
-        return request.json()
+        return request.json()['router']['id']
 
 
 def _rest_update_router(project_token, region, router_id, name, az, admin_state_up, network_id, route_table):
