@@ -712,6 +712,69 @@ def create_network(project_token, region, az, network_name):
         return request.json()['network']['id']
 
 
+def _rest_list_networks(project_token, region):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/networks'
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(str(e))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def list_networks(project_token, region):
+    """
+    List networks visible for project in region.
+
+    :param project_token: A valid K5 project token
+    :param region: K5 region name.
+    :return: JSON that contains networks if succesfull. Otherwise error from requests library.
+
+    """
+    request = _rest_list_networks(project_token, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+
+
+def get_network_id(project_token, region, network_name):
+    """
+    Get ID of network.
+
+    :param project_token: A valid K5 project token.
+    :param region: K5 region name.
+    :param network_name: Network name.
+    :return: ID of the connector if succesfull. Otherwise error from requests library
+
+    """
+    request = _rest_list_networks(project_token, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+
+        # Get ID of our connector from info
+        outputList = []
+        outputDict = request['networks']
+
+        counter = 0
+        for i in outputDict:
+            if str(i['name']) == network_name:
+                outputList.append(str(i['id']))
+                counter += 1
+
+        return outputList[0]
+
+
 def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, version, az,
                         allocation_pools, dns_nameservers, host_routes, gateway_ip):
     headers = {'Content-Type': 'application/json',
