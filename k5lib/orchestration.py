@@ -157,7 +157,7 @@ def _rest_list_stacks(project_token, region, project_id):
         return request
 
 
-def list_stacks(project_token, region, project_id):
+def list_stacks(project_token, region):
     """
     List stacks in project.
 
