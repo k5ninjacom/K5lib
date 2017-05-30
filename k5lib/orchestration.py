@@ -73,7 +73,7 @@ def _rest_delete_stack(project_token, region, project_id, stack_name, stack_id):
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
-        log.error(json.dumps(configData, indent=4))
+        log.error('Error: ' + str(e))
         return 'Error: ' + str(e)
     else:
         return request
@@ -190,7 +190,7 @@ def get_stack_id(project_token, region, project_id, stack_name):
     if 'Error' in str(request):
         return str(request)
     else:
-        outputDict = request["stacks"]
+        outputDict = request.json(["stacks"])
         counter = 0
         for i in outputDict:
             if stack_name in str(i['name']):
