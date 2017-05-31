@@ -715,7 +715,7 @@ def _rest_delete_network_connector_endpoint(project_token, region, connector_end
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connector_endpoints' + '/' + connector_endpoint_id
 
     try:
-        request = requests.get(url, headers=headers)
+        request = requests.delete(url, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
