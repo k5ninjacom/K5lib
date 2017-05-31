@@ -43,6 +43,7 @@ from .network import create_inter_project_connection
 from .network import delete_inter_project_connection
 from .network import update_inter_project_connection
 from .network import create_network
+from .network import delete_network
 from .network import list_networks
 from .network import get_network_id
 from .network import create_subnet

@@ -804,6 +804,41 @@ def _rest_list_networks(project_token, region):
         return request
 
 
+def _rest_delete_network(project_token, region, network_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/networks/' + network_id
+
+    try:
+        request = requests.delete(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error('Error: ' + str(e))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def delete_network(project_token, region, network_id):
+    """
+    Delete subnet.
+
+    :param project_token: Valid K5 project token
+    :param region: K5 Region eg 'fi-1'
+    :param network_id: ID for network to delete.
+    :return: Http returncode 204 if succesful. otherwise error code from requests library.
+
+    """
+    request = _rest_delete_network(project_token, region, network_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request
+
+
 def list_networks(project_token, region):
     """
     List networks visible for project in region.
