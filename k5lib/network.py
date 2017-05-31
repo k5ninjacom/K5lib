@@ -945,6 +945,15 @@ def _rest_delete_subnet(project_token, region, subnet_id):
 
 
 def delete_subnet(project_token, region, subnet_id):
+    """
+    Delete subnet.
+
+    :param project_token: Valid K5 project token
+    :param region: K5 Region eg 'fi-1'
+    :param subnet_id: ID for subnet to delete.
+    :return: Http returncode 204 if succesful. otherwise error code from requests library.
+
+    """
     request = _rest_delete_subnet(project_token, region, subnet_id)
     if 'Error' in str(request):
         return str(request)
