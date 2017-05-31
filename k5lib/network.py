@@ -101,6 +101,108 @@ def create_network_connector_endpoint(project_token, project_id, region, az, end
         return request.json()['network_connector_endpoint']['id']
 
 
+def _rest_list_network_connector_endpoints(project_token, region):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connector_endpoints'
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def list_network_connector_endpoints(project_token, region):
+    """
+
+    List network connector endpoints.
+
+    :param project_token: A valid K5 project token.
+    :param region: K5 region name.
+    :return: JSON if succesfull. Otherwise error code from requests library.
+
+    """
+    request = _rest_list_network_connector_endpoints(project_token, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        return request
+
+
+def get_network_connector_endpoint_id(project_token, region, endpoint_name):
+    """
+
+    Get an ID for network connector endpoint.
+
+    :param project_token: A valid K5 project token.
+    :param region: K5 region name.
+    :param endpoint_name: Endpoint name.
+    :return: ID if succesfull. Otherwise error from requests library.
+
+    """
+    request = _rest_list_network_connector_endpoints(project_token, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        # Get ID of our connector endpoint from info
+        outputList = []
+        outputDict = request['network_connector_endpoints']
+
+        counter = 0
+        for i in outputDict:
+            if str(i['name']) == endpoint_name:
+                outputList.append(str(i['id']))
+                counter += 1
+
+        return outputList[0]
+
+
+def _rest_get_network_connector_endpoint_info(project_token, region, network_connector_endpoint_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connector_endpoints/' + network_connector_endpoint_id
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def get_network_connector_endpoint_info(project_token, region, network_connector_endpoint_id):
+    """
+
+    List network connector endpoints.
+
+    :param project_token: A valid K5 project token.
+    :param region: K5 region name.
+    :param network_connector_endpoint_id: ID of network connection
+    :return: JSON if succesfull. Otherwise error code from requests library.
+
+    """
+    request = _rest_get_network_connector_endpoint_info(project_token, region, network_connector_endpoint_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        return request
+
+
 def _rest_create_inter_project_connection(project_token, region, router_id, port_id):
     headers = {'Accept': 'application/json',
                'X-Auth-Token': project_token}
@@ -114,7 +216,7 @@ def _rest_create_inter_project_connection(project_token, region, router_id, port
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
-        log.error(json.dumps(configData, indent=4))
+        log.error('Error: ' + str(e))
         return 'Error: ' + str(e)
     else:
         return request
@@ -482,71 +584,6 @@ def delete_network_connector(project_token, region, networkConnector_id):
     else:
         request = request.json()
         return request
-
-
-def _rest_list_network_connector_endpoints(project_token, region):
-    headers = {'Content-Type': 'application/json',
-               'Accept': 'application/json',
-               'X-Auth-Token': project_token}
-
-    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connector_endpoints'
-
-    try:
-        request = requests.get(url, headers=headers)
-        request.raise_for_status()
-    except requests.exceptions.HTTPError as e:
-        # Whoops it wasn't a 200
-        log.error(json.dumps(configData, indent=4))
-        return 'Error: ' + str(e)
-    else:
-        return request
-
-
-def list_network_connector_endpoints(project_token, region):
-    """
-
-    List network connector endpoints.
-
-    :param project_token: A valid K5 project token.
-    :param region: K5 region name.
-    :return: JSON if succesfull. Otherwise error code from requests library.
-
-    """
-    request = _rest_list_network_connector_endpoints(project_token, region)
-    if 'Error' in str(request):
-        return str(request)
-    else:
-        request = request.json()
-        return request
-
-
-def get_network_connector_endpoint_id(project_token, region, endpoint_name):
-    """
-
-    Get an ID for network connector endpoint.
-
-    :param project_token: A valid K5 project token.
-    :param region: K5 region name.
-    :param endpoint_name: Endpoint name.
-    :return: ID if succesfull. Otherwise error from requests library.
-
-    """
-    request = _rest_list_network_connector_endpoints(project_token, region)
-    if 'Error' in str(request):
-        return str(request)
-    else:
-        request = request.json()
-        # Get ID of our connector endpoint from info
-        outputList = []
-        outputDict = request['network_connector_endpoints']
-
-        counter = 0
-        for i in outputDict:
-            if str(i['name']) == endpoint_name:
-                outputList.append(str(i['id']))
-                counter += 1
-
-        return outputList[0]
 
 
 def _rest_connect_network_connector_endpoint(project_token, region, endpoint_id, port_id):

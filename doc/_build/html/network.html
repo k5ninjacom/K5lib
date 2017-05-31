@@ -609,6 +609,28 @@ The lowest IP address will be the primary DNS address.</li>
 </dd></dl>
 
 <dl class="function">
+<dt id="k5lib.network.get_network_id">
+<code class="descclassname">k5lib.network.</code><code class="descname">get_network_id</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>network_name</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.get_network_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get ID of network.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> &#8211; A valid K5 project token.</li>
+<li><strong>region</strong> &#8211; K5 region name.</li>
+<li><strong>network_name</strong> &#8211; Network name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">ID of the connector if succesfull. Otherwise error from requests library</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="k5lib.network.get_port_id">
 <code class="descclassname">k5lib.network.</code><code class="descname">get_port_id</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>port_name</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.get_port_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get ID of the port.</p>
@@ -666,6 +688,27 @@ The lowest IP address will be the primary DNS address.</li>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON that contains network connectors if succesfull. Otherwise error from requests library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="k5lib.network.list_networks">
+<code class="descclassname">k5lib.network.</code><code class="descname">list_networks</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.list_networks" title="Permalink to this definition">¶</a></dt>
+<dd><p>List networks visible for project in region.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> &#8211; A valid K5 project token</li>
+<li><strong>region</strong> &#8211; K5 region name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON that contains networks if succesfull. Otherwise error from requests library.</p>
 </td>
 </tr>
 </tbody>
