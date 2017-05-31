@@ -514,7 +514,7 @@ def delete_port(project_token, region, port_id):
     :param project_token: A valid K5 project token
     :param region: K5 region name.
     :param port_id: Port ID.
-    :return: JSON if succesfull. Otherwise error code from requests library.
+    :return: Http 204 if succesfull. Otherwise error code from requests library.
 
     """
     request = _rest_delete_port(project_token, region, port_id)
@@ -613,14 +613,13 @@ def delete_network_connector(project_token, region, networkConnector_id):
     :param project_token: A valid K5 project token.
     :param region: K5 region name.
     :param networkConnector_id: Network connector ID
-    :return:  JSON if succesfull. Otherwise error code from requests library.
+    :return:  Http 204 if succesfull. Otherwise error code from requests library.
 
     """
     request = _rest_delete_network_connector(project_token, region, networkConnector_id)
     if 'Error' in str(request):
         return str(request)
     else:
-        request = request.json()
         return request
 
 
