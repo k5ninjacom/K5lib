@@ -961,6 +961,40 @@ def delete_subnet(project_token, region, subnet_id):
         return request
 
 
+def _rest_list_subnets(project_token, region):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/subnets'
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(str(e))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def list_subnets(project_token, region):
+    """
+    List subnets visible for project in region.
+
+    :param project_token: A valid K5 project token
+    :param region: K5 region name.
+    :return: JSON that contains subnets if succesfull. Otherwise error from requests library.
+
+    """
+    request = _rest_list_subnets(project_token, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+
+
 def _rest_create_security_group(project_token, region, name, description):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
