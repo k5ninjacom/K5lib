@@ -203,6 +203,44 @@ def get_network_connector_endpoint_info(project_token, region, network_connector
         return request
 
 
+def _rest_list_network_connector_endpoint_interfaces(project_token, region, network_connector_endpoint_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/network_connector_endpoints/' \
+          + network_connector_endpoint_id + '/interfaces'
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error('Error: ' + str(e))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def list_network_connector_endpoint_interfaces(project_token, region, network_connector_endpoint_id):
+    """
+
+    List network connector endpoint interfaces.
+
+    :param project_token: A valid K5 project token.
+    :param region: K5 region name.
+    :param network_connector_endpoint_id: ID of network connection
+    :return: JSON if succesfull. Otherwise error code from requests library.
+
+    """
+    request = _rest_list_network_connector_endpoint_interfaces(project_token, region, network_connector_endpoint_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        return request
+
+
 def _rest_create_inter_project_connection(project_token, region, router_id, port_id):
     headers = {'Accept': 'application/json',
                'X-Auth-Token': project_token}
