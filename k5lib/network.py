@@ -616,7 +616,7 @@ def delete_network_connector(project_token, region, networkConnector_id):
     :return:  JSON if succesfull. Otherwise error code from requests library.
 
     """
-    request = _rest_list_network_connectors(project_token, region)
+    request = _rest_delete_network_connector(project_token, region, networkConnector_id)
     if 'Error' in str(request):
         return str(request)
     else:
