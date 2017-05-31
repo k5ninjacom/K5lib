@@ -733,14 +733,13 @@ def delete_network_connector_endpoint(project_token, region, connector_endpoint_
     :param project_token: A valid K5 project token
     :param region: K5 region name.
     :param connector_endpoint_id: Network connecto ID.
-    :return: JSON if succesfull operation. Otherwise error code from requests library.
+    :return: Http result code 204 succesfull operation. Otherwise error code from requests library.
 
     """
     request = _rest_delete_network_connector_endpoint(project_token, region, connector_endpoint_id)
     if 'Error' in str(request):
         return str(request)
     else:
-        request = request.json()
         return request
 
 
