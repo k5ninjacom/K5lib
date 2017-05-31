@@ -934,7 +934,7 @@ def _rest_delete_subnet(project_token, region, subnet_id):
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/subnets/' + subnet_id
 
     try:
-        request = requests.post(url, headers=headers)
+        request = requests.delete(url, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
