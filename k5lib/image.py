@@ -259,11 +259,13 @@ def _rest_get_image_import_queue_status(projectToken, region):
 
 
 def get_image_import_queue_status(projectToken, region):
-    """get_image_import_queue_status.
+    """
 
-    :param projectToken:
-    :param region:
-    :return:
+    Get status of image import queue.
+
+    :param projectToken: Valid token for default project
+    :param region: Region name.
+    :return: JSON if suucesfull. Otherwise error from requests library.
 
     """
     request = _rest_get_image_import_queue_status(projectToken, region)
@@ -271,3 +273,5 @@ def get_image_import_queue_status(projectToken, region):
         return str(request)
     else:
         return request.json()
+
+
