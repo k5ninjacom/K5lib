@@ -102,7 +102,7 @@ def _rest_get_server_password(project_token, region, project_id, server_id):
 
 
 
-    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2' + project_id + '/servers/' + server_id + '/os-server-password'
+    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/servers/' + server_id + '/os-server-password'
 
     try:
         request = requests.post(url, headers=headers)
