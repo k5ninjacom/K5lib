@@ -188,7 +188,7 @@ def get_server_id(project_token, region, project_id, server_name):
 
         for i in outputDict:
             if server_name in str(i['name']):
-                outputList[i] = str(i['id'])
+                outputList.append(str(i['id']))
 
         return outputList[0]
 
@@ -217,6 +217,6 @@ def get_server_name(project_token, region, project_id, server_id):
 
         for i in outputDict:
             if server_id in str(i['id']):
-                outputList[i] = str(i['name'])
+                outputList.append(str(i['name']))
 
         return outputList[0]
