@@ -285,7 +285,7 @@ def _rest_create_image_member(default_project_token, region, project_id):
     configData = {'member':  project_id
                  }
 
-    url = 'https://image.' + region + '.cloud.global.fujitsu.com/v2/images/
+    url = 'https://image.' + region + '.cloud.global.fujitsu.com/v2/images/'
 
     try:
         request = requests.post(url, json=configData, headers=headers)
