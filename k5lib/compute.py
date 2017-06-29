@@ -105,7 +105,7 @@ def _rest_get_server_password(project_token, region, project_id, server_id):
     url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/servers/' + server_id + '/os-server-password'
 
     try:
-        request = requests.post(url, headers=headers)
+        request = requests.get(url, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
