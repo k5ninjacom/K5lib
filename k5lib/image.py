@@ -6,6 +6,8 @@ Image module provide functions to image service of Fujitsu K5 cloud REST API
 import requests
 import json
 import logging
+import base64
+import uuid
 
 log = logging.getLogger(__name__)
 
@@ -274,4 +276,58 @@ def get_image_import_queue_status(projectToken, region):
     else:
         return request.json()
 
+def _rest_create_image_member(default_project_token, region, project_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': default_project_token}
 
+    configData = {'member':  project_id
+                 }
+
+    url = 'https://image.' + region + '.cloud.global.fujitsu.com/v2/images/
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def _rest_register_image(default_project_token, region, ):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': default_project_token}
+
+    encodedPassword = base64.b64encode(adminPassword)
+    image_uuid = str(uuid.uuid4())
+
+    configData = {'name':  image_name,
+                  'disk_format': 'raw',
+                  'container_format': 'bare',
+                  'location': location,
+                  'checksum': checksum,
+                  'id': image_uuid,
+                  'min_ram': min_ram,
+                  'min_disk': min_disk,
+                  'conversion': True,
+                  'os_type': os_type,
+                  'user_name': user_name,
+                  'password': encodedPassword,
+                  'domain': domain_name
+                 }
+
+    url = 'https://vmimport.' + region + '.cloud.global.fujitsu.com/v1/imageimport'
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
