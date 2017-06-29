@@ -276,6 +276,7 @@ def get_image_import_queue_status(projectToken, region):
     else:
         return request.json()
 
+
 def _rest_create_image_member(default_project_token, region, project_id):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
@@ -298,6 +299,7 @@ def _rest_create_image_member(default_project_token, region, project_id):
 
 
 def _rest_register_image(default_project_token, region, ):
+    # TODO: implemantation missing
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': default_project_token}
