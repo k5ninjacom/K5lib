@@ -95,14 +95,14 @@ def create_keypair(project_token, project_id, region, az, keypair_name):
         request = request.json()
         return request
 
-def _rest_get_server_password(project_token, region, server_id):
+def _rest_get_server_password(project_token, region, project_id, server_id):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
 
 
 
-    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/servers/' + server_id + '/os-server-password'
+    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2' + project_id + '/servers/' + server_id + '/os-server-password'
 
     try:
         request = requests.post(url, headers=headers)
@@ -114,16 +114,17 @@ def _rest_get_server_password(project_token, region, server_id):
         return request
 
 
-def get_server_password(project_token, region, server_id):
+def get_server_password(project_token, region, project_id, server_id):
     """
     Get server password hash. You need to decrypt hash with private key to get password.
 
     :param project_token: Valid K5 project token.
     :param region: K5 region name.
+    :param project_id: K5 project ID
     :param server_id: ID of the server
     :return: Password hash as a string object if succesfull. Otherwise error from requests library.
     """
-    request = _rest_get_server_password(project_token, region, server_id)
+    request = _rest_get_server_password(project_token, region, project_id, server_id)
     if 'Error' in str(request):
         return str(request)
     else:
