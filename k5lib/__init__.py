@@ -26,6 +26,10 @@ from .image import get_export_status
 from .image import get_image_import_queue_status
 from .compute import get_vnc_console_url
 from .compute import create_keypair
+from .compute import list_servers
+from .compute import get_server_password
+from .compute import get_server_name
+from .compute import get_server_id
 from .network import create_network_connector
 from .network import list_network_connectors
 from .network import get_network_connector_id

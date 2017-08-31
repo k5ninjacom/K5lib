@@ -38,6 +38,34 @@ def gen_passwd(length=16):
             break
     return password
 
+def gen_uuid(length=4):
+    """gen_uuid.
+
+    Utility function to create a string.
+    https://docs.python.org/3/library/secrets.html
+    Create a alphanumeric password with at least one lowercase character,
+    at least one uppercase character, and at least three digits
+
+
+    Args:
+        lenght (int): lenght of returned string. MIN = 5
+
+    Returns:
+        String.
+
+    """
+    alphabet = string.ascii_letters + string.digits
+    # We need to have minimum 5 characters
+    if length < 5:
+        length == 5
+    while True:
+        password = ''.join(random.choice(alphabet) for i in range(length))
+        if (any(c.islower() for c in password)
+            and any(c.isupper() for c in password)
+                and sum(c.isdigit() for c in password) >= 3):
+            break
+    return password
+
 
 def create_logfile(logName='default.log', logDir='log'):
     """
