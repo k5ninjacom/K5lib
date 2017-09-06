@@ -23,17 +23,15 @@ print ('Your IP is', ip)
 project_token = k5lib.get_project_token(user_name, password, domain, project_name, region)
 project_id = k5lib.get_project_id(user_name, password, domain, project_name, region)
 
-security_group_id = k5lib.get_security_group_id(project_token, region, 'sg_ext_mgmt')
-k5lib.create_security_group(project_token, region, name='sg_ext_mgmt', description='external management')
+# security_group_id = k5lib.get_security_group_id(project_token, region, 'sg_ext_mgmt')
+# k5lib.create_security_group(project_token, region, name='sg_ext_mgmt', description='external management')
 
 security_group_id = k5lib.get_security_group_id(project_token, region, 'sg_ext_mgmt')
 print (security_group_id)
 
+rule_return_value = k5lib.create_security_group_rule(project_token, region, security_group_id, direction='ingress', ethertype='IPv4', port_range_min='22',
+                                                     port_range_max='22', ip + '/32')
+# project_token, region, security_group_id, direction, ethertype='IPv4', protocol=None,
+#                               port_range_min=None, port_range_max=None, remote_ip_prefix=None, remote_group_id=None
 
-
-#security_groups = k5lib.list_security_groups(project_token, region)
-#print (json.dumps(security_groups, indent=2))
-
-
-
-# rule_return_value = k5lib.create_security_group_rule(project_token, region, security_group_id, direction='ingress', )
+print (rule_return_value)
