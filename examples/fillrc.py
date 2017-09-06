@@ -41,7 +41,7 @@ def main():
 
     global_token = k5lib.get_global_token(userName, userPassword, domainName)
     available_regions = k5lib.list_regions(global_token)
-    print ("Available regions: ", Available_regions)
+    print ("Available regions: ", available_regions)
 
     region = input("Region: ")
     authURL = 'https://identity.' + region + '.cloud.global.fujitsu.com/v3'

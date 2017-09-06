@@ -7,6 +7,38 @@ import requests
 import json
 import logging as log
 
+"""
+Load Balancer API list
+
+Item    API                                         Description
+1       ApplySecurityGroupsToLoadBalancer           Associates one or more security groups with the load balancer
+2       AttachLoadBalancerToSubnets                 Attaches one or more subnets to the load balancer
+3       ConfigureHealthCheck                        Specifies the health check settings to use when evaluating the
+                                                    health state of the distribution destination instances of the
+                                                    specified load balancer
+4       CreateLBCookieStickinessPolicy              Generates a session stickiness policy
+5       CreateLoadBalancer                          Creates a load balancer
+6       CreateLoadBalancerListeners                 Creates one or more listeners for the port specified in the load balancer
+7       CreateLoadBalancerPolicy                    Creates a policy including required attributes according to its type
+8       CreateSorryServerRedirectionPolicy          Creates a policy for redirecting to the SorryServer when unable
+                                                    to distribute due to the distribution destination instances
+                                                    not all being in an active state.
+9       DeleteLoadBalancer                          Deletes the specified load balancer
+10      DeleteLoadBalancerListeners                 Deletes a listener of the specified port number from the load balancer
+11      DeleteLoadBalancerPolicy                    Deletes a specified policy from the load balancer
+12      DeregisterInstancesFromLoadBalancer         Deletes the specified instance from the load balancer
+13      DescribeLoadBalancerAttributes              Retrieves attribute information of the load balancer that was created
+14      DescribeLoadBalancerPolicies                Retrieves policy information from the load balancer
+15      DescribeLoadBalancers                       Retrieves detailed information of the load balancer that was created
+16      DetachLoadBalancerFromSubnets               Detaches the subnets from the load balancer
+17      ModifyLoadBalancerAttributes                Changes attribute information of the specified load balancer
+18      RegisterInstancesWithLoadBalancer           Adds an instance to the load balancer
+19      SetLoadBalancerListenerSSLCertificate       Sets the certificate of the end of SSL communications for the specified listener
+20      SetLoadBalancerPoliciesOfListener           Registers, deregisters, and changes policies that are applied to a listener of
+                                                    the load balancer
+"""
+
+
 def _rest_create_lb(project_token, region):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
