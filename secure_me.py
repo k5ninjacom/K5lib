@@ -27,7 +27,8 @@ security_group_id = k5lib.get_security_group_id(project_token, region, 'sg_ext_m
 if security_group_id == 0:
     k5lib.create_security_group(project_token, region, name='sg_ext_mgmt', description='external management')
 
-#print (security_group_id)
+security_group_id = k5lib.get_security_group_id(project_token, region, 'sg_ext_mgmt')
+print (security_group_id)
 
 
 
