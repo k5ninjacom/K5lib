@@ -1071,6 +1071,34 @@ def create_security_group(project_token, region, name, description):
         return request.json()['security_group']['id']
 
 
+def _rest_list_security_groups(project_token, region):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/security-groups'
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def list_security_groups(project_token, region):
+    request = _rest_list_security_groups(project_token, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+
+
+
 def _rest_create_security_group_rule(project_token, region, security_group_id, direction, ethertype, protocol, port_range_min, port_range_max, remote_ip_prefix, remote_group_id):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
