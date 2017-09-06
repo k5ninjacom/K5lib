@@ -1132,7 +1132,7 @@ def get_security_group_id(project_token, region, sg_name):
             if str(i['name']) == sg_name:
                 outputList.append(str(i['id']))
                 counter += 1
-        if counter != 0
+        if counter != 0:
           return outputList[0]
         else
             return '0'
