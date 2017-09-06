@@ -1091,12 +1091,49 @@ def _rest_list_security_groups(project_token, region):
 
 
 def list_security_groups(project_token, region):
+    """
+    List security groups visible to project
+
+    :param project_token:
+    :param region:
+
+    :return: JSON if succesfull, otherwise error from request library.
+    """
+
     request = _rest_list_security_groups(project_token, region)
     if 'Error' in str(request):
         return str(request)
     else:
         return request.json()
 
+
+def get_security_group_id(project_token, region, sg_name):
+    """
+    Get ID of the security group.
+
+    :param project_token:
+    :param region:
+    :param sg_name:
+    :return: ID of security group if succesfull. Otherwise error code from requests library.
+
+    """
+    request = _rest_list_security_groups(project_token, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+
+        # Get ID of our connector from info
+        outputList = []
+        outputDict = request['security_groups']
+
+        counter = 0
+        for i in outputDict:
+            if str(i['name']) == sg_name:
+                outputList.append(str(i['id']))
+                counter += 1
+
+        return outputList[0]
 
 
 def _rest_create_security_group_rule(project_token, region, security_group_id, direction, ethertype, protocol, port_range_min, port_range_max, remote_ip_prefix, remote_group_id):
@@ -1132,6 +1169,7 @@ def _rest_create_security_group_rule(project_token, region, security_group_id, d
         return 'Error: ' + str(e)
     else:
         return request
+
 
 
 def create_security_group_rule(project_token, region, security_group_id, direction, ethertype='IPv4', protocol=None,
