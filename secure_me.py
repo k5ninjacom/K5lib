@@ -26,7 +26,7 @@ k5lib.create_security_group(project_token, region, name='sg_ext_mgmt', descripti
 security_group_id = k5lib.get_security_group_id(project_token, region, 'sg_ext_mgmt')
 print (security_group_id)
 
-rule_return_value = k5lib.create_security_group_rule(project_token, region, security_group_id, direction='ingress', ethertype='IPv4', port_range_min=22, port_range_max=22, remote_ip_prefix=ip + '/32')
+rule_return_value = k5lib.create_security_group_rule(project_token, region, security_group_id, 'ingress', 'IPv4', '22', '22', ip + '/32', None)
 print (rule_return_value)
 
 security_group_list = k5lib.list_security_groups(project_token, region)
