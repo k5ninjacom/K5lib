@@ -22,4 +22,8 @@ project_id = k5lib.get_project_id(user_name, password, domain, project_name, reg
 
 security_groups = k5lib.list_security_groups(project_token, region)
 print (json.dumps(security_groups, indent=2))
+
+security_group_id = k5lib.get_security_group_id(project_token, region, 'sg_ext_mgmt')
+print (security_group_id)
+
 # rule_return_value = k5lib.create_security_group_rule(project_token, region, security_group_id, direction='ingress', )
