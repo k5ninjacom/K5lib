@@ -29,7 +29,7 @@ project_id = k5lib.get_project_id(user_name, password, domain, project_name, reg
 security_group_id = k5lib.get_security_group_id(project_token, region, 'sg_ext_mgmt')
 print (security_group_id)
 
-rule_return_value = k5lib.create_security_group_rule(project_token, region, security_group_id, direction='ingress', ethertype='IPv4', port_range_min='22', port_range_max='22', ip + '/32')
+rule_return_value = k5lib.create_security_group_rule(project_token, region, security_group_id, direction='ingress', ethertype='IPv4', port_range_min='22', port_range_max='22', remote_ip_prefix=ip + '/32')
 # project_token, region, security_group_id, direction, ethertype='IPv4', protocol=None,
 #                               port_range_min=None, port_range_max=None, remote_ip_prefix=None, remote_group_id=None
 
