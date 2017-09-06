@@ -1134,7 +1134,7 @@ def get_security_group_id(project_token, region, sg_name):
                 counter += 1
         if counter != 0:
           return outputList[0]
-        else
+        else:
             return '0'
 
 def _rest_create_security_group_rule(project_token, region, security_group_id, direction, ethertype, protocol, port_range_min, port_range_max, remote_ip_prefix, remote_group_id):
