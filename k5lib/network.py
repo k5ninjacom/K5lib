@@ -1132,9 +1132,10 @@ def get_security_group_id(project_token, region, sg_name):
             if str(i['name']) == sg_name:
                 outputList.append(str(i['id']))
                 counter += 1
-
-        return outputList[0]
-
+        if counter <> 0
+          return outputList[0]
+        else
+            return '0'
 
 def _rest_create_security_group_rule(project_token, region, security_group_id, direction, ethertype, protocol, port_range_min, port_range_max, remote_ip_prefix, remote_group_id):
     headers = {'Content-Type': 'application/json',
