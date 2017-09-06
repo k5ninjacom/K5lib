@@ -24,16 +24,15 @@ project_token = k5lib.get_project_token(user_name, password, domain, project_nam
 project_id = k5lib.get_project_id(user_name, password, domain, project_name, region)
 
 security_group_id = k5lib.get_security_group_id(project_token, region, 'sg_ext_mgmt')
-if security_group_id == 0:
-    k5lib.create_security_group(project_token, region, name='sg_ext_mgmt', description='external management')
+k5lib.create_security_group(project_token, region, name='sg_ext_mgmt', description='external management')
 
 security_group_id = k5lib.get_security_group_id(project_token, region, 'sg_ext_mgmt')
 print (security_group_id)
 
 
 
-security_groups = k5lib.list_security_groups(project_token, region)
-print (json.dumps(security_groups, indent=2))
+#security_groups = k5lib.list_security_groups(project_token, region)
+#print (json.dumps(security_groups, indent=2))
 
 
 
