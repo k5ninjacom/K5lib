@@ -9,6 +9,7 @@ Welcome to K5lib's documentation!
    contract
    compute
    network
+   lb
    vpn
    image
    orchestration

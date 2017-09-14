@@ -75,6 +75,13 @@ def _rest_create_lb(project_token, region):
 
 
 def create_lb(project_token, region):
+    """
+    Create Load Balancer
+
+    :param project_token: Valid K5 project token
+    :param region: Valid K5 region
+    :return:
+    """
     request = _rest_stub(project_token, region)
     if 'Error' in str(request):
         return str(request)
