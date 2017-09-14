@@ -62,6 +62,7 @@ from .network import get_security_group_id
 from .network import create_security_group_rule
 from .network import create_router
 from .network import update_router
+from .lb import create_lb
 from .utils import create_logfile
 from .utils import gen_passwd
 from .vpn import create_ipsec_vpn_service
