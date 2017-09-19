@@ -1278,9 +1278,7 @@ def _rest_update_router(project_token, region, router_id, name, az, admin_state_
                      'external_gateway_info': {
                          'network_id': network_id
                       },
-                     'routes': {
-                         route_table
-                      }
+                     'routes': route_table
                       }
                   }
     # Remove optional variables that are empty. This prevents 400 errors from api.
