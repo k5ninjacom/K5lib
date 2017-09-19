@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="K5lib 0.1.0 documentation" href="index.html"/>
         <link rel="next" title="orchestration" href="orchestration.html"/>
-        <link rel="prev" title="network" href="network.html"/> 
+        <link rel="prev" title="VPN" href="vpn.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -96,6 +96,8 @@
 <li class="toctree-l1"><a class="reference internal" href="contract.html">contract</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compute.html">compute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network.html">network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lb.html">LB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vpn.html">VPN</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="orchestration.html">orchestration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">utils</a></li>
@@ -175,11 +177,11 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>projectToken</strong> &#8211; </li>
-<li><strong>projectId</strong> &#8211; </li>
-<li><strong>region</strong> &#8211; </li>
-<li><strong>imageName</strong> &#8211; </li>
-<li><strong>volumeId</strong> &#8211; </li>
+<li><strong>projectToken</strong> – </li>
+<li><strong>projectId</strong> – </li>
+<li><strong>region</strong> – </li>
+<li><strong>imageName</strong> – </li>
+<li><strong>volumeId</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -200,11 +202,11 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>regionToken</strong> &#8211; </li>
-<li><strong>region</strong> &#8211; </li>
-<li><strong>projectId</strong> &#8211; </li>
-<li><strong>image_id</strong> &#8211; </li>
-<li><strong>containerName</strong> &#8211; </li>
+<li><strong>regionToken</strong> – </li>
+<li><strong>region</strong> – </li>
+<li><strong>projectId</strong> – </li>
+<li><strong>image_id</strong> – </li>
+<li><strong>containerName</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -224,9 +226,9 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>projectToken</strong> &#8211; </li>
-<li><strong>region</strong> &#8211; </li>
-<li><strong>exportId</strong> &#8211; </li>
+<li><strong>projectToken</strong> – </li>
+<li><strong>region</strong> – </li>
+<li><strong>exportId</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -240,18 +242,18 @@
 <dl class="function">
 <dt id="k5lib.image.get_image_import_queue_status">
 <code class="descclassname">k5lib.image.</code><code class="descname">get_image_import_queue_status</code><span class="sig-paren">(</span><em>projectToken</em>, <em>region</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.image.get_image_import_queue_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>get_image_import_queue_status.</p>
+<dd><p>Get status of image import queue.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>projectToken</strong> &#8211; </li>
-<li><strong>region</strong> &#8211; </li>
+<li><strong>projectToken</strong> – Valid token for default project</li>
+<li><strong>region</strong> – Region name.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if suucesfull. Otherwise error from requests library.</p>
 </td>
 </tr>
 </tbody>
@@ -267,10 +269,10 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>projectToken</strong> &#8211; </li>
-<li><strong>projectId</strong> &#8211; </li>
-<li><strong>region</strong> &#8211; </li>
-<li><strong>volumeId</strong> &#8211; </li>
+<li><strong>projectToken</strong> – </li>
+<li><strong>projectId</strong> – </li>
+<li><strong>region</strong> – </li>
+<li><strong>volumeId</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -296,7 +298,7 @@
         <a href="orchestration.html" class="btn btn-neutral float-right" title="orchestration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="network.html" class="btn btn-neutral" title="network" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="vpn.html" class="btn btn-neutral" title="VPN" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

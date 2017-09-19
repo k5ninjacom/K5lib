@@ -263,9 +263,9 @@ def _rest_create_inter_project_connection(project_token, region, router_id, port
 def create_inter_project_connection(project_token, region, router_id, port_id):
     """
 
-    Add an interface from a subnet in a different project to the router in the project.
+    Add an interface from a subnet (source project) in a different project to the router (target project).
 
-    :param project_token: A valid K5 project token.
+    :param project_token: A valid K5 project token for target project.
     :param region: Region of target project
     :param router_id: ID of the router at target project
     :param port_id: ID of port at source project
@@ -932,22 +932,21 @@ def create_subnet(project_token, region, network_id, cidr, subnet_name='subnet',
     :param subnet_name: (optional) Name of the subnet, eg 'subnet'
     :param version: IP version '4' or '6'
     :param az: AZ name eg f1-1a
-    :param allocation_pools: (optional) (Dict) The start and end addresses for the allocation pools.
-    :param dns_nameservers: (optional) A list of DNS name servers for the subnet.
+    :param allocation_pools: (optional)
+      ::
+                            (Dict) The start and end addresses for the allocation pools.
+                             For example [{"start": "192.168.199.2", "end": "192.168.199.254"}]
+    :param dns_nameservers: (optional)
+      ::
+                            A list of DNS name servers for the subnet.
                             For example: ["8.8.8.7", "8.8.8.8"].
                             The specified IP addresses are displayed in sorted order in ascending order.
                             The lowest IP address will be the primary DNS address.
-    :param host_routes: (optional) A list of host route dictionaries for the subnet. For example:
-                        "host_routes":[
-                             {
-                             "destination":"0.0.0.0/0",
-                             "nexthop":"172.16.1.254"
-                              },
-                             {
-                             "destination":"192.168.0.0/24",
-                             "nexthop":"192.168.0.1"
-                             }
-                        ]
+    :param host_routes: (optional)
+                      ::
+                        A list of host route dictionaries for the subnet.
+                        For example: [{"destination":"0.0.0.0/0", "nexthop":"172.16.1.254"},
+                                      {"destination":"192.168.0.0/24", "nexthop":"192.168.0.1"}]
     :param gateway_ip: (optional)
     :return: Subnet ID if succesfull, otherwise error from request library
 
@@ -1280,7 +1279,7 @@ def _rest_update_router(project_token, region, router_id, name, az, admin_state_
                          'network_id': network_id
                       },
                      'routes': {
-                         route_table,
+                         route_table
                       }
                       }
                   }
@@ -1319,12 +1318,7 @@ def update_router(project_token, region, router_id, name=None, az=None, admin_st
     :param admin_state_up: The administrative state of the
                            router, which is up (true) or down (false).
     :param network_id: ID of external network.
-    :param route_table: [
-           {
-            "nexthop":"10.1.0.10",
-            "destination":"40.0.1.0/24"
-           }
-           ]
+    :param route_table: [{"nexthop":"10.1.0.10", "destination":"40.0.1.0/24" }]
     :return: JSON if succesfull otherwise error from reguests library.
 
     """

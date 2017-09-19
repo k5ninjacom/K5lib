@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="K5lib 0.1.0 documentation" href="index.html"/>
-        <link rel="next" title="image" href="image.html"/>
+        <link rel="next" title="LB" href="lb.html"/>
         <link rel="prev" title="compute" href="compute.html"/> 
 
   
@@ -96,6 +96,8 @@
 <li class="toctree-l1"><a class="reference internal" href="contract.html">contract</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compute.html">compute</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lb.html">LB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vpn.html">VPN</a></li>
 <li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="orchestration.html">orchestration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">utils</a></li>
@@ -176,10 +178,10 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
-<li><strong>endpoint_id</strong> &#8211; Endpoint ID.</li>
-<li><strong>port_id</strong> &#8211; Port ID.</li>
+<li><strong>project_token</strong> – A valid K5 project token</li>
+<li><strong>region</strong> – K5 region name.</li>
+<li><strong>endpoint_id</strong> – Endpoint ID.</li>
+<li><strong>port_id</strong> – Port ID.</li>
 </ul>
 </td>
 </tr>
@@ -193,16 +195,16 @@
 <dl class="function">
 <dt id="k5lib.network.create_inter_project_connection">
 <code class="descclassname">k5lib.network.</code><code class="descname">create_inter_project_connection</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>router_id</em>, <em>port_id</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.create_inter_project_connection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add an interface from a subnet in a different project to the router in the project.</p>
+<dd><p>Add an interface from a subnet (source project) in a different project to the router (target project).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token.</li>
-<li><strong>region</strong> &#8211; Region of target project</li>
-<li><strong>router_id</strong> &#8211; ID of the router at target project</li>
-<li><strong>port_id</strong> &#8211; ID of port at source project</li>
+<li><strong>project_token</strong> – A valid K5 project token for target project.</li>
+<li><strong>region</strong> – Region of target project</li>
+<li><strong>router_id</strong> – ID of the router at target project</li>
+<li><strong>port_id</strong> – ID of port at source project</li>
 </ul>
 </td>
 </tr>
@@ -222,10 +224,10 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token.</li>
-<li><strong>region</strong> &#8211; Region</li>
-<li><strong>az</strong> &#8211; AZ for example fi-1a</li>
-<li><strong>network_name</strong> &#8211; Name of the network.</li>
+<li><strong>project_token</strong> – A valid K5 project token.</li>
+<li><strong>region</strong> – Region</li>
+<li><strong>az</strong> – AZ for example fi-1a</li>
+<li><strong>network_name</strong> – Name of the network.</li>
 </ul>
 </td>
 </tr>
@@ -245,10 +247,10 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token</li>
-<li><strong>project_id</strong> &#8211; K5 project ID</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
-<li><strong>connector_name</strong> &#8211; Connector name.</li>
+<li><strong>project_token</strong> – A valid K5 project token</li>
+<li><strong>project_id</strong> – K5 project ID</li>
+<li><strong>region</strong> – K5 region name.</li>
+<li><strong>connector_name</strong> – Connector name.</li>
 </ul>
 </td>
 </tr>
@@ -268,12 +270,12 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token.</li>
-<li><strong>project_id</strong> &#8211; Valid K5 project ID</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
-<li><strong>az</strong> &#8211; K5 availability zone name.</li>
-<li><strong>endpoint_name</strong> &#8211; Name of endpoint</li>
-<li><strong>networkconnector_id</strong> &#8211; network connector ID</li>
+<li><strong>project_token</strong> – A valid K5 project token.</li>
+<li><strong>project_id</strong> – Valid K5 project ID</li>
+<li><strong>region</strong> – K5 region name.</li>
+<li><strong>az</strong> – K5 availability zone name.</li>
+<li><strong>endpoint_name</strong> – Name of endpoint</li>
+<li><strong>networkconnector_id</strong> – network connector ID</li>
 </ul>
 </td>
 </tr>
@@ -293,14 +295,14 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
-<li><strong>az</strong> &#8211; K5 availability zone name.</li>
-<li><strong>port_name</strong> &#8211; Port name.</li>
-<li><strong>securitygroup_id</strong> &#8211; Security group ID.</li>
-<li><strong>network_id</strong> &#8211; Network ID.</li>
-<li><strong>subnet_id</strong> &#8211; Subnet ID.</li>
-<li><strong>ip_address</strong> &#8211; IP address for the port.</li>
+<li><strong>project_token</strong> – A valid K5 project token</li>
+<li><strong>region</strong> – K5 region name.</li>
+<li><strong>az</strong> – K5 availability zone name.</li>
+<li><strong>port_name</strong> – Port name.</li>
+<li><strong>securitygroup_id</strong> – Security group ID.</li>
+<li><strong>network_id</strong> – Network ID.</li>
+<li><strong>subnet_id</strong> – Subnet ID.</li>
+<li><strong>ip_address</strong> – IP address for the port.</li>
 </ul>
 </td>
 </tr>
@@ -320,11 +322,11 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; Valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 Region eg &#8216;fi-1&#8217;</li>
-<li><strong>name</strong> &#8211; Name of the router.</li>
-<li><strong>az</strong> &#8211; AZ name eg f1-1a.</li>
-<li><strong>admin_state_up</strong> &#8211; The administrative state of the
+<li><strong>project_token</strong> – Valid K5 project token</li>
+<li><strong>region</strong> – K5 Region eg ‘fi-1’</li>
+<li><strong>name</strong> – Name of the router.</li>
+<li><strong>az</strong> – AZ name eg f1-1a.</li>
+<li><strong>admin_state_up</strong> – The administrative state of the
 router, which is up (true) or down (false).</li>
 </ul>
 </td>
@@ -345,10 +347,10 @@ router, which is up (true) or down (false).</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; Valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 Region eg &#8216;fi-1&#8217;</li>
-<li><strong>name</strong> &#8211; Name of security group</li>
-<li><strong>description</strong> &#8211; Description for security group.</li>
+<li><strong>project_token</strong> – Valid K5 project token</li>
+<li><strong>region</strong> – K5 Region eg ‘fi-1’</li>
+<li><strong>name</strong> – Name of security group</li>
+<li><strong>description</strong> – Description for security group.</li>
 </ul>
 </td>
 </tr>
@@ -368,33 +370,33 @@ router, which is up (true) or down (false).</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; Valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 Region eg &#8216;fi-1&#8217;</li>
-<li><strong>security_group_id</strong> &#8211; ID of the security group.</li>
-<li><strong>direction</strong> &#8211; Ingress or egress: The direction in which the security group rule is applied.
+<li><strong>project_token</strong> – Valid K5 project token</li>
+<li><strong>region</strong> – K5 Region eg ‘fi-1’</li>
+<li><strong>security_group_id</strong> – ID of the security group.</li>
+<li><strong>direction</strong> – Ingress or egress: The direction in which the security group rule is applied.
 For a compute instance, an ingress security group rule is applied to incoming (ingress)
 traffic for that instance. An egress rule is applied to traffic leaving the instance.</li>
-<li><strong>ethertype</strong> &#8211; Must be IPv4, and addresses represented in CIDR must match the ingress or egress rules. If this
+<li><strong>ethertype</strong> – Must be IPv4, and addresses represented in CIDR must match the ingress or egress rules. If this
 values is not specified, IPv4 is set.</li>
-<li><strong>protocol</strong> &#8211; The protocol that is matched by the security group rule. Valid values are null, tcp, udp, icmp,
+<li><strong>protocol</strong> – The protocol that is matched by the security group rule. Valid values are null, tcp, udp, icmp,
 and digits between 0-and 255.</li>
-<li><strong>port_range_min</strong> &#8211; The minimum port number in the range that is matched by the security group rule.
+<li><strong>port_range_min</strong> – The minimum port number in the range that is matched by the security group rule.
 When the protocol is TCP or UDP, this value must be less than or equal to the value of
 the port_range_max attribute. If this value is not specified, the security group rule
 matches all numbers of port. If port_range_min is 0, all port numbers are allowed regardless
 of port_range_max.
 When the protocol is ICMP, this value must be an ICMP type. If this value is not specified,
 the security group rule matches all ICMP types.</li>
-<li><strong>port_range_max</strong> &#8211; The maximum port number in the range that is matched by the security group rule.
+<li><strong>port_range_max</strong> – The maximum port number in the range that is matched by the security group rule.
 When the protocol is TCP or UDP , the port_range_min attribute constrains the port_range_max
 attribute.
 When the protocol is ICMP, this value must be an ICMP code. If this value is not specified,
 the security group rule matches all ICMP codes.</li>
-<li><strong>remote_ip_prefix</strong> &#8211; The remote IP prefix to be associated with this security group rule. You can specify
+<li><strong>remote_ip_prefix</strong> – The remote IP prefix to be associated with this security group rule. You can specify
 either remote_group_id or remote_ip_prefix in the request body. This attribute matches the
 specified IP prefix as the source or destination IP address of the IP packet.
 If direction is ingress matches source, otherwise matches destination.</li>
-<li><strong>remote_group_id</strong> &#8211; The remote group ID to be associated with this security group rule. You can specify either
+<li><strong>remote_group_id</strong> – The remote group ID to be associated with this security group rule. You can specify either
 remote_group_id or remote_ip_prefix.</li>
 </ul>
 </td>
@@ -415,33 +417,35 @@ remote_group_id or remote_ip_prefix.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; Valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 Region eg &#8216;fi-1&#8217;</li>
-<li><strong>network_id</strong> &#8211; ID for network</li>
-<li><strong>cidr</strong> &#8211; (string). For example:&#8216;192.168.199.0/24&#8217;</li>
-<li><strong>subnet_name</strong> &#8211; (optional) Name of the subnet, eg &#8216;subnet&#8217;</li>
-<li><strong>version</strong> &#8211; IP version &#8216;4&#8217; or &#8216;6&#8217;</li>
-<li><strong>az</strong> &#8211; AZ name eg f1-1a</li>
-<li><strong>allocation_pools</strong> &#8211; (optional) (Dict) The start and end addresses for the allocation pools.</li>
-<li><strong>dns_nameservers</strong> &#8211; (optional) A list of DNS name servers for the subnet.
-For example: [&#8220;8.8.8.7&#8221;, &#8220;8.8.8.8&#8221;].
-The specified IP addresses are displayed in sorted order in ascending order.
-The lowest IP address will be the primary DNS address.</li>
-<li><strong>host_routes</strong> &#8211; <p>(optional) A list of host route dictionaries for the subnet. For example:
-&#8220;host_routes&#8221;:[</p>
-<blockquote>
-<div>{
-&#8220;destination&#8221;:&#8221;0.0.0.0/0&#8221;,
-&#8220;nexthop&#8221;:&#8221;172.16.1.254&#8221;<blockquote>
-<div>},</div></blockquote>
-<p>{
-&#8220;destination&#8221;:&#8221;192.168.0.0/24&#8221;,
-&#8220;nexthop&#8221;:&#8221;192.168.0.1&#8221;
-}</p>
-</div></blockquote>
-<p>]</p>
+<li><strong>project_token</strong> – Valid K5 project token</li>
+<li><strong>region</strong> – K5 Region eg ‘fi-1’</li>
+<li><strong>network_id</strong> – ID for network</li>
+<li><strong>cidr</strong> – (string). For example:‘192.168.199.0/24’</li>
+<li><strong>subnet_name</strong> – (optional) Name of the subnet, eg ‘subnet’</li>
+<li><strong>version</strong> – IP version ‘4’ or ‘6’</li>
+<li><strong>az</strong> – AZ name eg f1-1a</li>
+<li><strong>allocation_pools</strong> – <p>(optional)</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">Dict</span><span class="p">)</span> <span class="n">The</span> <span class="n">start</span> <span class="ow">and</span> <span class="n">end</span> <span class="n">addresses</span> <span class="k">for</span> <span class="n">the</span> <span class="n">allocation</span> <span class="n">pools</span><span class="o">.</span>
+ <span class="n">For</span> <span class="n">example</span> <span class="p">[{</span><span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.199.2&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="s2">&quot;192.168.199.254&quot;</span><span class="p">}]</span>
+</pre></div>
+</div>
 </li>
-<li><strong>gateway_ip</strong> &#8211; (optional)</li>
+<li><strong>dns_nameservers</strong> – <p>(optional)</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">DNS</span> <span class="n">name</span> <span class="n">servers</span> <span class="k">for</span> <span class="n">the</span> <span class="n">subnet</span><span class="o">.</span>
+<span class="n">For</span> <span class="n">example</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;8.8.8.7&quot;</span><span class="p">,</span> <span class="s2">&quot;8.8.8.8&quot;</span><span class="p">]</span><span class="o">.</span>
+<span class="n">The</span> <span class="n">specified</span> <span class="n">IP</span> <span class="n">addresses</span> <span class="n">are</span> <span class="n">displayed</span> <span class="ow">in</span> <span class="nb">sorted</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">ascending</span> <span class="n">order</span><span class="o">.</span>
+<span class="n">The</span> <span class="n">lowest</span> <span class="n">IP</span> <span class="n">address</span> <span class="n">will</span> <span class="n">be</span> <span class="n">the</span> <span class="n">primary</span> <span class="n">DNS</span> <span class="n">address</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><strong>host_routes</strong> – <p>(optional)</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">host</span> <span class="n">route</span> <span class="n">dictionaries</span> <span class="k">for</span> <span class="n">the</span> <span class="n">subnet</span><span class="o">.</span>
+<span class="n">For</span> <span class="n">example</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;destination&quot;</span><span class="p">:</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="p">,</span> <span class="s2">&quot;nexthop&quot;</span><span class="p">:</span><span class="s2">&quot;172.16.1.254&quot;</span><span class="p">},</span>
+              <span class="p">{</span><span class="s2">&quot;destination&quot;</span><span class="p">:</span><span class="s2">&quot;192.168.0.0/24&quot;</span><span class="p">,</span> <span class="s2">&quot;nexthop&quot;</span><span class="p">:</span><span class="s2">&quot;192.168.0.1&quot;</span><span class="p">}]</span>
+</pre></div>
+</div>
+</li>
+<li><strong>gateway_ip</strong> – (optional)</li>
 </ul>
 </td>
 </tr>
@@ -461,10 +465,10 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token.</li>
-<li><strong>region</strong> &#8211; Region of target project.</li>
-<li><strong>router_id</strong> &#8211; ID of the router at target project.</li>
-<li><strong>port_id</strong> &#8211; ID of port at source project.</li>
+<li><strong>project_token</strong> – A valid K5 project token.</li>
+<li><strong>region</strong> – Region of target project.</li>
+<li><strong>router_id</strong> – ID of the router at target project.</li>
+<li><strong>port_id</strong> – ID of port at source project.</li>
 </ul>
 </td>
 </tr>
@@ -484,9 +488,9 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; Valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 Region eg &#8216;fi-1&#8217;</li>
-<li><strong>network_id</strong> &#8211; ID for network to delete.</li>
+<li><strong>project_token</strong> – Valid K5 project token</li>
+<li><strong>region</strong> – K5 Region eg ‘fi-1’</li>
+<li><strong>network_id</strong> – ID for network to delete.</li>
 </ul>
 </td>
 </tr>
@@ -506,9 +510,9 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token.</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
-<li><strong>networkConnector_id</strong> &#8211; Network connector ID</li>
+<li><strong>project_token</strong> – A valid K5 project token.</li>
+<li><strong>region</strong> – K5 region name.</li>
+<li><strong>networkConnector_id</strong> – Network connector ID</li>
 </ul>
 </td>
 </tr>
@@ -528,9 +532,9 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
-<li><strong>connector_endpoint_id</strong> &#8211; Network connecto ID.</li>
+<li><strong>project_token</strong> – A valid K5 project token</li>
+<li><strong>region</strong> – K5 region name.</li>
+<li><strong>connector_endpoint_id</strong> – Network connecto ID.</li>
 </ul>
 </td>
 </tr>
@@ -550,9 +554,9 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
-<li><strong>port_id</strong> &#8211; Port ID.</li>
+<li><strong>project_token</strong> – A valid K5 project token</li>
+<li><strong>region</strong> – K5 region name.</li>
+<li><strong>port_id</strong> – Port ID.</li>
 </ul>
 </td>
 </tr>
@@ -572,9 +576,9 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; Valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 Region eg &#8216;fi-1&#8217;</li>
-<li><strong>subnet_id</strong> &#8211; ID for subnet to delete.</li>
+<li><strong>project_token</strong> – Valid K5 project token</li>
+<li><strong>region</strong> – K5 Region eg ‘fi-1’</li>
+<li><strong>subnet_id</strong> – ID for subnet to delete.</li>
 </ul>
 </td>
 </tr>
@@ -594,10 +598,10 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
-<li><strong>endpoint_id</strong> &#8211; Endpoint ID.</li>
-<li><strong>port_id</strong> &#8211; Port ID.</li>
+<li><strong>project_token</strong> – A valid K5 project token</li>
+<li><strong>region</strong> – K5 region name.</li>
+<li><strong>endpoint_id</strong> – Endpoint ID.</li>
+<li><strong>port_id</strong> – Port ID.</li>
 </ul>
 </td>
 </tr>
@@ -617,9 +621,9 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token.</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
-<li><strong>endpoint_name</strong> &#8211; Endpoint name.</li>
+<li><strong>project_token</strong> – A valid K5 project token.</li>
+<li><strong>region</strong> – K5 region name.</li>
+<li><strong>endpoint_name</strong> – Endpoint name.</li>
 </ul>
 </td>
 </tr>
@@ -639,9 +643,9 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token.</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
-<li><strong>network_connector_endpoint_id</strong> &#8211; ID of network connection</li>
+<li><strong>project_token</strong> – A valid K5 project token.</li>
+<li><strong>region</strong> – K5 region name.</li>
+<li><strong>network_connector_endpoint_id</strong> – ID of network connection</li>
 </ul>
 </td>
 </tr>
@@ -661,9 +665,9 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token.</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
-<li><strong>connector_name</strong> &#8211; Connector name.</li>
+<li><strong>project_token</strong> – A valid K5 project token.</li>
+<li><strong>region</strong> – K5 region name.</li>
+<li><strong>connector_name</strong> – Connector name.</li>
 </ul>
 </td>
 </tr>
@@ -683,9 +687,9 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token.</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
-<li><strong>network_name</strong> &#8211; Network name.</li>
+<li><strong>project_token</strong> – A valid K5 project token.</li>
+<li><strong>region</strong> – K5 region name.</li>
+<li><strong>network_name</strong> – Network name.</li>
 </ul>
 </td>
 </tr>
@@ -705,13 +709,35 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token.</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
-<li><strong>port_name</strong> &#8211; Port name.</li>
+<li><strong>project_token</strong> – A valid K5 project token.</li>
+<li><strong>region</strong> – K5 region name.</li>
+<li><strong>port_name</strong> – Port name.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">ID if succesfull. Otherwise error code from requests library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="k5lib.network.get_security_group_id">
+<code class="descclassname">k5lib.network.</code><code class="descname">get_security_group_id</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>sg_name</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.get_security_group_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get ID of the security group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> – </li>
+<li><strong>region</strong> – </li>
+<li><strong>sg_name</strong> – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">ID of security group if succesfull. Otherwise error code from requests library.</p>
 </td>
 </tr>
 </tbody>
@@ -727,9 +753,9 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token.</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
-<li><strong>network_connector_endpoint_id</strong> &#8211; ID of network connection</li>
+<li><strong>project_token</strong> – A valid K5 project token.</li>
+<li><strong>region</strong> – K5 region name.</li>
+<li><strong>network_connector_endpoint_id</strong> – ID of network connection</li>
 </ul>
 </td>
 </tr>
@@ -749,8 +775,8 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token.</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
+<li><strong>project_token</strong> – A valid K5 project token.</li>
+<li><strong>region</strong> – K5 region name.</li>
 </ul>
 </td>
 </tr>
@@ -770,8 +796,8 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
+<li><strong>project_token</strong> – A valid K5 project token</li>
+<li><strong>region</strong> – K5 region name.</li>
 </ul>
 </td>
 </tr>
@@ -791,8 +817,8 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
+<li><strong>project_token</strong> – A valid K5 project token</li>
+<li><strong>region</strong> – K5 region name.</li>
 </ul>
 </td>
 </tr>
@@ -812,12 +838,33 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token.</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
+<li><strong>project_token</strong> – A valid K5 project token.</li>
+<li><strong>region</strong> – K5 region name.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfull. Otherwise error code from requests library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="k5lib.network.list_security_groups">
+<code class="descclassname">k5lib.network.</code><code class="descname">list_security_groups</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.list_security_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>List security groups visible to project</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> – </li>
+<li><strong>region</strong> – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfull, otherwise error from request library.</p>
 </td>
 </tr>
 </tbody>
@@ -833,8 +880,8 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 region name.</li>
+<li><strong>project_token</strong> – A valid K5 project token</li>
+<li><strong>region</strong> – K5 region name.</li>
 </ul>
 </td>
 </tr>
@@ -855,13 +902,13 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; A valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 region name</li>
-<li><strong>router_id</strong> &#8211; Router ID.</li>
-<li><strong>routes</strong> &#8211; <p>List of dictionaries in format:
-{&#8220;nexthop&#8221;:&#8221;IPADDRESS&#8221;,</p>
+<li><strong>project_token</strong> – A valid K5 project token</li>
+<li><strong>region</strong> – K5 region name</li>
+<li><strong>router_id</strong> – Router ID.</li>
+<li><strong>routes</strong> – <p>List of dictionaries in format:
+{“nexthop”:”IPADDRESS”,</p>
 <blockquote>
-<div>&#8220;destination&#8221;:&#8221;CIDR&#8221;}</div></blockquote>
+<div>”destination”:”CIDR”}</div></blockquote>
 </li>
 </ul>
 </td>
@@ -882,18 +929,15 @@ The lowest IP address will be the primary DNS address.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>project_token</strong> &#8211; Valid K5 project token</li>
-<li><strong>region</strong> &#8211; K5 Region eg &#8216;fi-1&#8217;</li>
-<li><strong>router_id</strong> &#8211; ID of the router</li>
-<li><strong>name</strong> &#8211; Name of the router.</li>
-<li><strong>az</strong> &#8211; AZ name eg f1-1a.</li>
-<li><strong>admin_state_up</strong> &#8211; The administrative state of the
+<li><strong>project_token</strong> – Valid K5 project token</li>
+<li><strong>region</strong> – K5 Region eg ‘fi-1’</li>
+<li><strong>router_id</strong> – ID of the router</li>
+<li><strong>name</strong> – Name of the router.</li>
+<li><strong>az</strong> – AZ name eg f1-1a.</li>
+<li><strong>admin_state_up</strong> – The administrative state of the
 router, which is up (true) or down (false).</li>
-<li><strong>network_id</strong> &#8211; ID of external network.</li>
-<li><strong>route_table</strong> &#8211; <blockquote>
-<div>&#8220;nexthop&#8221;:&#8221;10.1.0.10&#8221;,
-&#8220;destination&#8221;:&#8221;40.0.1.0/24&#8221;</div></blockquote>
-</li>
+<li><strong>network_id</strong> – ID of external network.</li>
+<li><strong>route_table</strong> – [{“nexthop”:”10.1.0.10”, “destination”:”40.0.1.0/24” }]</li>
 </ul>
 </td>
 </tr>
@@ -916,7 +960,7 @@ router, which is up (true) or down (false).</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="image.html" class="btn btn-neutral float-right" title="image" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="lb.html" class="btn btn-neutral float-right" title="LB" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="compute.html" class="btn btn-neutral" title="compute" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
