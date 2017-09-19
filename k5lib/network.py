@@ -1279,7 +1279,7 @@ def _rest_update_router(project_token, region, router_id, name, az, admin_state_
                          'network_id': network_id
                       },
                      'routes': {
-                         route_table
+                         route_table[]
                       }
                       }
                   }
@@ -1318,7 +1318,7 @@ def update_router(project_token, region, router_id, name=None, az=None, admin_st
     :param admin_state_up: The administrative state of the
                            router, which is up (true) or down (false).
     :param network_id: ID of external network.
-    :param route_table: [{"nexthop":"10.1.0.10", "destination":"40.0.1.0/24" }]
+    :param route_table: [{"nexthop":"10.1.0.10", "destination":"40.0.1.0/24"}]
     :return: JSON if succesfull otherwise error from reguests library.
 
     """
