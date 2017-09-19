@@ -1279,7 +1279,7 @@ def _rest_update_router(project_token, region, router_id, name, az, admin_state_
                          'network_id': network_id
                       },
                      'routes': {
-                         route_table[]
+                         route_table
                       }
                       }
                   }
