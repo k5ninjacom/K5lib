@@ -1415,3 +1415,54 @@ def add_router_interface(project_token, region, router_id, subnet_id=None, port_
         return str(request)
     else:
         return request.json()['id']
+
+
+def _rest_remove_router_interface(project_token, region, router_id, subnet_id, port_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    configData = {
+        'subnet_id': subnet_id,
+        'port_id': port_id
+    }
+
+    # Delete Null values from config data this prevents 400 errosrs from api
+    if configData['subnet_id'] is None:
+            del configData['subnet_id']
+    if configData['port_id'] is None:
+            del configData['port_id']
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/routers/' + router_id + '/remove_router_interface'
+
+    try:
+        request = requests.put(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+def remove_router_interface(project_token, region, router_id, subnet_id=None, port_id=None):
+    """
+    Remove an interface from router.
+
+    :param project_token: Valid K5 project token
+    :param region: K5 Region eg 'fi-1'
+    :param router_id: ID of the router
+    :param subnet_id: ID of the subnet which interface is connected
+    :param port_id: ID of port which interface is connected
+
+    :return: ID of interface if succesful, otherwise error from requests library
+
+    Submit only subnet_id OR port_id. If both are declared result is an error.
+    """
+
+    request = _rest_remove_router_interface(project_token, region, router_id, subnet_id, port_id )
+
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()['id']
