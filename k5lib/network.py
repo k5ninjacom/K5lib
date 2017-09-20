@@ -390,7 +390,7 @@ def _rest_create_port_on_network(project_token, region, az, network_id, port_nam
     # loop trough copy of configdata and evaluate value, remove if None
     for key in configData['port'].copy().keys():
         if configData['port'][key] is None:
-            log.info('Remove null value ',str(configData['port'][key]))
+            log.info('Remove null value ' + str(configData['port'][key]))
             del configData['port'][key]
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/ports'
