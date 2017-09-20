@@ -1365,7 +1365,7 @@ def add_router_interface(project_token, region, router_id, subnet_id=None, port_
     Submit only subnet_id OR port_id. If both are declared result is an error.
     """
 
-    request = _rest_update_router(project_token, region, router_id, subnet_id, port_id )
+    request = _rest_add_router_interface(project_token, region, router_id, subnet_id, port_id )
 
     if 'Error' in str(request):
         return str(request)
