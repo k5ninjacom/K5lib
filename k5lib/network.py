@@ -389,7 +389,8 @@ def _rest_create_port_on_network(project_token, region, az, network_id, port_nam
     # Remove optional variables that are empty. This prevents 400 errors from api.
     # loop trough copy of configdata and evaluate value, remove if None
     for key in configData['port'].copy().keys():
-        log.info('Evaluate key: ' + str(configData['port'][key]))
+        log.info('Evaluate key: ' + key)
+        log.info('Evaluate value: ' + str(configData['port'][key]))
         if configData['port'][key] is None:
             log.info('Remove null value ' + str(configData['port'][key]))
             del configData['port'][key]
