@@ -913,7 +913,7 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
     # loop trough copy of configdata and evaluate value, remove if None
     for key in configData['subnet'].copy().keys():
         if configData['subnet'][key] is None:
-            log.info('Remove null value ', str(configData['subnet'][key]))
+            log.info('Remove null value ' + str(configData['subnet'][key]))
             del configData['subnet'][key]
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/subnets'
@@ -1167,7 +1167,7 @@ def _rest_create_security_group_rule(project_token, region, security_group_id, d
     # loop trough copy of configdata and evaluate value, remove if None
     for key in configData['security_group_rule'].copy().keys():
         if configData['security_group_rule'][key] is None:
-            log.info('Remove null value ', str(configData['security_group_rule'][key]))
+            log.info('Remove null value ' + str(configData['security_group_rule'][key]))
             del configData['security_group_rule'][key]
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/security-group-rules'
@@ -1244,7 +1244,7 @@ def _rest_create_router(project_token, region, name, az, admin_state_up):
     # loop trough copy of configdata and evaluate value, remove if None
     for key in configData['router'].copy().keys():
         if configData['router'][key] is None:
-            log.info('Remove null value ', str(configData['router'][key]))
+            log.info('Remove null value ' + str(configData['router'][key]))
             del configData['router'][key]
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/routers'
