@@ -1326,3 +1326,48 @@ def update_router(project_token, region, router_id, name=None, az=None, admin_st
         return str(request)
     else:
         return request.json()
+
+
+def _rest_add_router_interface(project_token, region, router_id, subnet_id, port_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    configData = {
+        'subnet_id': subnet_id,
+        'port_id': port_id
+    }
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/routers/' + router_id + '/add_router_interface'
+
+    try:
+        request = requests.put(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+def add_router_interface(project_token, region, router_id, subnet_id=None, port_id=None):
+    """
+    Add an interface into router.
+
+    :param project_token: Valid K5 project token
+    :param region: K5 Region eg 'fi-1'
+    :param router_id: ID of the router
+    :param subnet_id: ID of the subnet which interface is connected
+    :param port_id: ID of port which interface is connected
+
+    :return: ID of interface if succesful, otehrwise error from requests library
+
+    Submit only subnet_id OR port_id. If both are declared result is an error.
+    """
+
+    request = _rest_update_router(project_token, region, router_id, subnet_id, port_id )
+
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()['id']

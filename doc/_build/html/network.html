@@ -170,6 +170,31 @@
 <blockquote>
 <div>Functions related networks, routers, network connectors, vpn  etc are here.</div></blockquote>
 <dl class="function">
+<dt id="k5lib.network.add_router_interface">
+<code class="descclassname">k5lib.network.</code><code class="descname">add_router_interface</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>router_id</em>, <em>subnet_id=None</em>, <em>port_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.add_router_interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an interface into router.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> – Valid K5 project token</li>
+<li><strong>region</strong> – K5 Region eg ‘fi-1’</li>
+<li><strong>router_id</strong> – ID of the router</li>
+<li><strong>subnet_id</strong> – ID of the subnet which interface is connected</li>
+<li><strong>port_id</strong> – ID of port which interface is connected</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">ID of interface if succesful, otehrwise error from requests library</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Submit only subnet_id OR port_id. If both are declared result is an error.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="k5lib.network.connect_network_connector_endpoint">
 <code class="descclassname">k5lib.network.</code><code class="descname">connect_network_connector_endpoint</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>endpoint_id</em>, <em>port_id</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.connect_network_connector_endpoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Connect networkc connector with endpoint.</p>
@@ -937,7 +962,7 @@ remote_group_id or remote_ip_prefix.</li>
 <li><strong>admin_state_up</strong> – The administrative state of the
 router, which is up (true) or down (false).</li>
 <li><strong>network_id</strong> – ID of external network.</li>
-<li><strong>route_table</strong> – [{“nexthop”:”10.1.0.10”, “destination”:”40.0.1.0/24” }]</li>
+<li><strong>route_table</strong> – [{“nexthop”:”10.1.0.10”, “destination”:”40.0.1.0/24”}]</li>
 </ul>
 </td>
 </tr>
