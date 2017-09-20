@@ -387,10 +387,10 @@ def _rest_create_port_on_network(project_token, region, az, network_id, port_nam
         }
 
     # Remove optional variables that are empty. This prevents 400 errors from api.
-    for key in list(configData['port']):
-        log.error('Evaluate key: ', configData[key])
+    # loop trough copy of configdata and evaluate value, remove if None
+    for key in configData['port'].copy().keys():
         if configData['port'][key] is None:
-            log.error('Removed Null key: ', configData[key])
+            log.info('Remove null value',configData['port'][key])
             del configData['port'][key]
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/ports'
@@ -910,8 +910,10 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
                   }
 
     # Remove optional variables that are empty. This prevents 400 errors from api.
-    for key in list(configData['subnet']):
+    # loop trough copy of configdata and evaluate value, remove if None
+    for key in configData['subnet'].copy().keys():
         if configData['subnet'][key] is None:
+            log.info('Remove null value',configData['subnet'][key])
             del configData['subnet'][key]
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/subnets'
@@ -1162,8 +1164,10 @@ def _rest_create_security_group_rule(project_token, region, security_group_id, d
     }
 
     # Remove optional variables that are empty. This prevents 400 errors from api.
-    for key in list(configData['security_group_rule']):
+    # loop trough copy of configdata and evaluate value, remove if None
+    for key in configData['security_group_rule'].copy().keys():
         if configData['security_group_rule'][key] is None:
+            log.info('Remove null value', configData['security_group_rule'][key])
             del configData['security_group_rule'][key]
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/security-group-rules'
@@ -1237,8 +1241,10 @@ def _rest_create_router(project_token, region, name, az, admin_state_up):
                   }
 
     # Remove optional variables that are empty. This prevents 400 errors from api.
-    for key in list(configData['router']):
+    # loop trough copy of configdata and evaluate value, remove if None
+    for key in configData['router'].copy().keys():
         if configData['router'][key] is None:
+            log.info('Remove null value', configData['router'][key])
             del configData['router'][key]
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/routers'
@@ -1294,12 +1300,10 @@ def _rest_update_router(project_token, region, router_id, name, az, admin_state_
         del configData['router']['external_gateway_info']['network_id']
         del configData['router']['external_gateway_info']
 
-    for key in list(configData['router']):
+    for key in configData['router'].copy().keys():
         if configData['router'][key] is None:
+            log.info('Remove null value', configData['router'][key])
             del configData['router'][key]
-
-    #if configData['router']['routes'] is None:
-    #    del configData['router']['routes']
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/routers/' + router_id
 
@@ -1321,12 +1325,13 @@ def update_router(project_token, region, router_id, name=None, az=None, admin_st
     :param project_token: Valid K5 project token
     :param region: K5 Region eg 'fi-1'
     :param router_id: ID of the router
-    :param name: Name of the router.
-    :param az: AZ name eg f1-1a.
-    :param admin_state_up: The administrative state of the
+    :param name: (optional) Name of the router.
+    :param az: (optional) AZ name eg f1-1a.
+    :param admin_state_up: (optional) The administrative state of the
                            router, which is up (true) or down (false).
-    :param network_id: ID of external network.
-    :param route_table: [{"nexthop":"10.1.0.10", "destination":"40.0.1.0/24"}]
+    :param network_id: (optional) ID of external network.
+    :param route_table: (optional) [{"nexthop":"10.1.0.10", "destination":"40.0.1.0/24"}]
+
     :return: JSON if succesfull otherwise error from reguests library.
 
     """
