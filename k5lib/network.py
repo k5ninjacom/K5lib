@@ -1288,14 +1288,16 @@ def _rest_update_router(project_token, region, router_id, name, az, admin_state_
                       }
                   }
     # Remove optional variables that are empty. This prevents 400 errors from api.
-    for key in list(configData['router']):
-        if configData['router'][key] is None:
-            del configData['router'][key]
     if configData['router']['external_gateway_info']['network_id']is None:
         del configData['router']['external_gateway_info']['network_id']
         del configData['router']['external_gateway_info']
-    if configData['router']['routes'] is None:
-        del configData['router']['routes']
+
+    for key in list(configData['router']):
+        if configData['router'][key] is None:
+            del configData['router'][key]
+
+    #if configData['router']['routes'] is None:
+    #    del configData['router']['routes']
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/routers/' + router_id
 
@@ -1343,6 +1345,12 @@ def _rest_add_router_interface(project_token, region, router_id, subnet_id, port
         'subnet_id': subnet_id,
         'port_id': port_id
     }
+
+    # Delete Null values from config data this prevents 400 errosrs from api
+    if configData['subnet_id'] is None:
+            del configData['subnet_id']
+    if configData['port_id'] is None:
+            del configData['port_id']
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/routers/' + router_id + '/add_router_interface'
 
