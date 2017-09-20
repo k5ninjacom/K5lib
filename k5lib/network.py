@@ -497,6 +497,7 @@ def get_port_id(project_token, region, port_name):
     :param project_token: A valid K5 project token.
     :param region: K5 region name.
     :param port_name: Port name.
+
     :return: ID if succesfull. Otherwise error code from requests library.
 
     """
@@ -515,8 +516,10 @@ def get_port_id(project_token, region, port_name):
             if str(i['name']) == port_name:
                 outputList.append(str(i['id']))
                 counter += 1
-
-        return outputList[0]
+        if counter > 0:
+            return outputList[0]
+        else:
+            return 'Error: Not found'
 
 
 def _rest_delete_port(project_token, region, port_id):
@@ -1346,7 +1349,7 @@ def get_router_id(project_token, region, router_name):
     :param region: K5 Region eg 'fi-1'.
     :param router_name: Name of the router.
 
-    :return: Router ID if succesfull, otherwise error from requests library.
+    :return: Router ID if succesfull, otherwise error.
     """
 
     request = _rest_list_routers(project_token, region)
@@ -1363,8 +1366,10 @@ def get_router_id(project_token, region, router_name):
             if str(i['name']) == router_name:
                 outputList.append(str(i['id']))
                 counter += 1
-
-        return outputList[0]
+        if counter > 0:
+            return outputList[0]
+        else:
+            return 'Error: Not found'
 
 
 def _rest_update_router(project_token, region, router_id, name, az, admin_state_up, network_id, route_table):
