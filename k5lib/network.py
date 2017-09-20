@@ -359,7 +359,7 @@ def update_inter_project_connection(project_token, region, router_id, routes):
         return request.json()['id']
 
 
-def _rest_create_port_on_network(project_token, region, az, port_name, securitygroup_id, network_id, subnet_id=None, ip_address=None):
+def _rest_create_port_on_network(project_token, region, az, network_id, port_name, securitygroup_id, subnet_id, ip_address):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
@@ -386,6 +386,11 @@ def _rest_create_port_on_network(project_token, region, az, port_name, securityg
                 [securitygroup_id]}
         }
 
+        # Remove optional variables that are empty. This prevents 400 errors from api.
+        for key in list(configData['port']):
+            if configData['port'][key] is None:
+                del configData['port'][key]
+
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/ports'
 
     try:
@@ -399,7 +404,7 @@ def _rest_create_port_on_network(project_token, region, az, port_name, securityg
         return request
 
 
-def create_port_on_network(project_token, region, az, port_name, securitygroup_id, network_id, subnet_id=None,
+def create_port_on_network(project_token, region, az, network_id, port_name='Port', securitygroup_id=None, subnet_id=None,
                            ip_address=None):
     """
     Create a port on network.
@@ -407,11 +412,12 @@ def create_port_on_network(project_token, region, az, port_name, securitygroup_i
     :param project_token: A valid K5 project token
     :param region: K5 region name.
     :param az: K5 availability zone name.
-    :param port_name: Port name.
-    :param securitygroup_id: Security group ID.
     :param network_id: Network ID.
-    :param subnet_id: Subnet ID.
-    :param ip_address: IP address for the port.
+    :param port_name: (Optional) Port name.
+    :param securitygroup_id: (Optional) Security group ID.
+    :param subnet_id: (Optional) Subnet ID.
+    :param ip_address: (Optional) IP address for the port.
+
     :return: JSON if succesfull. Otherwise error code from requests library.
 
     """
