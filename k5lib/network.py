@@ -364,6 +364,11 @@ def _rest_create_port_on_network(project_token, region, az, network_id, port_nam
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
 
+    if securitygroup_id is None:
+        securitygroup_id_list = None
+    else:
+        securitygroup_id_list = [securitygroup_id]
+
     if ip_address is None:
         configData = {"port": {
             "network_id": network_id,
@@ -371,7 +376,7 @@ def _rest_create_port_on_network(project_token, region, az, network_id, port_nam
             "admin_state_up": True,
             "availability_zone": az,
             "security_groups":
-                [securitygroup_id]}
+                securitygroup_id_list}
         }
     else:
         configData = {"port": {
@@ -383,7 +388,7 @@ def _rest_create_port_on_network(project_token, region, az, network_id, port_nam
                 "ip_address": ip_address,
                 "subnet_id": subnet_id}],
             "security_groups":
-                [securitygroup_id]}
+                securitygroup_id_list}
         }
 
     # Remove optional variables that are empty. This prevents 400 errors from api.
