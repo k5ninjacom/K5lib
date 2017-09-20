@@ -386,10 +386,10 @@ def _rest_create_port_on_network(project_token, region, az, network_id, port_nam
                 [securitygroup_id]}
         }
 
-        # Remove optional variables that are empty. This prevents 400 errors from api.
-        for key in list(configData['port']):
-            if configData['port'][key] is None:
-                del configData['port'][key]
+    # Remove optional variables that are empty. This prevents 400 errors from api.
+    for key in list(configData['port']):
+        if configData['port'][key] is None:
+            del configData['port'][key]
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/ports'
 
