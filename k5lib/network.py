@@ -370,6 +370,21 @@ def _rest_create_port_on_network(project_token, region, az, network_id, port_nam
         securitygroup_id_list = [securitygroup_id]
 
     if ip_address is None:
+        fixed_ips_list = None
+    else: fixed_ips_list = [{"ip_address": ip_address,
+                             "subnet_id": subnet_id}]
+
+    configData = {"port": {
+        "network_id": network_id,
+        "name": port_name,
+        "admin_state_up": True,
+        "availability_zone": az,
+        "fixed_ips": fixed_ips_list,
+        "security_groups": securitygroup_id_list}
+    }
+
+    """
+    if ip_address is None:
         configData = {"port": {
             "network_id": network_id,
             "name": port_name,
@@ -390,6 +405,7 @@ def _rest_create_port_on_network(project_token, region, az, network_id, port_nam
             "security_groups":
                 securitygroup_id_list}
         }
+    """
 
     # Remove optional variables that are empty. This prevents 400 errors from api.
     # loop trough copy of configdata and evaluate value, remove if None
@@ -1309,7 +1325,7 @@ def _rest_update_router(project_token, region, router_id, name, az, admin_state_
 
     for key in configData['router'].copy().keys():
         if configData['router'][key] is None:
-            log.info('Remove null value' + configData['router'][key])
+            log.info('Remove null value' + str(configData['router'][key]))
             del configData['router'][key]
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/routers/' + router_id
