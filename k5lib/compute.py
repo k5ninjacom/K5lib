@@ -122,12 +122,14 @@ def get_server_password(project_token, region, project_id, server_id):
     :param region: K5 region name.
     :param project_id: K5 project ID
     :param server_id: ID of the server
+
     :return: Password hash as a binary object if succesfull. Otherwise error from requests library.
     """
     request = _rest_get_server_password(project_token, region, project_id, server_id)
     if 'Error' in str(request):
         return str(request)
     else:
+        log.info(request.json())
         return base64.b64decode(request.json()['password'])
 
 
