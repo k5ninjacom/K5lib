@@ -101,16 +101,22 @@ def _rest_get_server_password(project_token, region, project_id, server_id):
                'X-Auth-Token': project_token}
 
 
-#    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/servers/' + server_id + '/os-server-password'
-    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/servers/' + server_id + '/os-server-password'
+    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/servers/' + server_id + '/os-server-password'
 
     try:
         request = requests.get(url, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
+        log.error(headers)
+        log.error(url)
+        log.error(request.json())
+        log.error(str(e))
         return 'Error: ' + str(e)
     else:
+        log.info(headers)
+        log.info(url)
+        log.info(request.json())
         return request
 
 
@@ -129,7 +135,6 @@ def get_server_password(project_token, region, project_id, server_id):
     if 'Error' in str(request):
         return str(request)
     else:
-        log.info(request.json())
         return base64.b64decode(request.json()['password'])
 
 
