@@ -187,7 +187,7 @@ def _rest_get_network_connector_endpoint_info(project_token, region, network_con
 def get_network_connector_endpoint_info(project_token, region, network_connector_endpoint_id):
     """
 
-    List network connector endpoints.
+    Get detailed info of network connector endpoint.
 
     :param project_token: A valid K5 project token.
     :param region: K5 region name.

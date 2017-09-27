@@ -30,6 +30,7 @@ from .compute import list_servers
 from .compute import get_server_password
 from .compute import get_server_name
 from .compute import get_server_id
+from .compute import add_server_interface
 from .network import create_network_connector
 from .network import list_network_connectors
 from .network import get_network_connector_id
