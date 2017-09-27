@@ -313,7 +313,7 @@ def _rest_get_server_interface_info(project_token, region, project_id, server_id
                'X-Auth-Token': project_token}
 
     url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + \
-           project_id + '/servers/' + server_id + '/os-interface' +  port_id
+           project_id + '/servers/' + server_id + '/os-interface/' +  port_id
 
     try:
         request = requests.get(url, headers=headers)
@@ -349,7 +349,7 @@ def _rest_detach_server_interface(project_token, region, project_id, server_id, 
                'X-Auth-Token': project_token}
 
     url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + \
-           project_id + '/servers/' + server_id + '/os-interface' +  port_id
+           project_id + '/servers/' + server_id + '/os-interface/' +  port_id
 
     try:
         request = requests.delete(url, headers=headers)
