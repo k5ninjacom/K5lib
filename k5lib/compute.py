@@ -272,38 +272,6 @@ def add_server_interface(project_token, region, project_id, server_id, net_id):
         return request.json()
 
 
-def _rest_detach_server_interface(project_token, region, project_id, server_id, net_id):
-    headers = {'Content-Type': 'application/json',
-               'Accept': 'application/json',
-               'X-Auth-Token': project_token}
-
-    configData = {"interfaceAttachment":{
-        "net_id": net_id
-        }
-    }
-
-    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + \
-           project_id + '/servers/' + server_id + '/os-interface'
-
-    try:
-        request = requests.post(url, json=configData, headers=headers)
-        request.raise_for_status()
-    except requests.exceptions.HTTPError as e:
-        # Whoops it wasn't a 200
-        log.error(json.dumps(configData, indent=4))
-        return 'Error: ' + str(e)
-    else:
-        return request
-
-
-def detach_server_interface(project_token, region, project_id, server_id, net_id):
-    request = _rest_detach_server_interface(project_token, region, project_id, server_id, net_id)
-    if 'Error' in str(request):
-        return str(request)
-    else:
-        return request.json()
-
-
 def _rest_list_server_interfaces(project_token, region, project_id, server_id):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
@@ -369,6 +337,43 @@ def get_server_interface_info(project_token, region, project_id, server_id, port
     :return:  JSON containing info of interface if succesful. otherwise error from request library.
     """
     request = _rest_get_server_interface_info(project_token, region, project_id, server_id, port_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+
+
+def _rest_detach_server_interface(project_token, region, project_id, server_id, port_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + \
+           project_id + '/servers/' + server_id + '/os-interface' +  port_id
+
+    try:
+        request = requests.delete(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def detach_server_interface(project_token, region, project_id, server_id, port_id):
+    """ Detach interface from server.
+
+    :param project_token: Valid K5 project token.
+    :param region: K5 region name.
+    :param project_id: K5 project ID
+    :param server_id: ID of the server
+    :param port_id: ID of port (interface) we are deleting.
+
+    :return:  http 202 response if succesful. Otherwise error from request library.
+
+    """
+    request = _rest_detach_server_interface(project_token, region, project_id, server_id, port_id)
     if 'Error' in str(request):
         return str(request)
     else:
