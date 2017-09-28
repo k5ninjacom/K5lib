@@ -30,6 +30,7 @@ from .compute import list_servers
 from .compute import get_server_password
 from .compute import get_server_name
 from .compute import get_server_id
+from .compute import get_server_info
 from .compute import add_server_interface
 from .compute import list_server_interfaces
 from .compute import get_server_interface_info
