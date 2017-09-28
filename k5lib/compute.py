@@ -250,7 +250,7 @@ def _rest_get_server_info(project_token, region, project_id, server_id):
 
 def get_server_info(project_token, region, project_id, server_id):
     """
-    Get name detailed information about server.
+    Get detailed information about server.
 
     :param project_token: Valid K5 project token.
     :param region: K5 region name.
