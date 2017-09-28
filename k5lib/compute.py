@@ -260,7 +260,7 @@ def get_server_info(project_token, region, project_id, server_id):
     :return: JSON if succesfull. Otherwise error from requests library.
     """
 
-    request = _rest_get_server_info(project_token, region)
+    request = _rest_get_server_info(project_token, region, project_id, server_id)
     if 'Error' in str(request):
         return str(request)
     else:
