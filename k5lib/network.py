@@ -918,7 +918,7 @@ def get_network_id(project_token, region, network_name):
 
 
 def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, version, az,
-                        allocation_pools, dns_nameservers, host_routes, gateway_ip):
+                        enable_dhcp, allocation_pools, dns_nameservers, host_routes, gateway_ip):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
@@ -929,6 +929,7 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
                   "ip_version": version,
                   "cidr": cidr,
                   "availability_zone": az,
+                  "enable_dhcp": enable_dhcp,
                   "allocation_pools": allocation_pools,
                   "dns_nameservers": dns_nameservers,
                   "host_routes": host_routes,
@@ -956,7 +957,7 @@ def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, v
 
 
 def create_subnet(project_token, region, network_id, cidr, subnet_name='subnet', version='4', az=None,
-                  allocation_pools=None, dns_nameservers=None, host_routes=None, gateway_ip=None):
+                  enable_dhcp=True, allocation_pools=None, dns_nameservers=None, host_routes=None, gateway_ip=None):
     """
 
     Create a subnet.
@@ -965,9 +966,10 @@ def create_subnet(project_token, region, network_id, cidr, subnet_name='subnet',
     :param region: K5 Region eg 'fi-1'
     :param network_id: ID for network
     :param cidr: (string). For example:'192.168.199.0/24'
-    :param subnet_name: (optional) Name of the subnet, eg 'subnet'
-    :param version: IP version '4' or '6'
-    :param az: AZ name eg f1-1a
+    :param subnet_name: (optional) Name of the subnet. Dfaults 'subnet'
+    :param version: IP version '4' or '6'. Defaults 4.
+    :param az: (optional) AZ name eg f1-1a. If omitted defaults to regions default az.
+    :param enable_dhcp: (optional) Boolean to enable / disable DHCP in subnet. Defaults True.
     :param allocation_pools: (optional)
       ::
                             (Dict) The start and end addresses for the allocation pools.
@@ -988,7 +990,7 @@ def create_subnet(project_token, region, network_id, cidr, subnet_name='subnet',
 
     """
     request = _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, version, az,
-                                  allocation_pools, dns_nameservers, host_routes, gateway_ip)
+                                  enable_dhcp, allocation_pools, dns_nameservers, host_routes, gateway_ip)
     if 'Error' in str(request):
         return str(request)
     else:
