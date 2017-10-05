@@ -443,7 +443,7 @@ def create_port_on_network(project_token, region, az, network_id, port_name='Por
     :param subnet_id: (Optional) Subnet ID.
     :param ip_address: (Optional) IP address for the port.
 
-    :return: JSON if succesfull. Otherwise error code from requests library.
+    :return: ID of port if succesfull. Otherwise error code from requests library.
 
     """
     request = _rest_create_port_on_network(project_token, region, az, network_id, port_name, securitygroup_id, subnet_id,
@@ -985,7 +985,7 @@ def create_subnet(project_token, region, network_id, cidr, subnet_name='subnet',
                         A list of host route dictionaries for the subnet.
                         For example: [{"destination":"0.0.0.0/0", "nexthop":"172.16.1.254"},
                                       {"destination":"192.168.0.0/24", "nexthop":"192.168.0.1"}]
-    :param gateway_ip: (optional)
+    :param gateway_ip: (optional). IP address of network default gateway.
     :return: Subnet ID if succesfull, otherwise error from request library
 
     """
@@ -1472,8 +1472,9 @@ def add_router_interface(project_token, region, router_id, subnet_id=None, port_
     :param project_token: Valid K5 project token
     :param region: K5 Region eg 'fi-1'
     :param router_id: ID of the router
-    :param subnet_id: ID of the subnet which interface is connected
-    :param port_id: ID of port which interface is connected
+
+    :param subnet_id:(optional) ID of the subnet which interface is connected
+    :param port_id: (Optional) ID of port which interface is connected
 
     :return: ID of interface if succesful, otehrwise error from requests library
 

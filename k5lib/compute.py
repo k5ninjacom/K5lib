@@ -114,6 +114,7 @@ def _rest_get_server_password(project_token, region, project_id, server_id):
         log.error(str(e))
         return 'Error: ' + str(e)
     else:
+        log.info(request)
         log.info(headers)
         log.info(url)
         log.info(request.json())
