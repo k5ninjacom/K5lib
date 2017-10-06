@@ -356,7 +356,7 @@ def update_inter_project_connection(project_token, region, router_id, routes):
     if 'Error' in str(request):
         return str(request)
     else:
-        return request.json()['id']
+        return request.json()['router']['id']
 
 
 def _rest_create_port_on_network(project_token, region, az, network_id, port_name, securitygroup_id, subnet_id, ip_address):
