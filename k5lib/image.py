@@ -298,7 +298,7 @@ def _rest_create_image_member(default_project_token, region, project_id):
         return request
 
 
-def _rest_register_image(default_project_token, region, ):
+def _rest_register_image(default_project_token, region, container_name, object_name ):
     # TODO: implemantation missing
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',

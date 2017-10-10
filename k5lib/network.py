@@ -715,6 +715,7 @@ def _rest_disconnect_network_connector_endpoint(project_token, region, endpoint_
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
         log.error(json.dumps(configData, indent=4))
+        log.error(json.dumps(request.json(), indent=4))
         return 'Error: ' + str(e)
     else:
         return request
