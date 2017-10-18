@@ -674,6 +674,7 @@ def _rest_connect_network_connector_endpoint(project_token, region, endpoint_id,
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
         log.error(json.dumps(configData, indent=4))
+        log.error(json.dumps(request.json(), indent=4))
         return 'Error: ' + str(e)
     else:
         return request
@@ -724,7 +725,7 @@ def _rest_disconnect_network_connector_endpoint(project_token, region, endpoint_
 def disconnect_network_connector_endpoint(project_token, region, endpoint_id, port_id):
     """
 
-    Disconnect networkc connector from endpoint.
+    Disconnect network connector from endpoint.
 
     :param project_token: A valid K5 project token
     :param region: K5 region name.
