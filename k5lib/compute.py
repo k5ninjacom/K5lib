@@ -416,3 +416,92 @@ def detach_server_interface(project_token, region, project_id, server_id, port_i
         return str(request)
     else:
         return request.json()
+
+""" 
+Todo: finalize this after get flawor ID and list flawors  
+
+def _rest_create_server(project_token, region, project_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    configData = {"server": {
+            "name": name,
+            "availability_zone": az,
+            "imageRef": "",
+            "flavorRef": flavor_id,
+            "key_name": keyname,
+            "block_device_mapping_v2": [{
+                "boot_index": "0",
+                "uuid": windows_image_ref_id,
+                "volume_size": vol_size,
+                "device_name": device_name,
+                "source_type": source,
+                "destination_type": destination,
+                "delete_on_termination": isdelete }],
+            "max_count": instance_max,
+            "min_count": instance_min,
+            "networks": [{"uuid": network_id}],
+            "security_groups": [{"name": sg_name}],
+            "os:scheduler_hints": {"fcx.dedicated": "true"}
+    }
+    }
+
+
+    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/servers/'
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def create_server(project_token, region):
+    request = _rest_create_server(project_token, region, project_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+"""
+
+
+def _rest_list_flavors(project_token, region, project_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/flavors'
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def list_flavors(project_token, region, project_id):
+    """ List available flavors
+
+    :param project_token: Valid K5 project token.
+    :param region: K5 region name.
+    :param project_id: K5 project ID
+
+    :return: JSON containing list of available flavors if succesful, otherwise error from requests library.
+    """
+    request = _rest_list_flavors(project_token, region, project_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+
+
+
+

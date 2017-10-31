@@ -1375,7 +1375,6 @@ def get_router_id(project_token, region, router_name):
         else:
             return 'Error: Not found'
 
-
 def _rest_update_router(project_token, region, router_id, name, az, admin_state_up, network_id, route_table):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
