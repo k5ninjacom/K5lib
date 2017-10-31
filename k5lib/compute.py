@@ -503,5 +503,35 @@ def list_flavors(project_token, region, project_id):
         return request.json()
 
 
+def get_flavor_id(project_token, region, project_id, flavor_name):
+    """ Get ID for flavor name
+
+    :param project_token: Valid K5 project token.
+    :param region: K5 region name.
+    :param project_id: K5 project ID.
+    :param flavor_name: Name of the flavor.
+
+    :return: ID of flavor if succesful, otherwise error from requests library.
+    """
+    request = _rest_list_flavors(project_token, region, project_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+
+        # Get ID of our connector from info
+        outputList = []
+        outputDict = request['flavors']
+
+        counter = 0
+        for i in outputDict:
+            if str(i['name']) == flavor_name_name:
+                outputList.append(str(i['id']))
+                counter += 1
+        if counter > 0:
+            return outputList[0]
+        else:
+            return 'Error: Not found'
+
 
 
