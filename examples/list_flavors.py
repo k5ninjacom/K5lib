@@ -18,4 +18,4 @@ project_token = k5lib.get_project_token(username, password, domain, projectName,
 project_id = k5lib.get_project_id(username, password, domain, projectName, region)
 
 flavors = k5lib.list_flavors(project_token, region, project_id)
-print(json.dumps(ports, indent=2))
+print(json.dumps(flavors, indent=2))
