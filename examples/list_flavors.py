@@ -5,7 +5,7 @@ sys.path.append('k5lib')
 import k5lib
 
 # Create a log file
-k5lib.create_logfile('list_ports.log')
+k5lib.create_logfile('list_flavors.log')
 
 
 username = env['OS_USERNAME']
