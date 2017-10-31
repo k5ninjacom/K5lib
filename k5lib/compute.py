@@ -525,7 +525,7 @@ def get_flavor_id(project_token, region, project_id, flavor_name):
 
         counter = 0
         for i in outputDict:
-            if str(i['name']) == flavor_name_name:
+            if str(i['name']) == flavor_name:
                 outputList.append(str(i['id']))
                 counter += 1
         if counter > 0:
