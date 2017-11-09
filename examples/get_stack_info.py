@@ -4,6 +4,8 @@ sys.path.append('k5lib')
 import k5lib
 import argparse
 import logging
+import json
+
 
 # Create a log file
 k5lib.create_logfile('get_stack_info.log')
