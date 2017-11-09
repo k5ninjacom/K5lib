@@ -2,6 +2,7 @@ from os import environ as env
 import sys
 sys.path.append('k5lib')
 import k5lib
+import argparse
 
 # Create a log file
 k5lib.create_logfile('get_stack_info.log')
@@ -13,11 +14,16 @@ domain = env['OS_USER_DOMAIN_NAME']
 projectName = env['OS_PROJECT_NAME']
 region = env['OS_REGION_NAME']
 
+# Setup command line parser
+parser = argparse.ArgumentParser(description="Get stack information ")
+parser.add_argument("stackname", help="Name of the stack")
+args = parser.parse_args()
+
+stackName = args.stackname
+
 projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
-
-stackName = 'REPLACE WITH STACK NAME'
-stackId = 'REPLACE WITH STACK ID'
+stack_id = k5lib.get_stack_id(projectToken, region, projectId, stackName)
 
 stackInfo = k5lib.get_stack_info(projectToken, projectId, region, stackName, stackId)
 

@@ -16,7 +16,7 @@ projectName = env['OS_PROJECT_NAME']
 region = env['OS_REGION_NAME']
 
 # Setup command line parser
-parser = argparse.ArgumentParser(description="Get a password of server(s) ")
+parser = argparse.ArgumentParser(description="Create stack from yaml template ")
 parser.add_argument("templatefile", help="Template")
 parser.add_argument("stackname", help="Name of the stack")
 args = parser.parse_args()
