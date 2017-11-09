@@ -25,7 +25,7 @@ projectToken = k5lib.get_project_token(username, password, domain, projectName, 
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 stack_id = k5lib.get_stack_id(projectToken, region, projectId, stackName)
 
-stackInfo = k5lib.get_stack_info(projectToken, projectId, region, stackName, stackId)
+stackInfo = k5lib.get_stack_info(projectToken, projectId, region, stackName, stack_id)
 
 logging.info(json.dumps(stackInfo, indent=4))
 print(json.dumps(stackInfo, indent=4))
