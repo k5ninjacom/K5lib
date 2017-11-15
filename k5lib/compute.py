@@ -418,8 +418,6 @@ def detach_server_interface(project_token, region, project_id, server_id, port_i
         return request.json()
 
 """ 
-Todo: finalize this after get flawor ID and list flawors  
-
 def _rest_create_server(project_token, region, project_id):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
@@ -461,7 +459,7 @@ def _rest_create_server(project_token, region, project_id):
         return request
 
 
-def create_server(project_token, region):
+def create_server(project_token, region, az, ):
     request = _rest_create_server(project_token, region, project_id)
     if 'Error' in str(request):
         return str(request)

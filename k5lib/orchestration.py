@@ -31,6 +31,7 @@ def _rest_create_stack(project_token, region, project_id, stack_name, template):
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
         log.error(json.dumps(configData, indent=4))
+        log.error(json.dumps(request.json(), indent=4))
         return 'Error: ' + str(e)
     else:
         return request
