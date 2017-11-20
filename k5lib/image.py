@@ -249,16 +249,7 @@ def clone_vm(projectToken, projectId, region, imageName, volumeId):
 
 
 # curl -X GET -s $BLOCKSTORAGE/v2/$PROJECT_ID/volumes/$VOLUME_ID
-def _rest_get_image_info(projectToken, projectId, region, volumeId):
-    """_rest_get_image_info.
-
-    :param projectToken:
-    :param projectId:
-    :param region:
-    :param volumeId:
-    :return:
-
-    """
+def _rest_get_volume_info(projectToken, projectId, region, volumeId):
     headers = {'Content-Type': 'application/json',
                'X-Auth-Token': projectToken
                }
@@ -280,17 +271,115 @@ def _rest_get_image_info(projectToken, projectId, region, volumeId):
         return request
 
 
-def get_image_info(projectToken, projectId, region, volumeId):
-    """get_image_info.
+def get_volume_info(projectToken, projectId, region, volumeId):
+    """
+    Get detailed volume information.
 
-    :param projectToken:
-    :param projectId:
-    :param region:
-    :param volumeId:
+    :param projectToken: A valid K5 project token
+    :param projectId: ID of the project
+    :param region: A valid K5 region
+    :param volumeId: ID of the volume
     :return:
 
     """
-    request = _rest_get_image_info(projectToken, projectId, region, volumeId)
+    request = _rest_get_volume_info(projectToken, projectId, region, volumeId)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+
+
+def _rest_list_images(projectToken, region):
+    headers = {'Content-Type': 'application/json',
+               'X-Auth-Token': projectToken
+               }
+
+    url = 'https://image.' + region + '.cloud.global.fujitsu.com/v2/images/'
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def list_images(projectToken, region):
+    """
+    List available images.
+
+    :param projectToken: Valid K5 project token
+    :param region: A valid K5 region
+
+    :return: JSON if succesfully othervwise error from requests library.
+    """
+    request = _rest_list_images(projectToken, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+
+
+def get_image_id(projectToken, region, image_name):
+    """
+    Get ID of the image.
+
+    :param projectToken: A valid project K5 token
+    :param region: A valid K5 region
+    :param image_name: Exact name of the image
+
+    :return: ID of the image if succesfull. Otherwise error from requests library or image not found
+    """
+    request = _rest_list_images(projectToken, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        # Get ID of our connector endpoint from info
+        outputList = []
+        outputDict = request['images']
+
+        counter = 0
+        for i in outputDict:
+            if str(i['name']) == image_name:
+                outputList.append(str(i['id']))
+                counter += 1
+        if outputList[0]:
+            return outputList[0]
+        else:
+            return 'Error: Image not found'
+
+
+def _rest_get_image_info(projectToken, region, image_id):
+    headers = {'Content-Type': 'application/json',
+               'X-Auth-Token': projectToken
+               }
+
+    url = 'https://image.' + region + '.cloud.global.fujitsu.com/v2/images/' + image_id
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+def get_image_info(projectToken, region, image_id):
+    """
+    Get detailed information about image.
+
+    :param projectToken: A valid K5 project token
+    :param region: A valid K5 region
+    :param image_id: ID of the image
+
+    :return: JSON if succesfule otherwise error from requests library.
+
+    """
+    request = _rest_get_image_info(projectToken, region, image_id)
     if 'Error' in str(request):
         return str(request)
     else:
@@ -298,11 +387,6 @@ def get_image_info(projectToken, projectId, region, volumeId):
 
 
 def _rest_get_image_import_queue_status(projectToken, region):
-    """_rest_get_image_import_queue_status.
-
-    GET /v1/imageimport{?start, limit}
-
-    """
     headers = {'Content-Type': 'application/json',
                'X-Auth-Token': projectToken
                }
@@ -325,7 +409,6 @@ def _rest_get_image_import_queue_status(projectToken, region):
 
 def get_image_import_queue_status(projectToken, region):
     """
-
     Get status of image import queue.
 
     :param projectToken: Valid token for default project

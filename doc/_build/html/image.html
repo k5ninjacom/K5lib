@@ -169,6 +169,29 @@
 <p>image module.</p>
 <p>Image module provide functions to image service of Fujitsu K5 cloud REST API</p>
 <dl class="function">
+<dt id="k5lib.image.accept_image_share">
+<code class="descclassname">k5lib.image.</code><code class="descname">accept_image_share</code><span class="sig-paren">(</span><em>projectToken</em>, <em>region</em>, <em>project_id</em>, <em>image_id</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.image.accept_image_share" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accept image share from other project.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>projectToken</strong> – A valid K5 project token</li>
+<li><strong>region</strong> – A valid K5 region</li>
+<li><strong>project_id</strong> – ID of the project acepting image</li>
+<li><strong>image_id</strong> – ID of the image being accepted</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfull. Otherwise error from requests library</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="k5lib.image.clone_vm">
 <code class="descclassname">k5lib.image.</code><code class="descname">clone_vm</code><span class="sig-paren">(</span><em>projectToken</em>, <em>projectId</em>, <em>region</em>, <em>imageName</em>, <em>volumeId</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.image.clone_vm" title="Permalink to this definition">¶</a></dt>
 <dd><p>clone_vm.</p>
@@ -240,6 +263,28 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="k5lib.image.get_image_id">
+<code class="descclassname">k5lib.image.</code><code class="descname">get_image_id</code><span class="sig-paren">(</span><em>projectToken</em>, <em>region</em>, <em>image_name</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.image.get_image_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get ID of the image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>projectToken</strong> – A valid project K5 token</li>
+<li><strong>region</strong> – A valid K5 region</li>
+<li><strong>image_name</strong> – Exact name of the image</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">ID of the image if succesfull. Otherwise error from requests library or image not found</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="k5lib.image.get_image_import_queue_status">
 <code class="descclassname">k5lib.image.</code><code class="descname">get_image_import_queue_status</code><span class="sig-paren">(</span><em>projectToken</em>, <em>region</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.image.get_image_import_queue_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get status of image import queue.</p>
@@ -262,21 +307,89 @@
 
 <dl class="function">
 <dt id="k5lib.image.get_image_info">
-<code class="descclassname">k5lib.image.</code><code class="descname">get_image_info</code><span class="sig-paren">(</span><em>projectToken</em>, <em>projectId</em>, <em>region</em>, <em>volumeId</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.image.get_image_info" title="Permalink to this definition">¶</a></dt>
-<dd><p>get_image_info.</p>
+<code class="descclassname">k5lib.image.</code><code class="descname">get_image_info</code><span class="sig-paren">(</span><em>projectToken</em>, <em>region</em>, <em>image_id</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.image.get_image_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get detailed information about image.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>projectToken</strong> – </li>
-<li><strong>projectId</strong> – </li>
-<li><strong>region</strong> – </li>
-<li><strong>volumeId</strong> – </li>
+<li><strong>projectToken</strong> – A valid K5 project token</li>
+<li><strong>region</strong> – A valid K5 region</li>
+<li><strong>image_id</strong> – ID of the image</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfule otherwise error from requests library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="k5lib.image.get_volume_info">
+<code class="descclassname">k5lib.image.</code><code class="descname">get_volume_info</code><span class="sig-paren">(</span><em>projectToken</em>, <em>projectId</em>, <em>region</em>, <em>volumeId</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.image.get_volume_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get detailed volume information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>projectToken</strong> – A valid K5 project token</li>
+<li><strong>projectId</strong> – ID of the project</li>
+<li><strong>region</strong> – A valid K5 region</li>
+<li><strong>volumeId</strong> – ID of the volume</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="k5lib.image.list_images">
+<code class="descclassname">k5lib.image.</code><code class="descname">list_images</code><span class="sig-paren">(</span><em>projectToken</em>, <em>region</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.image.list_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>List available images.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>projectToken</strong> – Valid K5 project token</li>
+<li><strong>region</strong> – A valid K5 region</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfully othervwise error from requests library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="k5lib.image.share_image">
+<code class="descclassname">k5lib.image.</code><code class="descname">share_image</code><span class="sig-paren">(</span><em>projectToken</em>, <em>region</em>, <em>project_id</em>, <em>image_id</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.image.share_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>share_image.</p>
+<p>Share image with project. After image is succesfully imported into domains default project it needs to be shared
+with project.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>projectToken</strong> – Token for default project</li>
+<li><strong>region</strong> – A Valid K5 region</li>
+<li><strong>project_id</strong> – ID of the project where image are going to be used.</li>
+<li><strong>image_id</strong> – ID of the image to be shared.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfull. Otherwise error from rquests library.</p>
 </td>
 </tr>
 </tbody>
