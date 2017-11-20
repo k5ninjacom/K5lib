@@ -9,22 +9,11 @@ import logging
 import base64
 import uuid
 
+
 log = logging.getLogger(__name__)
 
 
 def _rest_image_export(regionToken, region, projectId, image_id, containerName):
-    """_rest_image_export.
-
-    Internal rest api function to export image into object storage
-
-    :param regionToken:
-    :param region:
-    :param projectId:
-    :param image_id:
-    :param containerName:
-    :return:
-
-    """
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': regionToken}
@@ -71,14 +60,6 @@ def export_image(regionToken, region, projectId, image_id, containerName):
 
 
 def _rest_get_export_status(projectToken, region, exportId):
-    """_rest_get_export_status.
-
-    :param projectToken:
-    :param region:
-    :param exportId:
-    :return: json
-
-    """
     headers = {'Content-Type': 'application/json',
                'X-Auth-Token': projectToken
                }
@@ -110,6 +91,88 @@ def get_export_status(projectToken, region, exportId):
 
     """
     request = _rest_get_export_status(projectToken, region, exportId)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+
+def _rest_share_image(projectToken, region, project_id, image_id ):
+    headers = {'Content-Type': 'application/json',
+               'X-Auth-Token': projectToken
+               }
+
+    configData = {'member': project_id
+                  }
+
+    # 'https://import-export.uk-1.cloud.global.fujitsu.com/v1/imageexport'
+    url = 'https://image.' + region + '.cloud.global.fujitsu.com/v2/images/' + image_id + '/members'
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def share_image(projectToken, region, project_id, image_id):
+    """ share_image.
+
+    Share image with project. After image is succesfully imported into domains default project it needs to be shared
+    with project.
+
+    :param projectToken: Token for default project
+    :param region: A Valid K5 region
+    :param project_id: ID of the project where image are going to be used.
+    :param image_id: ID of the image to be shared.
+
+    :return: JSON if succesfull. Otherwise error from rquests library.
+    """
+
+    request = _rest_share_image(projectToken, region, project_id, image_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+
+
+def _rest_accept_image_share(projectToken, region, project_id, image_id):
+    headers = {'Content-Type': 'application/json',
+               'X-Auth-Token': projectToken
+               }
+
+    configData = {'status': 'accepted'
+                  }
+
+    url = 'https://image.' + region + '.cloud.global.fujitsu.com/v2/images/' + image_id + '/members/' + projectid
+    try:
+        request = requests.put(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def accept_image_share(projectToken, region, project_id, image_id):
+    """accept_image_share
+
+    Accept image share from other project.
+
+    :param projectToken: A valid K5 project token
+    :param region: A valid K5 region
+    :param project_id: ID of the project acepting image
+    :param image_id: ID of the image being accepted
+
+    :return: JSON if succesfull. Otherwise error from requests library
+
+    """
+
+    request = _rest_share_image(projectToken, region, project_id, image_id)
     if 'Error' in str(request):
         return str(request)
     else:

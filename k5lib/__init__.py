@@ -24,6 +24,8 @@ from .image import clone_vm
 from .image import get_image_info
 from .image import get_export_status
 from .image import get_image_import_queue_status
+from .image import share_image
+from .image import accept_image_share
 from .compute import get_vnc_console_url
 from .compute import create_keypair
 from .compute import list_servers
