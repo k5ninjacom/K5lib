@@ -300,7 +300,6 @@ def _rest_list_images(projectToken, region):
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
-        log.error(json.dumps(configData, indent=4))
         return 'Error: ' + str(e)
     else:
         return request
