@@ -172,7 +172,7 @@ def accept_image_share(projectToken, region, project_id, image_id):
 
     """
 
-    request = _rest_share_image(projectToken, region, project_id, image_id)
+    request = _rest_accept_image_share(projectToken, region, project_id, image_id)
     if 'Error' in str(request):
         return str(request)
     else:
