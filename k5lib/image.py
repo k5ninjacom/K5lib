@@ -146,7 +146,7 @@ def _rest_accept_image_share(projectToken, region, project_id, image_id):
     configData = {'status': 'accepted'
                   }
 
-    url = 'https://image.' + region + '.cloud.global.fujitsu.com/v2/images/' + image_id + '/members/' + projectid
+    url = 'https://image.' + region + '.cloud.global.fujitsu.com/v2/images/' + image_id + '/members/' + project_id
     try:
         request = requests.put(url, json=configData, headers=headers)
         request.raise_for_status()
