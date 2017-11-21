@@ -294,7 +294,7 @@ def _rest_list_images(projectToken, region):
                'X-Auth-Token': projectToken
                }
 
-    url = 'https://image.' + region + '.cloud.global.fujitsu.com/v2/images/'
+    url = 'https://image.' + region + '.cloud.global.fujitsu.com/v2/images'
     try:
         request = requests.get(url, headers=headers)
         request.raise_for_status()
