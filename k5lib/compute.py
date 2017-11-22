@@ -417,31 +417,38 @@ def detach_server_interface(project_token, region, project_id, server_id, port_i
     else:
         return request.json()
 
-""" 
-def _rest_create_server(project_token, region, project_id):
+
+# https://k5-doc.jp-east-1.paas.cloud.global.fujitsu.com/doc/en/iaas/document/k5-iaas-api-reference-foundation-service.pdf
+# 1.2.6.23 Create server with scheduler hints
+def _rest_create_server(project_token, region, az, project_id, server_name, key_name, sg_name, flavor_id, image_id,
+                        vol_size, network_id):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
 
     configData = {"server": {
-            "name": name,
+            "name": server_name,
             "availability_zone": az,
-            "imageRef": "",
+            "imageRef": image_id,
             "flavorRef": flavor_id,
-            "key_name": keyname,
+            "key_name": key_name,
             "block_device_mapping_v2": [{
                 "boot_index": "0",
-                "uuid": windows_image_ref_id,
+                "uuid": image_id,
                 "volume_size": vol_size,
-                "device_name": device_name,
-                "source_type": source,
-                "destination_type": destination,
-                "delete_on_termination": isdelete }],
-            "max_count": instance_max,
-            "min_count": instance_min,
-            "networks": [{"uuid": network_id}],
-            "security_groups": [{"name": sg_name}],
-            "os:scheduler_hints": {"fcx.dedicated": "true"}
+                "device_name": "/dev/vda",
+                "source_type": "image",
+                "destination_type": "volume",
+                "delete_on_termination": "True"
+            }],
+            "networks": [{
+                "uuid": network_id,
+                }],
+            "security_groups": [{
+                "name": sg_name}],
+            "os:scheduler_hints": {
+                "fcx.dedicated": "true"
+                }
     }
     }
 
@@ -459,13 +466,32 @@ def _rest_create_server(project_token, region, project_id):
         return request
 
 
-def create_server(project_token, region, az, ):
-    request = _rest_create_server(project_token, region, project_id)
+def create_server(project_token, region, az, project_id, server_name, key_name, sg_name, flavor_id, image_id,
+                        vol_size, network_id ):
+    """
+    Create dedicated server from image. One network card.
+
+    :param project_token: A valid K5 project token
+    :param region: A K5 region
+    :param az: Availability zone withing region
+    :param project_id: ID of the project
+    :param server_name: Name of the server
+    :param key_name: Key name
+    :param sg_name: Name of the security group
+    :param flavor_id: ID of the flavor to be used
+    :param image_id: ID of the image
+    :param vol_size: Size of the volume example "50"
+    :param network_id: ID of the network.
+
+    :return: JSON if succesfull. Otherwise error from request library.
+    """
+
+    request = _rest_create_server(project_token, region, az, project_id, server_name, key_name, sg_name, flavor_id, image_id,
+                        vol_size, network_id)
     if 'Error' in str(request):
         return str(request)
     else:
         return request.json()
-"""
 
 
 def _rest_list_flavors(project_token, region, project_id):

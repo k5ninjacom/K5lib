@@ -345,10 +345,11 @@ def get_image_id(projectToken, region, image_name):
             if str(i['name']) == image_name:
                 outputList.append(str(i['id']))
                 counter += 1
-        if outputList[0]:
+        if counter > 0:
             return outputList[0]
         else:
             return 'Error: Image not found'
+
 
 
 def _rest_get_image_info(projectToken, region, image_id):
