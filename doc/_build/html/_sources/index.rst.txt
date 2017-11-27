@@ -10,6 +10,7 @@ Welcome to K5lib's documentation!
    compute
    network
    lb
+   fw
    vpn
    image
    orchestration
