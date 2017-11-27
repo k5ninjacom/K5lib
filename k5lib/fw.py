@@ -48,7 +48,8 @@ def list_firewall_rules(project_token, region):
 
 
 def _rest_create_firewall_rule(project_token, region, az, rule_name,  rule_description,  destination_ip,
-                               destination_port, protocol,  rule_action,  ):
+                               destination_port, protocol, source_ip, source_port,  rule_action, enabled):
+
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
@@ -58,13 +59,12 @@ def _rest_create_firewall_rule(project_token, region, az, rule_name,  rule_descr
         "description": rule_description,
         "destination_ip_address": destination_ip,
         "destination_port": destination_port,
-        "enabled": true,
+        "enabled": enabled,
         "ip_version": 4,
         "name": rule_name,
         "protocol": protocol,
-        "shared": false,
-        "source_ip_address": None,
-        "source_port": None,
+        "source_ip_address": source_ip,
+        "source_port": source_port,
         "availability_zone": az
      }
     }
@@ -82,8 +82,32 @@ def _rest_create_firewall_rule(project_token, region, az, rule_name,  rule_descr
         return request
 
 
-def create_firewall_rule(project_token, region):
-    request = _rest_create_firewall_rule(project_token, region)
+def create_firewall_rule(project_token, region, az, rule_name,  rule_description,  destination_ip,
+                               destination_port, protocol, source_ip, source_port, rule_action, enabled=True):
+    """
+    Create firewall rule.
+
+    :param project_token: A Valid K5 project token
+    :param region: A valid K5 region
+    :param az: A valid K5 availability zone
+    :param rule_name: (string) Name of the firewall rule
+    :param rule_description: (string) Description of the rule
+    :param destination_ip: (string) IP or CIDR of  destination address.
+    :param destination_port: (string) Destination port number or a range. If range, port numbers are separated by colon.
+                             Specify a small port number first.
+    :param protocol: (string) The protocol that is matched by the firewall rule. Valid values are null, tcp, udp, and icmp.
+                              (Avoid the use of null when specifying the protocol for Neutron FWaaS rules. Instead,
+                              create multiple rules for both 'tcp' and 'udp' protocols independently.)
+    :param source_ip:  (string) IP or CIDR of source address.
+    :param source_port: (string) Destination port number or a range. If range, port numbers are separated by colon.
+                                 Specify a small port number first.
+    :param rule_action: (string) Action to be performed on the traffic matching the rule (allow, deny).
+    :param enabled: (bool) When set to False will disable this rule in the firewall policy.
+                           Facilitates selectively turning off rules without having to disassociate the rule from the firewall policy.
+    :return: JSON if succesful. Otherwise error from requests library.
+    """
+    request = _rest_create_firewall_rule(project_token, region, az, rule_name,  rule_description,  destination_ip,
+                               destination_port, protocol, source_ip, source_port,  rule_action, enabled)
     if 'Error' in str(request):
         return str(request)
     else:
