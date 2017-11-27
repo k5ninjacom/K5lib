@@ -81,6 +81,7 @@ from .network import remove_router_interface
 from .fw import list_firewall_rules
 from .fw import create_firewall_rule
 from .fw import create_firewall_policy
+from .fw import create_firewall
 from .lb import create_lb
 from .utils import create_logfile
 from .utils import gen_passwd

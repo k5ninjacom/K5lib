@@ -160,3 +160,59 @@ def create_firewall_policy(project_token, region, az, policy_name, policy_descri
         return str(request)
     else:
         return request.json()
+
+
+def _rest_create_firewall(project_token, region, az, router_id, firewall_policy_id, firewall_name, firewall_description,
+                          admin_state):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    configData = {"firewall": {
+        "name": firewall_name,
+        "description": firewall_description,
+        "admin_state_up": admin_state,
+        "firewall_policy_id": firewall_policy_id,
+        "router_id": router_id,
+        "availability_zone": az
+    }
+}
+
+    url = 'https://network.' + region + '.cloud.global.fujitsu.com/v2.0/fw/firewalls'
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def create_firewall(project_token, region, az, router_id, firewall_policy_id, firewall_name='FW_'+ k5lib.create_passwd(6),
+                    firewall_description = 'default_FW', admin_state=True):
+    """
+    Creates a firewall.
+
+    :param project_token: A valid K5 project token
+    :param region:  A valid K5 region.
+    :param az: A valid K5 availability zone.
+    :param router_id: ID of the router where firewall is configured.
+    :param firewall_policy_id: ID of the policy to be used for firewall configuration.
+    :param firewall_name: (optional) Name of the firewall.
+    :param firewall_description: (optional) Description of firewall.
+    :param admin_state: (bool) Administrative state of the firewall. If false (down), firewall does not forward packets
+                               and will drop all traffic to/from VMs behind the firewall.
+
+    :return: JSON if succesfull. Otherwise error from requests library.
+    """
+
+    request = _rest_create_firewall(project_token, region, az, router_id, firewall_policy_id, firewall_name,
+                                    firewall_description, admin_state)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+
