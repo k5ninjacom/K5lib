@@ -191,7 +191,7 @@ def _rest_create_firewall(project_token, region, az, router_id, firewall_policy_
         return request
 
 
-def create_firewall(project_token, region, az, router_id, firewall_policy_id, firewall_name='FW_'+ k5lib.create_passwd(6),
+def create_firewall(project_token, region, az, router_id, firewall_policy_id, firewall_name='FW_',
                     firewall_description = 'default_FW', admin_state=True):
     """
     Creates a firewall.
