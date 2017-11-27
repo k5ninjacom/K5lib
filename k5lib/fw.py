@@ -46,7 +46,6 @@ def list_firewall_rules(project_token, region):
         return request.json()
 
 
-
 def _rest_create_firewall_rule(project_token, region, az, rule_name,  rule_description,  destination_ip,
                                destination_port, protocol, source_ip, source_port,  rule_action, enabled):
 
@@ -83,7 +82,7 @@ def _rest_create_firewall_rule(project_token, region, az, rule_name,  rule_descr
 
 
 def create_firewall_rule(project_token, region, az, rule_name,  rule_description,  destination_ip,
-                               destination_port, protocol, source_ip, source_port, rule_action, enabled=True):
+                         destination_port, protocol, source_ip, source_port, rule_action, enabled=True):
     """
     Create firewall rule.
 
@@ -107,7 +106,56 @@ def create_firewall_rule(project_token, region, az, rule_name,  rule_description
     :return: JSON if succesful. Otherwise error from requests library.
     """
     request = _rest_create_firewall_rule(project_token, region, az, rule_name,  rule_description,  destination_ip,
-                               destination_port, protocol, source_ip, source_port,  rule_action, enabled)
+                                         destination_port, protocol, source_ip, source_port,  rule_action, enabled)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+
+
+def _rest_create_firewall_policy(project_token, region, az, policy_name, policy_description, firewall_rules):
+
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    configData = {"firewall_policy": {
+        "firewall_rules": firewall_rules,
+        "name": policy_name,
+        "description": policy_description,
+        "availability_zone": az
+     }
+    }
+
+    url = 'https://network.' + region + '.cloud.global.fujitsu.com/v2.0/fw/firewall_policies'
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def create_firewall_policy(project_token, region, az, policy_name, policy_description, firewall_rules):
+    """
+    Creates firewall policy.
+
+    :param project_token: A valid K5 token.
+    :param region: A valid K5 region.
+    :param az: A valid K5 az.
+    :param policy_name: (string) Name of the policy.
+    :param policy_description: (string) Description of the policy.
+    :param firewall_rules: (list) List of firewall rule ID:s
+
+    :return: JSON if succesfull. Otherwise error from requests library.
+    """
+
+    request = _rest_create_firewall_policy(project_token, region, az, policy_name, policy_description, firewall_rules)
+
     if 'Error' in str(request):
         return str(request)
     else:

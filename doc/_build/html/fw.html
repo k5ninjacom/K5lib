@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>FW &mdash; K5lib 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="K5lib 0.1.0 documentation" href="index.html"/>
+        <link rel="next" title="VPN" href="vpn.html"/>
+        <link rel="prev" title="LB" href="lb.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> K5lib
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="authenticate.html">authenticate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contract.html">contract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compute.html">compute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lb.html">LB</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">FW</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vpn.html">VPN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="orchestration.html">orchestration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">K5lib</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>FW</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/fw.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-k5lib.fw">
+<span id="fw"></span><h1>FW<a class="headerlink" href="#module-k5lib.fw" title="Permalink to this headline">¶</a></h1>
+<p>FW module.</p>
+<p>FW module provide functions to firewall service of Fujitsu K5 cloud REST API</p>
+<dl class="function">
+<dt id="k5lib.fw.create_firewall_policy">
+<code class="descclassname">k5lib.fw.</code><code class="descname">create_firewall_policy</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>az</em>, <em>policy_name</em>, <em>policy_description</em>, <em>firewall_rules</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.fw.create_firewall_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates firewall policy.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> – A valid K5 token.</li>
+<li><strong>region</strong> – A valid K5 region.</li>
+<li><strong>az</strong> – A valid K5 az.</li>
+<li><strong>policy_name</strong> – (string) Name of the policy.</li>
+<li><strong>policy_description</strong> – (string) Description of the policy.</li>
+<li><strong>firewall_rules</strong> – (list) List of firewall rule ID:s</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfull. Otherwise error from requests library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="k5lib.fw.create_firewall_rule">
+<code class="descclassname">k5lib.fw.</code><code class="descname">create_firewall_rule</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>az</em>, <em>rule_name</em>, <em>rule_description</em>, <em>destination_ip</em>, <em>destination_port</em>, <em>protocol</em>, <em>source_ip</em>, <em>source_port</em>, <em>rule_action</em>, <em>enabled=True</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.fw.create_firewall_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create firewall rule.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> – A Valid K5 project token</li>
+<li><strong>region</strong> – A valid K5 region</li>
+<li><strong>az</strong> – A valid K5 availability zone</li>
+<li><strong>rule_name</strong> – (string) Name of the firewall rule</li>
+<li><strong>rule_description</strong> – (string) Description of the rule</li>
+<li><strong>destination_ip</strong> – (string) IP or CIDR of  destination address.</li>
+<li><strong>destination_port</strong> – (string) Destination port number or a range. If range, port numbers are separated by colon.
+Specify a small port number first.</li>
+<li><strong>protocol</strong> – (string) The protocol that is matched by the firewall rule. Valid values are null, tcp, udp, and icmp.
+(Avoid the use of null when specifying the protocol for Neutron FWaaS rules. Instead,
+create multiple rules for both ‘tcp’ and ‘udp’ protocols independently.)</li>
+<li><strong>source_ip</strong> – (string) IP or CIDR of source address.</li>
+<li><strong>source_port</strong> – (string) Destination port number or a range. If range, port numbers are separated by colon.
+Specify a small port number first.</li>
+<li><strong>rule_action</strong> – (string) Action to be performed on the traffic matching the rule (allow, deny).</li>
+<li><strong>enabled</strong> – (bool) When set to False will disable this rule in the firewall policy.
+Facilitates selectively turning off rules without having to disassociate the rule from the firewall policy.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesful. Otherwise error from requests library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="k5lib.fw.list_firewall_rules">
+<code class="descclassname">k5lib.fw.</code><code class="descname">list_firewall_rules</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.fw.list_firewall_rules" title="Permalink to this definition">¶</a></dt>
+<dd><p>List firewall rules visible for the project.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> – A valid K5 project token</li>
+<li><strong>region</strong> – A valid K5 region</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfull, otherwise error from requests library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="vpn.html" class="btn btn-neutral float-right" title="VPN" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="lb.html" class="btn btn-neutral" title="LB" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Hahtokari Mika.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
