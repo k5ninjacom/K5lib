@@ -3,30 +3,28 @@ def _rest_list_firewall_rules(project_token, region):
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
 
-    configData = {'key1': {
-                     'key2': [
-                          {
-                              'key3': 'value3'
-                          }
-                     ]
-                 }
-    }
-
-    url = url = 'https://foobar.' + region + '.cloud.global.fujitsu.com/v2.0/ports'
+    url = 'https://network.' + region + '.cloud.global.fujitsu.com/v2.0/fw/firewall_rules'
 
     try:
-        request = requests.post(url, json=configData, headers=headers)
+        request = requests.get(url, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
-        log.error(json.dumps(configData, indent=4))
         return 'Error: ' + str(e)
     else:
         return request
 
 
 def list_firewall_rules(project_token, region):
-    request = _rest_stub(project_token, region)
+    """
+    List firewall rules visible for the project.
+
+    :param project_token: A valid K5 project token
+    :param region: A valid K5 region
+
+    :return: JSON if succesfull, otherwise error from requests library.
+    """
+    request = _rest_list_firewall_rules(project_token, region)
     if 'Error' in str(request):
         return str(request)
     else:

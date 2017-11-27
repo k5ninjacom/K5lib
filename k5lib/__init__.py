@@ -78,6 +78,7 @@ from .network import get_router_id
 from .network import update_router
 from .network import add_router_interface
 from .network import remove_router_interface
+from .fw import list_firewall_rules
 from .lb import create_lb
 from .utils import create_logfile
 from .utils import gen_passwd

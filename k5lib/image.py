@@ -376,7 +376,7 @@ def get_image_info(projectToken, region, image_id):
     :param region: A valid K5 region
     :param image_id: ID of the image
 
-    :return: JSON if succesfule otherwise error from requests library.
+    :return: JSON if succesfull otherwise error from requests library.
 
     """
     request = _rest_get_image_info(projectToken, region, image_id)
