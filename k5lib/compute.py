@@ -447,11 +447,10 @@ def _rest_create_server(project_token, region, az, project_id, server_name, key_
             "security_groups": [{
                 "name": sg_name}],
             "os:scheduler_hints": {
-                "fcx.dedicated": "true"
+                "fcx.dedicated": True
                 }
     }
     }
-
 
     url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/servers'
 
