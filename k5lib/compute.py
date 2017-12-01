@@ -460,7 +460,10 @@ def _rest_create_server(project_token, region, az, project_id, server_name, key_
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
+        log.error('calling JSON:')
         log.error(json.dumps(configData, indent=4))
+        log.error('Return JSON:')
+        log.error(json.dumps(request.json(), indent=4))
         return 'Error: ' + str(e)
     else:
         return request
