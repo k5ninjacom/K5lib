@@ -453,7 +453,7 @@ def _rest_create_server(project_token, region, az, project_id, server_name, key_
     }
 
 
-    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/servers/'
+    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/servers'
 
     try:
         request = requests.post(url, json=configData, headers=headers)
