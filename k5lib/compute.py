@@ -427,30 +427,32 @@ def _rest_create_server(project_token, region, az, project_id, server_name, key_
                'X-Auth-Token': project_token}
 
     configData = {"server": {
-            "name": server_name,
-            "availability_zone": az,
-            "imageRef": image_id,
-            "flavorRef": flavor_id,
-            "key_name": key_name,
-            "block_device_mapping_v2": [{
-                "boot_index": "0",
-                "uuid": image_id,
-                "volume_size": vol_size,
-                "device_name": "/dev/vda",
-                "source_type": "image",
-                "destination_type": "volume",
-                "delete_on_termination": "True"
-            }],
-            "networks": [{
-                "uuid": network_id,
-                }],
-            "security_groups": [{
-                "name": sg_name}],
-            "os:scheduler_hints": {
-                "fcx.dedicated": True
-                }
+                   "name": server_name,
+                   "availability_zone": az,
+                   "imageRef": image_id,
+                   "flavorRef": flavor_id,
+                   "key_name": key_name,
+                   "block_device_mapping_v2": [{
+                     "boot_index": "0",
+                     "uuid": image_id,
+                     "volume_size": vol_size,
+                     "device_name": "/dev/vda",
+                     "source_type": "image",
+                     "destination_type": "volume",
+                     "delete_on_termination": "True"
+                   }],
+                   "networks": [{
+                      "uuid": network_id,
+                   }],
+                   "security_groups": [{
+                   "name": sg_name
+                   }]
+                   },
+                   "os:scheduler_hints": {
+                     "fcx.dedicated": True
+                   }
     }
-    }
+
 
     url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/servers'
 
