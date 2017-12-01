@@ -449,7 +449,7 @@ def _rest_create_server(project_token, region, az, project_id, server_name, key_
                    }]
                    },
                    "os:scheduler_hints": {
-                     "fcx.dedicated": True
+                     "fcx.dedicated": "true"
                    }
     }
 
