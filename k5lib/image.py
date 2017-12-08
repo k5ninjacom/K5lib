@@ -231,16 +231,18 @@ def _rest_clone_vm(projectToken, projectId, region, imageName, volumeId):
 
 
 def clone_vm(projectToken, projectId, region, imageName, volumeId):
-    """clone_vm.
-
-    :param projectToken:
-    :param projectId:
-    :param region:
-    :param imageName:
-    :param volumeId:
-    :return:
-
     """
+    Clone VM volume into image.
+
+    :param projectToken: A Valid K5 project token
+    :param projectId: Project ID
+    :param region: K5 Region
+    :param imageName: Name of the image to be created
+    :param volumeId: ID of the volume to be cloned
+
+    :return: JSON if succesfull. Otherwise error from requests library.
+    """
+
     request = _rest_clone_vm(projectToken, projectId, region, imageName, volumeId)
     if 'Error' in str(request):
         return str(request)
@@ -413,7 +415,7 @@ def get_image_import_queue_status(projectToken, region):
 
     :param projectToken: Valid token for default project
     :param region: Region name.
-    :return: JSON if suucesfull. Otherwise error from requests library.
+    :return: JSON if succesfull. Otherwise error from requests library.
 
     """
     request = _rest_get_image_import_queue_status(projectToken, region)
