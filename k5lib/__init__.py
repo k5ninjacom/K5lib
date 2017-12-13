@@ -31,6 +31,8 @@ from .image import get_export_status
 from .image import get_image_import_queue_status
 from .compute import get_vnc_console_url
 from .compute import create_server
+from .compute import create_server_from_image
+from .compute import create_server_from_volume
 from .compute import create_keypair
 from .compute import list_servers
 from .compute import get_server_password
