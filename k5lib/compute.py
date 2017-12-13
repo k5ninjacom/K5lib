@@ -559,7 +559,7 @@ def create_server_from_image(project_token, region, az, project_id, server_name,
 
 
 def create_server_from_volume(project_token, region, az, project_id, server_name, key_name, sg_name, flavor_id, volume_id,
-                  vol_size, network_id):
+                              vol_size, network_id):
     """
     Create dedicated server from volume. One network card.
 
@@ -580,7 +580,6 @@ def create_server_from_volume(project_token, region, az, project_id, server_name
     config_data = {"server": {
         "name": server_name,
         "availability_zone": az,
-        "imageRef": image_id,
         "flavorRef": flavor_id,
         "key_name": key_name,
         "block_device_mapping_v2": [{
