@@ -631,51 +631,6 @@ def _rest_list_flavors(project_token, region, project_id):
         return request
 
 
-def create_server_from_volume(project_token, region, az, project_id, server_name, key_name, sg_name, flavor_id, volume_id,
-                              network_id ):
-    """
-    Create dedicated server from image. One network card.
-
-    :param project_token: A valid K5 project token
-    :param region: A K5 region
-    :param az: Availability zone withing region
-    :param project_id: ID of the project
-    :param server_name: Name of the server
-    :param key_name: Key name
-    :param sg_name: Name of the security group
-    :param flavor_id: ID of the flavor to be used
-    :param image_id: ID of the image
-    :param vol_size: Size of the volume example "50"
-    :param network_id: ID of the network.
-
-    :return: JSON if succesfull. Otherwise error from request library.
-    """
-
-    request = _rest_create_server(project_token, region, az, project_id, server_name, key_name, sg_name, flavor_id, image_id,
-                        vol_size, network_id)
-    if 'Error' in str(request):
-        return str(request)
-    else:
-        return request.json()
-
-
-def _rest_list_flavors(project_token, region, project_id):
-    headers = {'Content-Type': 'application/json',
-               'Accept': 'application/json',
-               'X-Auth-Token': project_token}
-
-    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/flavors'
-
-    try:
-        request = requests.get(url, headers=headers)
-        request.raise_for_status()
-    except requests.exceptions.HTTPError as e:
-        # Whoops it wasn't a 200
-        return 'Error: ' + str(e)
-    else:
-        return request
-
-
 def list_flavors(project_token, region, project_id):
     """ List available flavors
 
