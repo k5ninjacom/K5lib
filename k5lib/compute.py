@@ -502,7 +502,7 @@ def create_server(project_token, region, az, project_id, server_name, key_name, 
 
 
 def create_server_from_image(project_token, region, az, project_id, server_name, key_name, sg_name, flavor_id, image_id,
-                  vol_size, network_id):
+                  vol_size, network_id, ip):
     """
     Create dedicated server from image. One network card.
 
@@ -517,8 +517,10 @@ def create_server_from_image(project_token, region, az, project_id, server_name,
     :param image_id: ID of the image
     :param vol_size: Size of the volume example "50"
     :param network_id: ID of the network.
+    :param ip: IP address of the server.
 
     :return: JSON if succesfull. Otherwise error from request library.
+
     """
     config_data = {"server": {
         "name": server_name,
@@ -537,6 +539,7 @@ def create_server_from_image(project_token, region, az, project_id, server_name,
         }],
         "networks": [{
             "uuid": network_id,
+            "fixed_ip":ip,
         }],
         "security_groups": [{
             "name": sg_name
