@@ -62,6 +62,7 @@ def main():
     rcfile.write('export OS_REGION_NAME=\'' + region + '\'\n')
     rcfile.write('export OS_OS_VOLUME_API_VERSION=2\n')
     rcfile.write('export OS_IDENTITY_API_VERSION=3\n')
+    rcfile.write('export OS_AUTH_TYPE=v3password\n')
     rcfile.write('export OS_USER_DOMAIN_NAME=\'' + domainName + '\'\n')
     rcfile.write('export OS_DEFAULT_DOMAIN=\'' + domainName + '\'\n')
     rcfile.close()
