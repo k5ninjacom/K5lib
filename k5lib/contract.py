@@ -209,9 +209,9 @@ def list_projects(region_token, domain_id, region):
 
      """
      request = _rest_list_projects(region_token, domain_id, region)
-      if 'Error' in str(request):
+     if 'Error' in str(request):
           return str(request)
-      else:
+     else:
           request = request.json()
           return request
 
