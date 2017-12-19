@@ -180,6 +180,42 @@ def create_project(region_token, domain_id, region, project_name):
         return request
 
 
+def _rest_list_projects(region_token, domain_id, region):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+                'X-Auth-Token': region_token}
+
+    url = 'https://identity.' + region + '.cloud.global.fujitsu.com/v3/projects?domain_id=' + domain_id
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+         # Whoops it wasn't a 200
+         return 'Error: ' + str(e)
+    else:
+         return request
+
+
+def list_projects(region_token, domain_id, region):
+     """
+     List projects in domain.
+
+     :param region_token: Valid K5 region token.
+     :param domain_id: ID of the domain.
+     :param region: K5 region name
+
+     :return: JSON if succesfull. Otherwise error from requests library.
+
+     """
+     request = _rest_list_projects(region_token, domain_id, region)
+      if 'Error' in str(request):
+          return str(request)
+      else:
+          request = request.json()
+          return request
+
+
 # TODO: user details, object or simple list of variables?
 def _rest_create_user(global_token):
     headers = {'Token': global_token,
