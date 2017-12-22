@@ -18,7 +18,7 @@ parser = argparse.ArgumentParser(description="Get project ID ")
 parser.add_argument("project_name", help="Name of the project")
 args = parser.parse_args()
 
-project_Name = args.stackname
+project_Name = args.project_name
 
 
 
