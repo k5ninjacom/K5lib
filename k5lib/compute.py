@@ -280,12 +280,12 @@ def _rest_add_server_interface(project_token, region, project_id, server_id, net
 
     if ip_address:
         configData = {"interfaceAttachment":{
-        "net_id": net_id
-        }
+        "net_id": net_id,
+        },
         "fixed_ips": [
             {
-                "ip_address": ip_address
-            }
+                "ip_address": ip_address,
+            }],
         }
 
     url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + \
