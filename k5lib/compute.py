@@ -268,7 +268,7 @@ def get_server_info(project_token, region, project_id, server_id):
         return request.json()
 
 
-def _rest_add_server_interface(project_token, region, project_id, server_id, net_id):
+def _rest_add_server_interface(project_token, region, project_id, server_id, net_id, ip_address):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
@@ -277,6 +277,16 @@ def _rest_add_server_interface(project_token, region, project_id, server_id, net
         "net_id": net_id
         }
     }
+
+    if ip_address:
+        configData = {"interfaceAttachment":{
+        "net_id": net_id
+        }
+        "fixed_ips": [
+            {
+                "ip_address": ip_address
+            }
+        }
 
     url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + \
            project_id + '/servers/' + server_id + '/os-interface'
@@ -292,7 +302,7 @@ def _rest_add_server_interface(project_token, region, project_id, server_id, net
         return request
 
 
-def add_server_interface(project_token, region, project_id, server_id, net_id):
+def add_server_interface(project_token, region, project_id, server_id, net_id, ip_address=None):
     """ Add interface into server.
 
     :param project_token: Valid K5 project token.
@@ -300,10 +310,11 @@ def add_server_interface(project_token, region, project_id, server_id, net_id):
     :param project_id: K5 project ID
     :param server_id: ID of the server
     :param net_id: ID of the network interface is connected
+    :param: ip_address. fixed ip address for interface
     :return: JSON if succesful. otherwise error from request library.
 
     """
-    request = _rest_add_server_interface(project_token, region, project_id, server_id, net_id)
+    request = _rest_add_server_interface(project_token, region, project_id, server_id, net_id, ip_address)
     if 'Error' in str(request):
         return str(request)
     else:
