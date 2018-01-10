@@ -97,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="compute.html">compute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network.html">network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lb.html">LB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fw.html">FW</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vpn.html">VPN</a></li>
 <li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="orchestration.html">orchestration</a></li>
@@ -230,6 +231,28 @@
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="k5lib.contract.list_projects">
+<code class="descclassname">k5lib.contract.</code><code class="descname">list_projects</code><span class="sig-paren">(</span><em>region_token</em>, <em>domain_id</em>, <em>region</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.contract.list_projects" title="Permalink to this definition">¶</a></dt>
+<dd><p>List projects in domain.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>region_token</strong> – Valid K5 region token.</li>
+<li><strong>domain_id</strong> – ID of the domain.</li>
+<li><strong>region</strong> – K5 region name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfull. Otherwise error from requests library.</p>
 </td>
 </tr>
 </tbody>

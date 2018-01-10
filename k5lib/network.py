@@ -1540,3 +1540,30 @@ def remove_router_interface(project_token, region, router_id, subnet_id=None, po
         return str(request)
     else:
         return request.json()['id']
+
+
+def _rest_list_floating_ips(project_token, region):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/floatingips'
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def list_floating_ips(project_token, region):
+
+    request = _rest_list_floating_ips(project_token, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()

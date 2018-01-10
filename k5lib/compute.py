@@ -310,7 +310,8 @@ def add_server_interface(project_token, region, project_id, server_id, net_id, i
     :param project_id: K5 project ID
     :param server_id: ID of the server
     :param net_id: ID of the network interface is connected
-    :param: ip_address. fixed ip address for interface
+    :param ip_address: (Optional) fixed ip address for interface
+
     :return: JSON if succesful. otherwise error from request library.
 
     """

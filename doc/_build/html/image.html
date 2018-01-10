@@ -97,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="compute.html">compute</a></li>
 <li class="toctree-l1"><a class="reference internal" href="network.html">network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lb.html">LB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fw.html">FW</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vpn.html">VPN</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="orchestration.html">orchestration</a></li>
@@ -194,21 +195,21 @@
 <dl class="function">
 <dt id="k5lib.image.clone_vm">
 <code class="descclassname">k5lib.image.</code><code class="descname">clone_vm</code><span class="sig-paren">(</span><em>projectToken</em>, <em>projectId</em>, <em>region</em>, <em>imageName</em>, <em>volumeId</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.image.clone_vm" title="Permalink to this definition">¶</a></dt>
-<dd><p>clone_vm.</p>
+<dd><p>Clone VM volume into image.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>projectToken</strong> – </li>
-<li><strong>projectId</strong> – </li>
-<li><strong>region</strong> – </li>
-<li><strong>imageName</strong> – </li>
-<li><strong>volumeId</strong> – </li>
+<li><strong>projectToken</strong> – A Valid K5 project token</li>
+<li><strong>projectId</strong> – Project ID</li>
+<li><strong>region</strong> – K5 Region</li>
+<li><strong>imageName</strong> – Name of the image to be created</li>
+<li><strong>volumeId</strong> – ID of the volume to be cloned</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfull. Otherwise error from requests library.</p>
 </td>
 </tr>
 </tbody>
@@ -298,7 +299,7 @@
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if suucesfull. Otherwise error from requests library.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfull. Otherwise error from requests library.</p>
 </td>
 </tr>
 </tbody>

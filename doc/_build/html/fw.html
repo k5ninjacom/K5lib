@@ -165,8 +165,120 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="fw">
-<h1>FW<a class="headerlink" href="#fw" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-k5lib.fw">
+<span id="fw"></span><h1>FW<a class="headerlink" href="#module-k5lib.fw" title="Permalink to this headline">¶</a></h1>
+<p>FW module.</p>
+<p>FW module provide functions to firewall service of Fujitsu K5 cloud REST API</p>
+<dl class="function">
+<dt id="k5lib.fw.create_firewall">
+<code class="descclassname">k5lib.fw.</code><code class="descname">create_firewall</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>az</em>, <em>router_id</em>, <em>firewall_policy_id</em>, <em>firewall_name='FW_'</em>, <em>firewall_description='default_FW'</em>, <em>admin_state=True</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.fw.create_firewall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a firewall.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> – A valid K5 project token</li>
+<li><strong>region</strong> – A valid K5 region.</li>
+<li><strong>az</strong> – A valid K5 availability zone.</li>
+<li><strong>router_id</strong> – ID of the router where firewall is configured.</li>
+<li><strong>firewall_policy_id</strong> – ID of the policy to be used for firewall configuration.</li>
+<li><strong>firewall_name</strong> – (optional) Name of the firewall.</li>
+<li><strong>firewall_description</strong> – (optional) Description of firewall.</li>
+<li><strong>admin_state</strong> – (bool) Administrative state of the firewall. If false (down), firewall does not forward packets
+and will drop all traffic to/from VMs behind the firewall.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfull. Otherwise error from requests library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="k5lib.fw.create_firewall_policy">
+<code class="descclassname">k5lib.fw.</code><code class="descname">create_firewall_policy</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>az</em>, <em>policy_name</em>, <em>policy_description</em>, <em>firewall_rules</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.fw.create_firewall_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates firewall policy.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> – A valid K5 token.</li>
+<li><strong>region</strong> – A valid K5 region.</li>
+<li><strong>az</strong> – A valid K5 az.</li>
+<li><strong>policy_name</strong> – (string) Name of the policy.</li>
+<li><strong>policy_description</strong> – (string) Description of the policy.</li>
+<li><strong>firewall_rules</strong> – (list) List of firewall rule ID:s</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfull. Otherwise error from requests library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="k5lib.fw.create_firewall_rule">
+<code class="descclassname">k5lib.fw.</code><code class="descname">create_firewall_rule</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>az</em>, <em>rule_name</em>, <em>rule_description</em>, <em>destination_ip</em>, <em>destination_port</em>, <em>protocol</em>, <em>source_ip</em>, <em>source_port</em>, <em>rule_action</em>, <em>enabled=True</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.fw.create_firewall_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create firewall rule.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> – A Valid K5 project token</li>
+<li><strong>region</strong> – A valid K5 region</li>
+<li><strong>az</strong> – A valid K5 availability zone</li>
+<li><strong>rule_name</strong> – (string) Name of the firewall rule</li>
+<li><strong>rule_description</strong> – (string) Description of the rule</li>
+<li><strong>destination_ip</strong> – (string) IP or CIDR of  destination address.</li>
+<li><strong>destination_port</strong> – (string) Destination port number or a range. If range, port numbers are separated by colon.
+Specify a small port number first.</li>
+<li><strong>protocol</strong> – (string) The protocol that is matched by the firewall rule. Valid values are null, tcp, udp, and icmp.
+(Avoid the use of null when specifying the protocol for Neutron FWaaS rules. Instead,
+create multiple rules for both ‘tcp’ and ‘udp’ protocols independently.)</li>
+<li><strong>source_ip</strong> – (string) IP or CIDR of source address.</li>
+<li><strong>source_port</strong> – (string) Destination port number or a range. If range, port numbers are separated by colon.
+Specify a small port number first.</li>
+<li><strong>rule_action</strong> – (string) Action to be performed on the traffic matching the rule (allow, deny).</li>
+<li><strong>enabled</strong> – (bool) When set to False will disable this rule in the firewall policy.
+Facilitates selectively turning off rules without having to disassociate the rule from the firewall policy.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesful. Otherwise error from requests library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="k5lib.fw.list_firewall_rules">
+<code class="descclassname">k5lib.fw.</code><code class="descname">list_firewall_rules</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.fw.list_firewall_rules" title="Permalink to this definition">¶</a></dt>
+<dd><p>List firewall rules visible for the project.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> – A valid K5 project token</li>
+<li><strong>region</strong> – A valid K5 region</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfull, otherwise error from requests library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 
 

@@ -82,6 +82,7 @@ from .network import get_router_id
 from .network import update_router
 from .network import add_router_interface
 from .network import remove_router_interface
+from .network import list_floating_ips
 from .fw import list_firewall_rules
 from .fw import create_firewall_rule
 from .fw import create_firewall_policy
