@@ -453,6 +453,7 @@ def _rest_create_server(project_token, region, az, project_id, config_data):
         log.error(json.dumps(request.json(), indent=4))
         return 'Error: ' + str(e)
     else:
+        log.info(json.dumps(config_data, indent=4))
         return request
 
 
