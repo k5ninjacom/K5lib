@@ -16,6 +16,7 @@ security_group_name = 'default'
 image_name = 'Windows Server 2012 R2 SE 64bit (English) 02'
 disk_size = '100'
 network_name = 'network'
+ip = '10.10.10.10'
 
 
 ########################################################################################################################
@@ -37,8 +38,8 @@ image_id = k5lib.get_image_id(project_token,region, image_name)
 network_id = k5lib.get_network_id(project_token, region, network_name)
 
 # Create server
-server_create_status = k5lib.create_server(project_token, region, az, project_id, server_name, keypair_name,
-                                security_group_name, flavor_id, image_id, disk_size, network_id)
+server_create_status = k5lib.create_server_from_image(project_token, region, az, project_id, server_name, keypair_name,
+                                security_group_name, flavor_id, image_id, disk_size, network_id, ip)
 print(json.dumps(server_create_status, indent=4))
 
 # Fetch information of newly created server
