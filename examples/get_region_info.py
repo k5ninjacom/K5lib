@@ -13,6 +13,6 @@ domain = env['OS_USER_DOMAIN_NAME']
 
 globalToken = k5lib.get_global_token(username, password, domain)
 
-region_info = k5lib.show_region(globalToken, 'fi-1')
+region_info = k5lib.get_region_info(globalToken, 'fi-1')
 
 print(json.dumps(region_info, indent=4))

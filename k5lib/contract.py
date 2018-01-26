@@ -54,7 +54,7 @@ def list_regions(domain_token):
         return regionsList
 
 
-def _rest_show_region(domain_token, region_id):
+def _rest_get_region_info(domain_token, region_id):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': domain_token}
@@ -75,9 +75,9 @@ def _rest_show_region(domain_token, region_id):
         return request
 
 
-def show_region(domain_token, region_id):
+def get_region_info(domain_token, region_id):
     """
-    Show detailed region info.
+    Get detailed region info.
 
     :param domain_token: Valid K5 region token.
     :param region_id: ID of the region.
@@ -85,7 +85,7 @@ def show_region(domain_token, region_id):
     :return: JSON if succesfull. Otherwise error from requests library.
 
     """
-    request = _rest_show_region(domain_token, region_id)
+    request = _rest_get_region_info(domain_token, region_id)
     if 'Error' in str(request):
         return str(request)
     else:

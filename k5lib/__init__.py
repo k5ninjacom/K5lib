@@ -12,6 +12,7 @@ from .authenticate import get_defaultproject_id
 from .authenticate import get_project_id
 from .authenticate import get_project_info
 from .contract import list_regions
+from .contract import get_region_info
 from .contract import activate_region
 from .contract import create_project
 from .contract import list_projects
