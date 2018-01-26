@@ -81,6 +81,7 @@ def show_region(domain_token, region_id):
 
     :param domain_token: Valid K5 region token.
     :param region_id: ID of the region.
+
     :return: JSON if succesfull. Otherwise error from requests library.
 
     """

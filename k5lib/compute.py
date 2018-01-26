@@ -515,7 +515,7 @@ def create_server(project_token, region, az, project_id, server_name, key_name, 
 
 
 def create_server_from_image(project_token, region, az, project_id, server_name, key_name, sg_name, flavor_id, image_id,
-                  vol_size, network_id, ip):
+                  vol_size, network_id, ip, ):
     """
     Create dedicated server from image. One network card.
 
