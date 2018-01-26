@@ -2,6 +2,7 @@ from os import environ as env
 import sys
 sys.path.append('k5lib')
 import k5lib
+import json
 
 # Create a log file
 k5lib.create_logfile('list_regions.log')
