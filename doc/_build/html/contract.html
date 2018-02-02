@@ -238,6 +238,27 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="k5lib.contract.get_region_info">
+<code class="descclassname">k5lib.contract.</code><code class="descname">get_region_info</code><span class="sig-paren">(</span><em>domain_token</em>, <em>region_id</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.contract.get_region_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get detailed region info.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>domain_token</strong> – Valid K5 region token.</li>
+<li><strong>region_id</strong> – ID of the region.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfull. Otherwise error from requests library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="k5lib.contract.list_projects">
 <code class="descclassname">k5lib.contract.</code><code class="descname">list_projects</code><span class="sig-paren">(</span><em>region_token</em>, <em>domain_id</em>, <em>region</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.contract.list_projects" title="Permalink to this definition">¶</a></dt>
 <dd><p>List projects in domain.</p>
@@ -270,27 +291,6 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>domain_token</strong> – Valid K5 domain token.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">JSON if succesfull. Otherwise error from requests library.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="k5lib.contract.show_region">
-<code class="descclassname">k5lib.contract.</code><code class="descname">show_region</code><span class="sig-paren">(</span><em>domain_token</em>, <em>region_id</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.contract.show_region" title="Permalink to this definition">¶</a></dt>
-<dd><p>Show detailed region info.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>domain_token</strong> – Valid K5 region token.</li>
-<li><strong>region_id</strong> – ID of the region.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfull. Otherwise error from requests library.</p>
-</td>
 </tr>
 </tbody>
 </table>

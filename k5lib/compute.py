@@ -95,6 +95,42 @@ def create_keypair(project_token, project_id, region, az, keypair_name):
         request = request.json()
         return request
 
+def _rest_list_keypairs(project_token, region, project_id):
+    headers = {'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'X-Auth-Token': project_token}
+
+    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/os-keypairs'
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+         # Whoops it wasn't a 200
+         log.error(str(e))
+         return 'Error: ' + str(e)
+    else:
+         return request
+
+
+def list_keypairs(project_token, region, project_id):
+    """
+    List keypairs visible for project in region.
+
+    :param project_token: A valid K5 project token
+    :param region: K5 region name.
+    :param project_id: a Valid project id
+
+    :return: JSON that contains keypairs if successful. Otherwise error from requests library.
+
+    """
+    request = _rest_list_keypairs(project_token, region, project_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+
+
 def _rest_get_server_password(project_token, region, project_id, server_id):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',

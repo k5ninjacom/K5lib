@@ -40,17 +40,19 @@ for i in outputDict:
     if (str(args.server) in str(i['name']) or args.all):
         servercount=+1
         password_hash = k5lib.get_server_password(project_token, region, project_id, str(i['id']))
-        with open('hashfile.temp', 'wb') as file:
-            file.write(password_hash)
-        file.close()
-        # Decode password hash with openssl using private key file
-        password = subprocess.getoutput('openssl rsautl -decrypt -inkey ' + keyfilename +' -in hashfile.temp')
-        if 'error' in str(password):
-            password = 'Invalid key file'
+        if password_hash is not'':
+            with open('hashfile.temp', 'wb') as file:
+                file.write(password_hash)
+            file.close()
+            # Decode password hash with openssl using private key file
+            password = subprocess.getoutput('openssl rsautl -decrypt -inkey ' + keyfilename +' -in hashfile.temp')
+            if 'error' in str(password):
+                 password = 'Invalid key file'
 
-        logging.info(str(i['name']) + ': ' + password)
-        print(str(i['name']) + ': ' + password)
-
+            logging.info(str(i['name']) + ': ' + password)
+            print(str(i['name']) + ': ' + password)
+        else:
+            print('Password string seems to be empty. Check if DHCP is enabled and security groups enable tcp port 80 into ')
 if servercount < 1:
     print('Server not found.')
 if os.path.exists('hashfile.temp'):

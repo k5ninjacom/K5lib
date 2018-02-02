@@ -36,6 +36,7 @@ from .compute import create_server
 from .compute import create_server_from_image
 from .compute import create_server_from_volume
 from .compute import create_keypair
+from .compute import list_keypairs
 from .compute import list_servers
 from .compute import get_server_password
 from .compute import get_server_name
