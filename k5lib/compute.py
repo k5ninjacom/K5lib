@@ -494,9 +494,9 @@ def _rest_create_server(project_token, region, az, project_id, config_data):
 
 
 def create_server(project_token, region, az, project_id, server_name, key_name, sg_name, flavor_id, image_id,
-                        vol_size, network_id ):
+                        vol_size, network_id, dedicated=False):
     """
-    Create dedicated server from image. One network card.
+    Create dedicated server from image. One network card DHCP for address.
 
     :param project_token: A valid K5 project token
     :param region: A K5 region
@@ -509,6 +509,7 @@ def create_server(project_token, region, az, project_id, server_name, key_name, 
     :param image_id: ID of the image
     :param vol_size: Size of the volume example "50"
     :param network_id: ID of the network.
+    :param dedicated: (boolean). If set to True vm will be provisioned into dedicated host.
 
     :return: JSON if succesfull. Otherwise error from request library.
     """
@@ -535,7 +536,7 @@ def create_server(project_token, region, az, project_id, server_name, key_name, 
         }]
         },
         "os:scheduler_hints": {
-            "fcx.dedicated": "true"
+            "fcx.dedicated": dedicated
         }
     }
 
@@ -550,10 +551,10 @@ def create_server(project_token, region, az, project_id, server_name, key_name, 
         return request.json()
 
 
-def create_server_from_image(project_token, region, az, project_id, server_name, key_name, sg_name, flavor_id, image_id,
-                  vol_size, network_id, ip, ):
+def create_server_with_ip(project_token, region, az, project_id, server_name, key_name, sg_name, flavor_id, image_id,
+                  vol_size, network_id, ip, dedicated=False):
     """
-    Create dedicated server from image. One network card.
+    Create dedicated server from image. One network card, fixed IP address.
 
     :param project_token: A valid K5 project token
     :param region: A K5 region
@@ -567,6 +568,7 @@ def create_server_from_image(project_token, region, az, project_id, server_name,
     :param vol_size: Size of the volume example "50"
     :param network_id: ID of the network.
     :param ip: IP address of the server.
+    :param dedicated: (boolean). If set to True vm will be provisioned into dedicated host.
 
     :return: JSON if succesfull. Otherwise error from request library.
 
@@ -595,7 +597,7 @@ def create_server_from_image(project_token, region, az, project_id, server_name,
         }]
     },
         "os:scheduler_hints": {
-            "fcx.dedicated": "true"
+            "fcx.dedicated": dedicated
         }
     }
 
@@ -611,9 +613,9 @@ def create_server_from_image(project_token, region, az, project_id, server_name,
 
 
 def create_server_from_volume(project_token, region, az, project_id, server_name, key_name, sg_name, flavor_id, volume_id,
-                              vol_size, network_id):
+                              vol_size, network_id, dedicated=False):
     """
-    Create dedicated server from volume. One network card.
+    Create dedicated server from volume. One network card. IP from DHCP
 
     :param project_token: A valid K5 project token
     :param region: A K5 region
@@ -626,6 +628,7 @@ def create_server_from_volume(project_token, region, az, project_id, server_name
     :param image_id: ID of the image
     :param vol_size: Size of the volume example "50"
     :param network_id: ID of the network.
+    :param dedicated: (boolean). If set to True vm will be provisioned into dedicated host.
 
     :return: JSON if succesfull. Otherwise error from request library.
     """
@@ -651,7 +654,7 @@ def create_server_from_volume(project_token, region, az, project_id, server_name
         }]
     },
         "os:scheduler_hints": {
-            "fcx.dedicated": "true"
+            "fcx.dedicated": dedicated
         }
     }
 
