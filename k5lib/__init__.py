@@ -79,6 +79,7 @@ from .network import list_security_groups
 from .network import get_security_group_id
 from .network import create_security_group_rule
 from .network import create_router
+from .network import delete_router
 from .network import list_routers
 from .network import get_router_id
 from .network import update_router

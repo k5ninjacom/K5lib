@@ -1310,6 +1310,45 @@ def create_router(project_token, region, name=None, az=None, admin_state_up=None
     else:
         return request.json()['router']['id']
 
+
+def _rest_delete_router(project_token, region, router_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/routers/' + router_id
+
+    try:
+        request = requests.delete(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def delete_router(project_token, region, router_id):
+    """
+    Delete router.
+
+    :param project_token: Valid K5 project token
+    :param region: K5 Region eg 'fi-1'
+    :param router_id: ID of the router to be deleted
+
+    :return: Router ID if succesfull, otherwise error from request library.
+
+    """
+    request = _rest_delete_router(project_token, region, router_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()['router']['id']
+
+
+
 def _rest_list_routers(project_token, region):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
