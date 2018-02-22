@@ -1110,6 +1110,42 @@ def create_security_group(project_token, region, name, description):
         return request.json()['security_group']['id']
 
 
+def _rest_delete_security_group(project_token, region, security_group_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/security-groups/' + security_group_id
+
+    try:
+        request = requests.delete(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def delete_security_group(project_token, region, security_group_id):
+    """
+    Delete a security group.
+
+    :param project_token: Valid K5 project token
+    :param region: K5 Region eg 'fi-1'
+    :param security_group_id: ID of security group to be deleted
+
+    :return: Security group ID if succesfull, otherwise error from request library.
+
+    """
+    request = _rest_delete_security_group(project_token, region, security_group_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.status_code
+
+
 def _rest_list_security_groups(project_token, region):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
