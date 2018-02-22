@@ -1379,7 +1379,6 @@ def delete_router(project_token, region, router_id):
     """
     request = _rest_delete_router(project_token, region, router_id)
     if 'Error' in str(request):
-        log.error()
         return 'Error: ' + str(request)
     else:
         return request.status_code
