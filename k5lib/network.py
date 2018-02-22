@@ -1346,7 +1346,7 @@ def delete_router(project_token, region, router_id):
         log.error()
         return 'Error: ' + str(request)
     else:
-        return request
+        return request.status_code
 
 
 
