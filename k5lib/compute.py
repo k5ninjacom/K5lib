@@ -564,10 +564,10 @@ def create_server(project_token, region, az, project_id, server_name, key_name, 
     }
 
     # Remove optional variables that are empty. This prevents 400 errors from api.
-    # loop trough copy of configdata and evaluate value, remove if None
-    for key in configData['server']['networks'].copy().keys():
-        if configData['server']['networks'][key] is None:
-            log.info('Remove null value ' + str(configData['server']['networks'][key]))
+    # loop trough copy of config_data and evaluate value, remove if None
+    for key in config_data['server']['networks'].copy().keys():
+        if config_data['server']['networks'][key] is None:
+            log.info('Remove null value ' + str(config_data['server']['networks'][key]))
             del configData['server']['networks'][key]
 
 
