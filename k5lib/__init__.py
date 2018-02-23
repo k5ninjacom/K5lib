@@ -71,6 +71,7 @@ from .network import get_network_id
 from .network import create_subnet
 from .network import delete_subnet
 from .network import list_subnets
+from .network import get_subnet_id
 from .network import list_ports
 from .network import get_port_id
 from .network import delete_port
