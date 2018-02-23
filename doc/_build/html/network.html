@@ -600,6 +600,50 @@ remote_group_id or remote_ip_prefix.</li>
 </dd></dl>
 
 <dl class="function">
+<dt id="k5lib.network.delete_router">
+<code class="descclassname">k5lib.network.</code><code class="descname">delete_router</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>router_id</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.delete_router" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete router.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> – Valid K5 project token</li>
+<li><strong>region</strong> – K5 Region eg ‘fi-1’</li>
+<li><strong>router_id</strong> – ID of the router to be deleted</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP 204 if succesfull, otherwise HTTP error.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="k5lib.network.delete_security_group">
+<code class="descclassname">k5lib.network.</code><code class="descname">delete_security_group</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>security_group_id</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.delete_security_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a security group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> – Valid K5 project token</li>
+<li><strong>region</strong> – K5 Region eg ‘fi-1’</li>
+<li><strong>security_group_id</strong> – ID of security group to be deleted</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Security group ID if succesfull, otherwise error from request library.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="k5lib.network.delete_subnet">
 <code class="descclassname">k5lib.network.</code><code class="descname">delete_subnet</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>subnet_id</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.network.delete_subnet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete subnet.</p>

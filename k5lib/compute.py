@@ -494,25 +494,39 @@ def _rest_create_server(project_token, region, az, project_id, config_data):
 
 
 def create_server(project_token, region, az, project_id, server_name, key_name, sg_name, flavor_id, image_id,
-                        vol_size, network_id, dedicated=False):
+                        vol_size, network_id=None, ip=None, port_id=None, dedicated=False):
     """
-    Create dedicated server from image. One network card DHCP for address.
+    Create server from image.
 
     :param project_token: A valid K5 project token
     :param region: A K5 region
     :param az: Availability zone withing region
     :param project_id: ID of the project
     :param server_name: Name of the server
-    :param key_name: Key name
+    :param key_name: Name of Keypair
     :param sg_name: Name of the security group
     :param flavor_id: ID of the flavor to be used
     :param image_id: ID of the image
     :param vol_size: Size of the volume example "50"
-    :param network_id: ID of the network.
-    :param dedicated: (boolean). If set to True vm will be provisioned into dedicated host.
+
+    :param network_id: ID of the network. (optional)
+      :: Server get dynamic DHCP address from this network.
+
+    :param ip: Fixed IP address from network. (optional)
+      :: You need to define network_id.
+
+    :param port_id: ID of the port. (optional).
+      :: Create port before calling create_server and pass port ID here. This way you can create a server with floating
+         IP address. If port ID is defined Network ID and ip parameters are rejected.
+
+    :param dedicated: (boolean). If set to True VM will be provisioned into dedicated host. (optional)
 
     :return: JSON if succesfull. Otherwise error from request library.
     """
+    if port_id:
+        network_id = None
+        ip= None
+
     config_data = {"server": {
         "name": server_name,
         "availability_zone": az,
@@ -530,6 +544,8 @@ def create_server(project_token, region, az, project_id, server_name, key_name, 
         }],
         "networks": [{
             "uuid": network_id,
+            "fixed_ip": ip,
+            "port": port_id
         }],
         "security_groups": [{
             "name": sg_name
@@ -539,6 +555,14 @@ def create_server(project_token, region, az, project_id, server_name, key_name, 
             "fcx.dedicated": dedicated
         }
     }
+
+    # Remove optional variables that are empty. This prevents 400 errors from api.
+    # loop trough copy of configdata and evaluate value, remove if None
+    for key in configData['server']['networks'].copy().keys():
+        if configData['server']['networks'][key] is None:
+            log.info('Remove null value ' + str(configData['server']['networks'][key]))
+            del configData['server']['networks'][key]
+
 
     request = _rest_create_server(project_token, region, az, project_id, config_data)
 
