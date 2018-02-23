@@ -618,8 +618,10 @@ def get_network_connector_id(project_token, region, connector_name):
             if str(i['name']) == connector_name:
                 outputList.append(str(i['id']))
                 counter += 1
-
-        return outputList[0]
+        if counter > 0:
+            return outputList[0]
+        else:
+            return 'Error: Not found'
 
 
 def _rest_delete_network_connector(project_token, region, networkConnector_id):
@@ -915,9 +917,10 @@ def get_network_id(project_token, region, network_name):
             if str(i['name']) == network_name:
                 outputList.append(str(i['id']))
                 counter += 1
-
-        return outputList[0]
-
+        if counter > 0:
+            return outputList[0]
+        else:
+            return 'Error: Not found'
 
 def _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, version, az,
                         enable_dhcp, allocation_pools, dns_nameservers, host_routes, gateway_ip):
@@ -1066,6 +1069,28 @@ def list_subnets(project_token, region):
         return str(request)
     else:
         return request.json()
+
+
+def get_subnet_id(project_token, region, subnet_name):
+    request = _rest_list_subnets(project_token, region)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+
+        # Get ID of our subnet from info
+        outputList = []
+        outputDict = request['subnets']
+
+        counter = 0
+        for i in outputDict:
+            if str(i['name']) == subnet_name:
+                outputList.append(str(i['id']))
+                counter += 1
+        if counter > 0:
+            return outputList[0]
+        else:
+            return 'Error: Not found'
 
 
 def _rest_create_security_group(project_token, region, name, description):
