@@ -74,6 +74,7 @@ from .network import list_subnets
 from .network import get_subnet_id
 from .network import list_ports
 from .network import get_port_id
+from .network import attach_floating_ip_to_port
 from .network import delete_port
 from .network import create_security_group
 from .network import _rest_delete_security_group

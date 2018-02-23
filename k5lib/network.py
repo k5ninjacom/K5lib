@@ -522,6 +522,7 @@ def get_port_id(project_token, region, port_name):
             return 'Error: Not found'
 
 
+
 def _rest_delete_port(project_token, region, port_id):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
@@ -556,6 +557,51 @@ def delete_port(project_token, region, port_id):
         return str(request)
     else:
         return request
+
+def _rest_attach_floating_ip_to_port(project_token, region, az, network_id, port_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/floatingips'
+
+    configData = {"floatingip": {
+            "floating_network_id": network_id,
+            "port_id": port_id,
+            "availability_zone": az
+        },
+    }
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(str(e))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def attach_floating_ip_to_port(project_token, region, az, network_id, port_id):
+    """
+    Attach floating IP onto port.
+
+    :param project_token: A valid K5 project token
+    :param region: K5 region name.
+    :param az: Valid K5 availability zone.
+    :param network_id: ID of floating IP network.
+    :param port_id: Port ID.
+
+    :return: JSON if succesfull. Otherwise error code from requests library.
+
+    """
+    request = _rest_attach_floating_ip_to_port(project_token, region, az, network_id, port_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request
+
 
 
 def _rest_list_network_connectors(project_token, region):
