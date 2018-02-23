@@ -506,22 +506,29 @@ def create_server(project_token, region, az, project_id, server_name, key_name, 
     :param key_name: Name of Keypair
     :param sg_name: Name of the security group
     :param flavor_id: ID of the flavor to be used
-    :param image_id: ID of the image
-    :param vol_size: Size of the volume example "50"
-
-    :param network_id: ID of the network. (optional)
-      :: Server get dynamic DHCP address from this network.
-
-    :param ip: Fixed IP address from network. (optional)
-      :: You need to define network_id.
-
-    :param port_id: ID of the port. (optional).
-      :: Create port before calling create_server and pass port ID here. This way you can create a server with floating
-         IP address. If port ID is defined Network ID and ip parameters are rejected.
-
-    :param dedicated: (boolean). If set to True VM will be provisioned into dedicated host. (optional)
+    :param image_id: ID of the image.
+    :param vol_size: Size of the volume.
+    :param network_id:
+       ID of the network.
+       *(optional)*.
+    :param ip:
+        Fixed IP address from network.
+        *(optional)*
+    :param port_id: ID of the port. *(optional)*
+    :param dedicated: Dedicated host.
+        (boolean).
+        *(optional)*.
+        If set to True VM will be provisioned into dedicated host.
 
     :return: JSON if succesfull. Otherwise error from request library.
+    .. note::
+
+       Create port before hand and pass port UUID on port_id parameter. This way you can create a server with floating
+       IP address. If port ID is defined Network ID and ip parameters are rejected.
+
+    .. note::
+
+       You need to provide both network_id and ip parameters if you want to use fixed IP on your server.
     """
     if port_id:
         network_id = None
