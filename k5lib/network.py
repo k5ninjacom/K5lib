@@ -1169,7 +1169,7 @@ def find_first_free_ip(project_token, region, subnet_id=None, subnet_name=None, 
     if not offset:
         offset = 0
 
-    print('Offset: ', offset)
+    #print('Offset: ', offset)
 
     # Verify we have proper subnet info available
     if subnet_name:
@@ -1187,7 +1187,7 @@ def find_first_free_ip(project_token, region, subnet_id=None, subnet_name=None, 
     for i in dict_subnets:
         if i['id'] in subnet_id:
             cidr = i['cidr']
-            print('cidr: ', cidr)
+            #print('cidr: ', cidr)
             network = ipaddress.IPv4Network(cidr)
 
             # Loop ports and collect subnet IP adresses
