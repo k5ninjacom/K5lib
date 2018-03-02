@@ -7,6 +7,7 @@ network module.
 import requests
 import json
 import logging
+import ipaddress
 
 log = logging.getLogger(__name__)
 
@@ -594,7 +595,6 @@ def attach_floating_ip_to_port(project_token, region, az, network_id, port_id):
     :param port_id: Port ID.
 
     :return: JSON if succesfull. Otherwise error code from requests library.
-
     """
     request = _rest_attach_floating_ip_to_port(project_token, region, az, network_id, port_id)
     if 'Error' in str(request):
@@ -1118,6 +1118,16 @@ def list_subnets(project_token, region):
 
 
 def get_subnet_id(project_token, region, subnet_name):
+    """
+        Returns subnet ID.
+
+        :param project_token: A valid K5 project token
+        :param region: K5 region name.
+        :param subnet_name: Name of the subnet
+
+        :return: ID of subnet if succesfull. Otherwise Error: Not Found string.
+
+        """
     request = _rest_list_subnets(project_token, region)
     if 'Error' in str(request):
         return str(request)
@@ -1137,6 +1147,65 @@ def get_subnet_id(project_token, region, subnet_name):
             return outputList[0]
         else:
             return 'Error: Not found'
+
+
+def find_first_free_ip(project_token, subnet_id=None, subnet_name=None, offset=None):
+    """
+
+    :param project_token: Valid K5 project token.
+    :param subnet_id: ID of the subnet. (optional)
+    :param subnet_name: Name of the subnet.(optional)
+    :param offset: Starting point from start of network adresses. Default 0.
+
+    :return: ipaddress object if succesfull. Otherwise Error
+
+    ..Note::
+        You need to provide either subnet_id or subnet_name parameter
+    """
+
+    ip_list = []
+
+    # Verify offset
+    if not offset:
+        offset = 0
+
+    print('Offset: ', offset)
+
+    # Verify we have proper subnet info available
+    if subnet_name:
+        subnet_id = get_subnet_id(project_token, region, subnet_name)
+        # print('subnet_id: ', subnet_id)
+
+    if not subnet_id:
+        # print('Error: no  subnet ID available')
+        return 'Error: no subnet ID available'
+
+    # Loop trough subnets and find our subnet
+    subnet_list = list_subnets(project_token, region)
+
+    dict_subnets = subnet_list['subnets']
+    for i in dict_subnets:
+        if i['id'] in subnet_id:
+            cidr = i['cidr']
+            print('cidr: ', cidr)
+            network = ipaddress.IPv4Network(cidr)
+
+            # Loop ports and collect subnet IP adresses
+            port_list = list_ports(project_token, region)
+            dict_ports = port_list['ports']
+            for j in dict_ports:
+                for k in j.get('fixed_ips'):
+                    if k['subnet_id'] in subnet_id:
+                        ip_list.append(ipaddress.IPv4Address(k['ip_address']))
+                        # print('Reserved IP: ', ipaddress.IPv4Address(k['ip_address']))
+
+            # Loop network adresses and check if address is on subnet ip list
+            # return first free IP
+            for l in network.hosts():
+                if ipaddress.IPv4Address(l) > network.network_address + offset:
+                    if ipaddress.IPv4Address(l) not in ip_list:
+                        # print('free IP: ',l)
+                        return ipaddress.IPv4Address(l)
 
 
 def _rest_create_security_group(project_token, region, name, description):
