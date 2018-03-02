@@ -1149,7 +1149,7 @@ def get_subnet_id(project_token, region, subnet_name):
             return 'Error: Not found'
 
 
-def find_first_free_ip(project_token, subnet_id=None, subnet_name=None, offset=None):
+def find_first_free_ip(project_token, region, subnet_id=None, subnet_name=None, offset=None):
     """
 
     :param project_token: Valid K5 project token.
