@@ -693,6 +693,40 @@ def create_server_from_volume(project_token, region, az, project_id, server_name
         return request.json()
 
 
+def _delete_server(project_token, region, project_id, server_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/servers/' + server_id
+
+    try:
+        request = requests.delete(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+def delete_server(project_token, region, project_id, server_id):
+    """Delete Server
+
+    :param project_token: Valid K5 project token.
+    :param region: Valid K5 region
+    :param project_id: Valid K5 project ID
+    :param server_id: ID osf the server
+
+    :return: http 204 if succesfull otherwise http error code.
+    """
+
+    request = _delete_server(project_token, region, project_id, server_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request
+
+
 def _rest_list_flavors(project_token, region, project_id):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
