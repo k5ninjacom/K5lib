@@ -938,7 +938,7 @@ def _rest_create_ssl_vpn_service(project_token, region, az, subnet_id, router_id
                  }
     }
 
-    url = url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/vpn/vpnservices'
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/vpn/vpnservices'
 
     try:
         request = requests.post(url, json=configData, headers=headers)
