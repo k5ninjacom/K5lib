@@ -330,6 +330,29 @@ IP address. If port ID is defined Network ID and ip parameters are rejected.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="k5lib.compute.delete_server">
+<code class="descclassname">k5lib.compute.</code><code class="descname">delete_server</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>project_id</em>, <em>server_id</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.compute.delete_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete Server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project_token</strong> – Valid K5 project token.</li>
+<li><strong>region</strong> – Valid K5 region</li>
+<li><strong>project_id</strong> – Valid K5 project ID</li>
+<li><strong>server_id</strong> – ID osf the server</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">http 204 if succesfull otherwise http error code.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="k5lib.compute.detach_server_interface">
 <code class="descclassname">k5lib.compute.</code><code class="descname">detach_server_interface</code><span class="sig-paren">(</span><em>project_token</em>, <em>region</em>, <em>project_id</em>, <em>server_id</em>, <em>port_id</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.compute.detach_server_interface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Detach interface from server.</p>

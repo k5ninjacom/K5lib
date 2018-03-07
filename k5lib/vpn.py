@@ -916,3 +916,59 @@ def update_ipsec_vpn_connection(project_token, region, az, connection_id, connec
         return str(request)
     else:
         return request.json()
+
+###################################################################################################
+#
+# SSLVPN
+#
+###################################################################################################
+
+def _rest_create_ssl_vpn_service(project_token, region, az, subnet_id, router_id, service_name, description, admin_state):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    configData = {'vpnservice': {
+                     'availability_zone': az,
+                     'subnet_id': subnet_id,
+                     'router_id': router_id,
+                     'name': service_name,
+                     'description': description,
+                     'admin_state_up': admin_state,
+                 }
+    }
+
+    url = url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/vpn/vpnservices'
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def create_ssl_vpn_service(project_token, region, az, subnet_id, router_id, service_name='vpnservice',
+                           description='ssl vpn service', admin_state=True):
+    """Create SSL VPN service
+
+    :param project_token: Valid K5 project token
+    :param region: Valid K5 region
+    :param az: Valid K5 availability zone.
+    :param subnet_id: ID of the subnet.
+    :param router_id: ID of the router.
+    :param service_name: Name for the service. (Optional)
+    :param description: Description for service (Optional)
+    :param admin_state: (bool) Defaults to true. (Optional)
+
+    :return: JSON if succesful, othervise error from request library
+    """
+    request = _rest_create_ssl_vpn_service(project_token, region, az, subnet_id, router_id,
+                                           service_name, description, admin_state)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
