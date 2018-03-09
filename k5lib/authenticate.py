@@ -155,24 +155,6 @@ def get_region_token(user, password, contract, region):
         return request.headers['X-Subject-Token']
 
 
-def get_region_info(user, password, contract, region):
-    """
-
-    Get region information.
-
-    :param user: Valid K5 user.
-    :param password: Valid K5 password
-    :param contract: K5 domain name.
-    :param region: K5 region name.
-    :return: JSON if succesfully. Otherwise error from requests library.
-
-    """
-    r = _rest_region_authenticate(user, password, contract, region)
-    if 'Error' in str(request):
-        return str(request)
-    else:
-        return r.json()
-
 
 def _rest_project_authenticate(user, password, contract, project_name, region):
     headers = {'Content-Type': 'application/json',

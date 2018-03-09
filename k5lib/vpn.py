@@ -972,3 +972,4 @@ def create_ssl_vpn_service(project_token, region, az, subnet_id, router_id, serv
         return str(request)
     else:
         return request.json()
+
