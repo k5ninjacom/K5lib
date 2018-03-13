@@ -41,7 +41,7 @@ import ipaddress
 import datetime
 
 
-def _create_key_container(project_token, region, az, project_id, container_type):
+def _create_key_container(project_token, region, az, project_id, container_type, container_name):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
@@ -59,13 +59,10 @@ def _create_key_container(project_token, region, az, project_id, container_type)
     if container_type not in valid_type:
         container_type = valid_type[0]
 
-    configData = {'key1': {
-                     'key2': [
-                          {
-                              'key3': 'value3'
-                          }
-                     ]
-                 }
+    configData ={
+        "name": container_name,
+        "type": container_type,
+        "secret_refs":[]
     }
 
     url = 'https://keymanagement.' + region + '.cloud.global.fujitsu.com/v1/' + project_id +'/containers'
@@ -81,10 +78,52 @@ def _create_key_container(project_token, region, az, project_id, container_type)
         return request
 
 
-def create_key_container(project_token, region):
+def create_key_container(project_token, region, az, project_id, container_type):
 
-    request = _rest_stub(project_token, region)
+    request = _rest_create_key_container(project_token, region, az, project_id, container_type)
     if 'Error' in str(request):
         return str(request)
     else:
         return request.json()
+
+
+def _create_key(project_token, region, az, project_id, container_type):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+
+    valid_type = ['generic', 'certificate']
+    if container_type not in valid_type:
+        container_type = valid_type[0]
+
+    configData = {'key1': {
+                     'key2': [
+                          {
+                              'key3': 'value3'
+                          }
+                     ]
+                 }
+    }
+
+    url = 'https://keymanagement.' + region + '.cloud.global.fujitsu.com/v1/' + project_id +'/secrets'
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def create_key(project_token, region, az, project_id, container_type):
+
+    request = _rest_create_key(project_token, region, az, project_id, container_type)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+
