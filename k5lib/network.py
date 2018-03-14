@@ -928,8 +928,8 @@ def list_networks(project_token, region):
 
     :param project_token: A valid K5 project token
     :param region: K5 region name.
-    :return: JSON that contains networks if succesfull. Otherwise error from requests library.
 
+    :return: JSON that contains networks if succesfull. Otherwise error from requests library.
     """
     request = _rest_list_networks(project_token, region)
     if 'Error' in str(request):
@@ -945,7 +945,8 @@ def get_network_id(project_token, region, network_name):
     :param project_token: A valid K5 project token.
     :param region: K5 region name.
     :param network_name: Network name.
-    :return: ID of the connector if succesfull. Otherwise error from requests library
+
+    :return: ID of the connector if successful. Otherwise error from requests library
 
     """
     request = _rest_list_networks(project_token, region)
@@ -1037,7 +1038,8 @@ def create_subnet(project_token, region, network_id, cidr, subnet_name='subnet',
                         For example: [{"destination":"0.0.0.0/0", "nexthop":"172.16.1.254"},
                                       {"destination":"192.168.0.0/24", "nexthop":"192.168.0.1"}]
     :param gateway_ip: (optional). IP address of network default gateway.
-    :return: Subnet ID if succesfull, otherwise error from request library
+
+    :return: Subnet ID if successful, otherwise error from request library
 
     """
     request = _rest_create_subnet(project_token, region,  network_id, cidr, subnet_name, version, az,

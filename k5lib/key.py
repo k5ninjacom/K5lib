@@ -41,7 +41,7 @@ import ipaddress
 import datetime
 
 
-def _create_key_container(project_token, region, az, project_id, container_type, container_name):
+def _rest_create_key_container(project_token, region, project_id, container_type, container_name, ):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
@@ -78,33 +78,49 @@ def _create_key_container(project_token, region, az, project_id, container_type,
         return request
 
 
-def create_key_container(project_token, region, az, project_id, container_type):
+def create_key_container(project_token, region, project_id, container_type):
 
-    request = _rest_create_key_container(project_token, region, az, project_id, container_type)
+    request = _rest_create_key_container(project_token, region, project_id, container_type)
     if 'Error' in str(request):
         return str(request)
     else:
         return request.json()
 
 
-def _create_key(project_token, region, az, project_id, container_type):
+def _rest_create_key(project_token, region, project_id, key_name, key, expiration_date, key_type):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
 
-
-    valid_type = ['generic', 'certificate']
-    if container_type not in valid_type:
-        container_type = valid_type[0]
-
-    configData = {'key1': {
-                     'key2': [
-                          {
-                              'key3': 'value3'
-                          }
-                     ]
-                 }
+    configData = {
+        "name": key_name,
+        "expiration": str(expiration_date.isoformat()),
+        "payload": key,
+        "payload_content_type": "text/plain",
+        "payload_content_encoding": "base64"
     }
+
+    #
+    # verify expiration_date
+    # If not valid datetime.datetime object set to null so no expiration date
+    if not isinstance(expiration_date, datetime.datetime):
+        expiration_date = None
+
+    # verify key_type
+    # Valid values: "text/plain", "text/plain;charset=utf-8", "text/plain; charset=utf-8", "application/octet-stream"
+    valid_type = ['text/plain', 'text/plain;charset=utf-8', 'text/plain; charset=utf-8', 'application/octet-stream']
+    if key_type not in valid_type:
+        log.info('_rest_create_key: key_type set to text/plain')
+        key_type = valid_type[0]
+
+    # verify key_enconding
+    # This item is required if "application/octet-stream" is specified for payload_content_type
+    if key_type.count('application/octet-stream'):
+        key_encoding = 'base64'
+        log.info('_rest_create_key: key_encoding set to base64')
+    else:
+        log.info('_rest_create_key: key_encoding removed from configData')
+        del configData['payload_content_encoding']
 
     url = 'https://keymanagement.' + region + '.cloud.global.fujitsu.com/v1/' + project_id +'/secrets'
 
@@ -116,12 +132,28 @@ def _create_key(project_token, region, az, project_id, container_type):
         log.error(json.dumps(configData, indent=4))
         return 'Error: ' + str(e)
     else:
+        log.info('_rest_key_create: output')
+        log.info(json.dumps(configData, indent=4))
         return request
 
 
-def create_key(project_token, region, az, project_id, container_type):
+def create_key(project_token, region, project_id, key_name, key, expiration_date, key_type):
+    """
+    Create a key.
 
-    request = _rest_create_key(project_token, region, az, project_id, container_type)
+    :param project_token: A valid K5 project token
+    :param region:  A valid K5 region
+    :param project_id: K5 Project ID
+    :param key_name: Name of the key
+    :param key: Content of the key
+    :param expiration_date: Python datetime.datetime object with expiration date and time on it.
+                            If omitted expiration is disabled. (optional)
+    :param key_type: (string) Valid values: 'text/plain', 'text/plain;charset=utf-8',
+                     'text/plain; charset=utf-8', 'application/octet-stream'
+
+    :return: URI of the key.
+    """
+    request = _rest_create_key(project_token, region, project_id, key_name, key, expiration_date, key_type)
     if 'Error' in str(request):
         return str(request)
     else:
