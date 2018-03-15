@@ -43,7 +43,7 @@ import datetime
 log = logging.getLogger(__name__)
 
 
-def _rest_create_key_container(project_token, region, project_id, container_type, container_name, ):
+def _rest_create_key_container(project_token, region, project_id, container_type, container_name, key_list):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
@@ -64,7 +64,7 @@ def _rest_create_key_container(project_token, region, project_id, container_type
     configData ={
         "name": container_name,
         "type": container_type,
-        "secret_refs":[]
+        "secret_refs": key_list
     }
 
     url = 'https://keymanagement.' + region + '.cloud.global.fujitsu.com/v1/' + project_id +'/containers'
@@ -80,9 +80,37 @@ def _rest_create_key_container(project_token, region, project_id, container_type
         return request
 
 
-def create_key_container(project_token, region, project_id, container_type):
+def create_key_container(project_token, region, project_id, container_type, container_name, key_list):
+    """
+    Create a key container.
+    :param project_token: Valid K5 project token
+    :param region: Valid K5 region
+    :param project_id: Project ID
+    :param container_type: Type of the container. Valid values are:  'certificate', 'generic' (str)
+    :param container_name: Name of the containe (str)
+    :param key_list: List of dictionaries.
+        ::
+        example:
+         [
+             {
+                 "name": "private_key",
+                 "secret_ref":"http://<host>:9311/v1/a759452216fd41cf8ee5aba321cfbd49/secrets/087cf096-3947-4a54-8968-7b021cfe8196"
+             },
+             {
+                 "name": "certificate",
+                 "secret_ref":"http://<host>:9311/v1/a759452216fd41cf8ee5aba321cfbd49/secrets/4bbcf05f-d15d-444c-ae9f-799746349a9f"
+             },
+             {
+                 "name": "intermediates",
+                 "secret_ref":"http://<host>:9311/v1/a759452216fd41cf8ee5aba321cfbd49/secrets/8573540e-ad7c-467a-a196-43cf6b5c3468"
+             }
+         ]
 
-    request = _rest_create_key_container(project_token, region, project_id, container_type)
+    :return:  URI of the container.
+
+    """
+
+    request = _rest_create_key_container(project_token, region, project_id, container_type, container_name, key_list)
     if 'Error' in str(request):
         return str(request)
     else:
