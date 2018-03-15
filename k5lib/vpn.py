@@ -1127,7 +1127,7 @@ def _rest_delete_ssl_vpn_connection(project_token, region, connection_id):
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
-        log.error(json.dumps(configData, indent=4))
+        log.error('Error: ' + str(e))
         return 'Error: ' + str(e)
     else:
         return request
