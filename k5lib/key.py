@@ -92,6 +92,12 @@ def _rest_create_key(project_token, region, project_id, key_name, key, expiratio
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
 
+    #
+    # verify expiration_date
+    # If not valid datetime.datetime object set to null so no expiration date
+    if not isinstance(expiration_date, datetime.datetime):
+        expiration_date = None
+
     configData = {
         "name": key_name,
         "expiration": str(expiration_date.isoformat()),
@@ -99,12 +105,6 @@ def _rest_create_key(project_token, region, project_id, key_name, key, expiratio
         "payload_content_type": "text/plain",
         "payload_content_encoding": "base64"
     }
-
-    #
-    # verify expiration_date
-    # If not valid datetime.datetime object set to null so no expiration date
-    if not isinstance(expiration_date, datetime.datetime):
-        expiration_date = None
 
     # verify key_type
     # Valid values: "text/plain", "text/plain;charset=utf-8", "text/plain; charset=utf-8", "application/octet-stream"

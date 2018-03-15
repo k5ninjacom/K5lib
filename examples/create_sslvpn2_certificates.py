@@ -16,7 +16,8 @@ def cert_from_file(filename, key_name):
         cert = file.read()
 
     cert_uri = k5lib.create_key(projectToken, region, projectId, key_name, key=cert,
-                                expiration_date=datetime.datetime.now().year + 10, key_type='text/plain')
+                                expiration_date=datetime.datetime.now()+  datetime.timedelta(days=3650),
+                                key_type='text/plain')
     print(cert_uri)
     return cert_uri
 
