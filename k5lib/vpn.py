@@ -1082,3 +1082,36 @@ def list_ssl_vpn_connections(project_token, region):
     else:
         return request.json()
 
+
+def get_ssl_vpn_connection_id(project_token, region, connection_name):
+    """
+    Get ID of SSL VPN connections.
+
+    :param project_token: A valid K5 project token
+    :param region: K5 region
+    :param connection_name: Name of connection.
+
+    :return: ID of first found connection  if succesful, otherwise error from requests library
+    """
+
+    request = _rest_list_ssl_vpn_connections(project_token, region)
+
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+
+        # Get ID of our connectoion from json
+        outputList = []
+        outputDict = request['ssl_vpn_v2_connections']
+
+        counter = 0
+        for i in outputDict:
+            if str(i['name']) == connection_name:
+                outputList.append(str(i['id']))
+                counter += 1
+        if counter:
+            return outputList[0]
+        else
+            return 'Not found'
+
