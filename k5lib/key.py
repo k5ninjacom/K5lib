@@ -40,6 +40,8 @@ import logging
 import ipaddress
 import datetime
 
+log = logging.getLogger(__name__)
+
 
 def _rest_create_key_container(project_token, region, project_id, container_type, container_name, ):
     headers = {'Content-Type': 'application/json',
