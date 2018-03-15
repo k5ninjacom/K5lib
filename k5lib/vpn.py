@@ -980,7 +980,7 @@ def _rest_create_ssl_vpn_connection(project_token, region, az, vpn_service_id, c
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
-
+    """
     configData = {"ssl_vpn_v2_connection": {
          "name": connection_name,
          "client_address_pool_cidrs": pool_cidr,
@@ -992,6 +992,18 @@ def _rest_create_ssl_vpn_connection(project_token, region, az, vpn_service_id, c
          "floatingips": None
         }
        }
+    """
+    configData = {"ssl_vpn_v2_connection": {
+         "name": connection_name,
+         "client_address_pool_cidrs": pool_cidr,
+         "admin_state_up": admin_state,
+         "credential_id": container_id ,
+         "vpnservice_id": vpn_service_id,
+         "availability_zone": az,
+         "protocol": "tcp"
+        }
+       }
+
 
     url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/vpn/ssl-vpn-v2-connections'
 
