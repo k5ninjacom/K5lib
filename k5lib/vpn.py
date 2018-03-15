@@ -973,3 +973,63 @@ def create_ssl_vpn_service(project_token, region, az, subnet_id, router_id, serv
     else:
         return request.json()
 
+
+def _rest_create_ssl_vpn_connection(project_token, region, az, vpn_service_id, container_id, connection_name,
+                                    pool_cidr, admin_state):
+
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    configData = {"ssl_vpn_v2_connection": {
+         "name": connection_name,
+         "client_address_pool_cidrs": pool_cidr,
+         "admin_state_up": admin_state,
+         "credential_id": container_id ,
+         "vpnservice_id": vpn_service_id,
+         "availability_zone": az,
+         "protocol": "tcp",
+         "floatingips": None
+        }
+       }
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/vpn//ssl-vpn-v2-connections'
+
+    try:
+        request = requests.post(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def create_ssl_connection(project_token, region, az, vpn_service_id, container_id, connection_name='ssl vpn connection',
+                                    pool_cidr=['10.0.0.0/24'], admin_state=True):
+    """
+    Create SSL vpn v2 connection
+
+    :param project_token: Valid K5 project token
+    :param region: Valid K5 region
+    :param az: Valid K5 availability zone.
+    :param vpn_service_id: ID of vpn service
+    :param container_id:  ID of vpn key container
+    :param connection_name: Name of connection
+    :param pool_cidr: List of CIDR:s
+        ::
+        Example:
+        ['10.0.0.0/24']
+
+    :param admin_state: (bool) Defaults to true. (Optional)
+
+    :return: JSON if succesfull. Otherwise error from requests library.
+    """
+
+    request = _rest_create_ssl_vpn_connection(project_token, region, az, vpn_service_id, container_id, connection_name,
+                                    pool_cidr, admin_state)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
