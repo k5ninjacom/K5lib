@@ -1067,6 +1067,15 @@ def _rest_list_ssl_vpn_connections(project_token, region):
 
 
 def list_ssl_vpn_connections(project_token, region):
+    """
+    List SSL VPN connections.
+
+    :param project_token: A valid K5 project token
+    :param region: K5 region
+
+    :return: JSON if succesfull otherwise erroro from requests library.
+    """
+
     request = _rest_list_ssl_vpn_connections(project_token, region)
     if 'Error' in str(request):
         return str(request)
