@@ -1112,7 +1112,7 @@ def get_ssl_vpn_connection_id(project_token, region, connection_name):
                 counter += 1
         if counter:
             return outputList[0]
-        else
+        else:
             return 'Not found'
 
 def _rest_delete_ssl_vpn_connection(project_token, region, connection_id):
