@@ -122,3 +122,6 @@ from .vpn import get_ipsec_vpn_connection_id
 from .vpn import update_ipsec_vpn_connection
 from .vpn import delete_ipsec_vpn_connection
 from .vpn import create_ssl_vpn_service
+from .key import create_key
+from .key import create_key_container
+
