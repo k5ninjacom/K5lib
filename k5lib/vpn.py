@@ -1115,3 +1115,38 @@ def get_ssl_vpn_connection_id(project_token, region, connection_name):
         else
             return 'Not found'
 
+def _rest_delete_ssl_vpn_connection(project_token, region, connection_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': project_token}
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/vpn/ssl-vpn-v2-connections'+ connection_id
+
+    try:
+        request = requests.delete(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def delete_ssl_vpn_connection(project_token, region, connection_id):
+    """
+    Delete SSL VPN connection.
+
+    :param project_token: A valid K5 project token
+    :param region: K5 region
+    :param connection_id: ID of Connection
+
+    :return: HTTP 204 if succesfull otherwise error from requests library.
+    """
+
+    request = _rest_delete_ssl_vpn_connections(project_token, region, connection_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request
+
