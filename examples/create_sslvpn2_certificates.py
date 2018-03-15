@@ -5,6 +5,10 @@ import k5lib
 import argparse
 import datetime
 
+#
+#
+#
+# "ca", "server_certificate", "server_key", and "dh".
 
 
 # Create a log file
@@ -19,12 +23,17 @@ region = env['OS_REGION_NAME']
 # Setup command line parser
 parser = argparse.ArgumentParser(description="Create certificates for ssl vpn v2")
 parser.add_argument("ca", help="CA file in PEM format")
-parser.add_argument("xxxx", help="xxxx file in PEM format")
-parser.add_argument("xxyy", help="xxyy file in PEM format")
+parser.add_argument("server_cert", help="server_cert file in PEM format")
+parser.add_argument("server_key", help="server_key file in PEM format")
+parser.add_argument("server_key", help="server_key file in PEM format")
+
 args = parser.parse_args()
 
-
 ca_file = args.ca
+server_cert_file = args.server_cert
+server_key_file = args.server_key
+dh = args.dh
+
 
 projectToken = k5lib.get_project_token(username, password, domain, projectName, region)
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
