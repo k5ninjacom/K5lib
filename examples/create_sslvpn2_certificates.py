@@ -53,10 +53,16 @@ projectToken = k5lib.get_project_token(username, password, domain, projectName, 
 projectId = k5lib.get_project_id(username, password, domain, projectName, region)
 
 
-cert_from_file(ca_file, 'ca')
-cert_from_file(server_cert_file, 'server_certificate')
-cert_from_file(server_key_file, 'server_key')
-cert_from_file(dh, 'dh')
+ca_ref = cert_from_file(ca_file, 'ca')
+server_cert_ref = cert_from_file(server_cert_file, 'server_certificate')
+server_key_ref = cert_from_file(server_key_file, 'server_key')
+dh_ref = cert_from_file(dh, 'dh')
+
+#
+# Create container for SSLvpn keys
+#
+print('ca URI')
+print(ca_ref['secret_ref'])
 
 
 
