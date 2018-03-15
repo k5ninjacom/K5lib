@@ -1144,7 +1144,7 @@ def delete_ssl_vpn_connection(project_token, region, connection_id):
     :return: HTTP 204 if succesfull otherwise error from requests library.
     """
 
-    request = _rest_delete_ssl_vpn_connections(project_token, region, connection_id)
+    request = _rest_delete_ssl_vpn_connection(project_token, region, connection_id)
     if 'Error' in str(request):
         return str(request)
     else:
