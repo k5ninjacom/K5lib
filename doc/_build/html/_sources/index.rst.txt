@@ -14,6 +14,7 @@ Welcome to K5lib's documentation!
    vpn
    image
    orchestration
+   key
    utils
 
 Indices and tables
