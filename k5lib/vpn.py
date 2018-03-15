@@ -1120,7 +1120,7 @@ def _rest_delete_ssl_vpn_connection(project_token, region, connection_id):
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
 
-    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/vpn/ssl-vpn-v2-connections'+ connection_id
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/vpn/ssl-vpn-v2-connections/'+ connection_id
 
     try:
         request = requests.delete(url, headers=headers)
