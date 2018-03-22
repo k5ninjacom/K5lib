@@ -128,3 +128,5 @@ from .vpn import get_ssl_vpn_connection_id
 from .vpn import delete_ssl_vpn_connection
 from .key import create_key
 from .key import create_key_container
+from .key import list_keys
+from .key import list_keys_container
