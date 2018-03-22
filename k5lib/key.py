@@ -198,7 +198,7 @@ def _rest_list_keys(project_token, region, project_id):
 
 
     try:
-       request = requests.get(url, headers=headers)
+        request = requests.get(url, headers=headers)
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
          # Whoops it wasn't a 200
