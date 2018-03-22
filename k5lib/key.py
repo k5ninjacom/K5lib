@@ -189,3 +189,74 @@ def create_key(project_token, region, project_id, key_name, key, expiration_date
     else:
         return request.json()
 
+def _rest_list_keys(project_token, region, project_id):
+    headers = {'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'X-Auth-Token': project_token}
+
+    url = 'https://keymanagement.' + region + '.cloud.global.fujitsu.com/v1/' + project_id +'/secrets'
+
+
+    try:
+       request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+         # Whoops it wasn't a 200
+         log.error(str(e))
+         return 'Error: ' + str(e)
+    else:
+         return request
+
+
+def list_keys(project_token, region, project_id):
+    """
+    List key metadata  for project in region.
+
+    :param project_token: A valid K5 project token
+    :param region: K5 region name.
+    :param project_id: a Valid project id
+
+    :return: JSON that contains key metadata if successful. Otherwise error from requests library.
+
+    """
+    request = _rest_list_keys(project_token, region, project_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+
+def _rest_list_keys_container(project_token, region, project_id):
+    headers = {'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'X-Auth-Token': project_token}
+
+    url = 'https://keymanagement.' + region + '.cloud.global.fujitsu.com/v1/' + project_id +'/containers'
+
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+         # Whoops it wasn't a 200
+         log.error(str(e))
+         return 'Error: ' + str(e)
+    else:
+         return request
+
+
+def list_keys_container(project_token, region, project_id):
+    """
+    List key metadata containers.
+
+    :param project_token: A valid K5 project token
+    :param region: K5 region name.
+    :param project_id: a Valid project id
+
+    :return: JSON that contains key metadata containers if successful. Otherwise error from requests library.
+
+    """
+    request = _rest_list_keys_container(project_token, region, project_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
