@@ -216,7 +216,7 @@ def list_keys(project_token, region, project_id):
     :param region: K5 region name.
     :param project_id: a Valid project id
 
-    :return: JSON that contains key metadata if successful. Otherwise error from requests library.
+    :return: JSON that contains keys metadata if successful. Otherwise error from requests library.
 
     """
     request = _rest_list_keys(project_token, region, project_id)
