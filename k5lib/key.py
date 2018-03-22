@@ -210,7 +210,7 @@ def _rest_list_keys(project_token, region, project_id):
 
 def list_keys(project_token, region, project_id):
     """
-    List key metadata  for project in region.
+    List keys metadata for project in region.
 
     :param project_token: A valid K5 project token
     :param region: K5 region name.
@@ -225,7 +225,7 @@ def list_keys(project_token, region, project_id):
     else:
         return request.json()
 
-def _rest_list_keys_container(project_token, region, project_id):
+def _rest_list_key_containers(project_token, region, project_id):
     headers = {'Content-Type': 'application/json',
               'Accept': 'application/json',
               'X-Auth-Token': project_token}
@@ -244,7 +244,7 @@ def _rest_list_keys_container(project_token, region, project_id):
          return request
 
 
-def list_keys_container(project_token, region, project_id):
+def list_key_containers(project_token, region, project_id):
     """
     List key metadata containers.
 
@@ -255,7 +255,7 @@ def list_keys_container(project_token, region, project_id):
     :return: JSON that contains key metadata containers if successful. Otherwise error from requests library.
 
     """
-    request = _rest_list_keys_container(project_token, region, project_id)
+    request = _rest_list_key_containers(project_token, region, project_id)
     if 'Error' in str(request):
         return str(request)
     else:
