@@ -225,6 +225,7 @@ def list_keys(project_token, region, project_id):
     else:
         return request.json()
 
+
 def _rest_list_key_containers(project_token, region, project_id):
     headers = {'Content-Type': 'application/json',
               'Accept': 'application/json',

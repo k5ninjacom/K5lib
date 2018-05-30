@@ -1153,6 +1153,7 @@ def get_subnet_id(project_token, region, subnet_name):
 
 def find_first_free_ip(project_token, region, subnet_id=None, subnet_name=None, offset=None):
     """
+    Find first free IP address from subnet.
 
     :param project_token: Valid K5 project token.
     :param subnet_id: ID of the subnet. (optional)
@@ -1354,6 +1355,7 @@ def get_security_group_id(project_token, region, sg_name):
         else:
             return '0'
 
+
 def _rest_create_security_group_rule(project_token, region, security_group_id, direction, ethertype, protocol,
                                      port_range_min, port_range_max, remote_ip_prefix, remote_group_id):
     headers = {'Content-Type': 'application/json',
@@ -1390,7 +1392,6 @@ def _rest_create_security_group_rule(project_token, region, security_group_id, d
         return 'Error: ' + str(e)
     else:
         return request
-
 
 
 def create_security_group_rule(project_token, region, security_group_id, direction, ethertype='IPv4', protocol=None,
@@ -1526,7 +1527,6 @@ def delete_router(project_token, region, router_id):
         return request.status_code
 
 
-
 def _rest_list_routers(project_token, region):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
@@ -1539,7 +1539,7 @@ def _rest_list_routers(project_token, region):
         request.raise_for_status()
     except requests.exceptions.HTTPError as e:
         # Whoops it wasn't a 200
-        log.error(json.dumps(configData, indent=4))
+        log.error('Error: '+ request)
         return 'Error: ' + str(e)
     else:
         return request
@@ -1592,6 +1592,45 @@ def get_router_id(project_token, region, router_name):
             return outputList[0]
         else:
             return 'Error: Not found'
+
+
+def _rest_get_router_info(project_token, region, router_id):
+
+    headers = {'Content-Type': 'application/json',
+           'Accept': 'application/json',
+           'X-Auth-Token': project_token}
+
+    url = 'https://networking.' + region + '.cloud.global.fujitsu.com/v2.0/routers/' + router_id
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error('Error: ' + request)
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def get_router_info():
+    """
+    Get router info.
+
+    :param project_token: Valid K5 project token
+    :param region: K5 Region eg 'fi-1'.
+    :param router_id: ID of the router.
+
+    :return: JSON with router information if succesfull, otherwise error from request library.
+    """
+
+    request = _rest_get_router_info(project_token, region, router_id)
+
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        return request.json()
+
 
 def _rest_update_router(project_token, region, router_id, name, az, admin_state_up, network_id, route_table):
     headers = {'Content-Type': 'application/json',
@@ -1684,6 +1723,7 @@ def _rest_add_router_interface(project_token, region, router_id, subnet_id, port
     else:
         return request
 
+
 def add_router_interface(project_token, region, router_id, subnet_id=None, port_id=None):
     """
     Add an interface into router.
@@ -1736,6 +1776,7 @@ def _rest_remove_router_interface(project_token, region, router_id, subnet_id, p
     else:
         return request
 
+
 def remove_router_interface(project_token, region, router_id, subnet_id=None, port_id=None):
     """
     Remove an interface from router.
@@ -1757,6 +1798,11 @@ def remove_router_interface(project_token, region, router_id, subnet_id=None, po
         return str(request)
     else:
         return request.json()['id']
+
+
+def get_router_ip(project_token, region, router_id, subnet_id):
+
+    return
 
 
 def _rest_list_floating_ips(project_token, region):

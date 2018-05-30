@@ -64,7 +64,6 @@ def _rest_create_lb(project_token, region):
       &Action=CreateLoadBalancer       
     """
 
-
     try:
         request = requests.post(url, headers=headers)
         request.raise_for_status()

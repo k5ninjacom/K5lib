@@ -86,6 +86,7 @@ from .network import create_router
 from .network import delete_router
 from .network import list_routers
 from .network import get_router_id
+from .network import get_router_info
 from .network import update_router
 from .network import add_router_interface
 from .network import remove_router_interface
