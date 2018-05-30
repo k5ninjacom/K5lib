@@ -181,6 +181,47 @@ def create_project(region_token, domain_id, region, project_name):
         return request
 
 
+def _rest_delete_project(region_token, region, project_id):
+    headers = {'Content-Type': 'application/json',
+               'Accept': 'application/json',
+               'X-Auth-Token': region_token}
+
+    configData = {"project": {
+                     "enabled": False}
+                  }
+
+    url = 'https://identity.' + region + '.cloud.global.fujitsu.com/v3/projects/' + project_id
+
+    try:
+        request = requests.patch(url, json=configData, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        # Whoops it wasn't a 200
+        log.error(json.dumps(configData, indent=4))
+        return 'Error: ' + str(e)
+    else:
+        return request
+
+
+def delete_project(region_token, region, project_id):
+    """
+        Delete a empty project.
+
+        :param region_token: Valid K5 region token.
+        :param region: K5 region name
+        :param project_id: Project ID.
+
+        :return: JSON if succesfull. Otherwise error from requests library.
+
+        """
+    request = _rest_delete_project(region_token, region, project_id)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        return request
+
+
 def _rest_list_projects(region_token, domain_id, region):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',

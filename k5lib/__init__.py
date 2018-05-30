@@ -15,6 +15,7 @@ from .contract import get_region_info
 from .contract import activate_region
 from .contract import create_project
 from .contract import list_projects
+from .contract import delete_project
 from .orchestration import create_stack
 from .orchestration import delete_stack
 from .orchestration import get_stack_info
@@ -87,6 +88,7 @@ from .network import delete_router
 from .network import list_routers
 from .network import get_router_id
 from .network import get_router_info
+from .network import get_router_ip
 from .network import update_router
 from .network import add_router_interface
 from .network import remove_router_interface

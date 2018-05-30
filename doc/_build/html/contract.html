@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="vpn.html">VPN</a></li>
 <li class="toctree-l1"><a class="reference internal" href="image.html">image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="orchestration.html">orchestration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key.html">KEY</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">utils</a></li>
 </ul>
 
@@ -231,6 +232,28 @@
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="k5lib.contract.delete_project">
+<code class="descclassname">k5lib.contract.</code><code class="descname">delete_project</code><span class="sig-paren">(</span><em>region_token</em>, <em>region</em>, <em>project_id</em><span class="sig-paren">)</span><a class="headerlink" href="#k5lib.contract.delete_project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a empty project.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>region_token</strong> – Valid K5 region token.</li>
+<li><strong>region</strong> – K5 region name</li>
+<li><strong>project_id</strong> – Project ID.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JSON if succesfull. Otherwise error from requests library.</p>
 </td>
 </tr>
 </tbody>

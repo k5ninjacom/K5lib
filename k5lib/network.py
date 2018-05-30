@@ -1156,6 +1156,7 @@ def find_first_free_ip(project_token, region, subnet_id=None, subnet_name=None, 
     Find first free IP address from subnet.
 
     :param project_token: Valid K5 project token.
+    :param region: Valid K5 region
     :param subnet_id: ID of the subnet. (optional)
     :param subnet_name: Name of the subnet.(optional)
     :param offset: Starting point from start of network adresses. Default 0.
@@ -1801,8 +1802,52 @@ def remove_router_interface(project_token, region, router_id, subnet_id=None, po
 
 
 def get_router_ip(project_token, region, router_id, subnet_id):
+    """
+    Get IP address of Router in giwen subnet.
 
-    return
+    :param project_token: Valid K5 project token.
+    :param region: Valid K5 region
+    :param router_id: ID of the router.
+    :param subnet_id: ID of the subnet
+
+    :return: ipaddress object if succesfull. Otherwise Error
+    """
+
+    """
+    {
+            "status": "ACTIVE",
+            "name": "",
+            "allowed_address_pairs": [],
+            "admin_state_up": true,
+            "network_id": "70c1db1f-b701-45bd-96e0-a313ee3430b3",
+            "tenant_id": " d397de8a63f341818f198abb0966f6f3",
+            "extra_dhcp_opts": [],
+            "device_owner": " network:router_interface ",
+            "mac_address": "fa:16:3e:58:42:ed",
+            "binding:vnic_type": "normal",
+            "fixed_ips": [
+                {
+                    "subnet_id": "008ba151-0b8c-4a67-98b5-0d2b87666062",
+                    "ip_address": "172.24.4.2"
+                }
+            ],
+            "id": "d80b1a3b-4fc1-49f3-952e-1e2ab7081d8b",
+            "security_groups": [],
+            "device_id": "9ae135f4-b6e0-4dad-9e91-3c223e385824",
+            "availability_zone": "AZ1"
+        }
+    """
+
+    # Loop ports and collect subnet IP adresses
+    port_list = list_ports(project_token, region)
+    dict_ports = port_list['ports']
+    for j in dict_ports:
+        if j['device_id'] in router_id:
+            for k in j.get('fixed_ips'):
+                if k['subnet_id'] in subnet_id:
+                    return ipaddress.IPv4Address(k['ip_address'])
+
+    return "Error: No IP found"
 
 
 def _rest_list_floating_ips(project_token, region):
