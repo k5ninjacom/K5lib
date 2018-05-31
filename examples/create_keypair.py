@@ -25,8 +25,18 @@ args = parser.parse_args()
 keypair_name = args.name
 az_name = args.az
 
+privatekey = keypair_name + '_priv.pem'
+publickey = keypair_name + '_pub.pem'
+
 project_token = k5lib.get_project_token(username, password, domain, projectname, region)
 project_id = k5lib.get_project_id(username, password, domain, projectname, region)
 keypair_info = k5lib.create_keypair(project_token,project_id, region, az_name, keypair_name )
+
+
+with open(privatekey, 'w') as file:
+    file.write(keypair_info[private_key])
+
+with open(publickey, 'w') as file:
+    file.write(keypair_info[public_key])
 
 print(json.dumps(keypair_info, indent=2))
