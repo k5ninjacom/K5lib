@@ -18,7 +18,7 @@ k5lib.create_logfile('create_keypair.log')
 
 # Setup command line parser
 parser = argparse.ArgumentParser(description="Create keypair ")
-parser.add_argument("_name", help="Name of the keypair")
+parser.add_argument("name", help="Name of the keypair")
 parser.add_argument("az", help="Name of availability zone eq fi-1a")
 args = parser.parse_args()
 
