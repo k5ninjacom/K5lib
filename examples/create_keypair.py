@@ -34,9 +34,9 @@ keypair_info = k5lib.create_keypair(project_token,project_id, region, az_name, k
 
 
 with open(privatekey, 'w') as file:
-    file.write(keypair_info[private_key])
+    file.write(keypair_info['private_key'])
 
 with open(publickey, 'w') as file:
-    file.write(keypair_info[public_key])
+    file.write(keypair_info['public_key'])
 
 print(json.dumps(keypair_info, indent=2))
