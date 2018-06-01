@@ -33,6 +33,7 @@ from .image import get_export_status
 from .image import get_image_import_queue_status
 from .compute import get_vnc_console_url
 from .compute import create_keypair
+from .compute import import_keypair
 from .compute import list_keypairs
 from .compute import create_server
 from .compute import create_server_with_ip

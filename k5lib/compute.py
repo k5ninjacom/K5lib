@@ -53,15 +53,23 @@ def get_vnc_console_url(project_token, project_id, region, server_id):
         return request.json()
 
 
-def _rest_create_keypair(project_token, project_id, region, az, keypair_name='default'):
+def _rest_create_keypair(project_token, project_id, region, az, keypair_name='default', public_key=None):
     headers = {'Content-Type': 'application/json',
                'Accept': 'application/json',
                'X-Auth-Token': project_token}
 
-    configData = {"keypair": {
-                  "name": keypair_name,
-                  "availability_zone": az}
-                  }
+    if public_key:
+        configData = {"keypair": {
+            "name": keypair_name,
+            "availability_zone": az,
+            "public_key": public_key}
+        }
+    else:
+        configData = {"keypair": {
+             "name": keypair_name,
+             "availability_zone": az}
+        }
+
 
     url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/os-keypairs'
 
@@ -78,7 +86,7 @@ def _rest_create_keypair(project_token, project_id, region, az, keypair_name='de
 
 def create_keypair(project_token, project_id, region, az, keypair_name):
     """
-    Create a keypair to logging in vm.
+    Create a keypair
 
     :param project_token: Valid K5 project token.
     :param project_id: K5 project ID.
@@ -89,6 +97,45 @@ def create_keypair(project_token, project_id, region, az, keypair_name):
 
     """
     request = _rest_create_keypair(project_token, project_id, region, az, keypair_name)
+    if 'Error' in str(request):
+        return str(request)
+    else:
+        request = request.json()
+        return request
+
+def _rest_list_keypairs(project_token, region, project_id):
+    headers = {'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'X-Auth-Token': project_token}
+
+    url = 'https://compute.' + region + '.cloud.global.fujitsu.com/v2/' + project_id + '/os-keypairs'
+
+    try:
+        request = requests.get(url, headers=headers)
+        request.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+         # Whoops it wasn't a 200
+         log.error(str(e))
+         return 'Error: ' + str(e)
+    else:
+         return request
+
+
+def import_keypair(project_token, project_id, region, az, keypair_name, public_key):
+    """
+    Import a keypair
+
+    :param project_token: Valid K5 project token.
+    :param project_id: K5 project ID.
+    :param region: K5 region name.
+    :param az: K5 availability zone name.
+    :param keypair_name: Name of keypair.
+    :param public_key: Public key for keypair creation
+
+    :return: JSON if succesfull. Otherwise error from requests library.
+
+    """
+    request = _rest_create_keypair(project_token, project_id, region, az, keypair_name, public_key)
     if 'Error' in str(request):
         return str(request)
     else:
