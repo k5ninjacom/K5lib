@@ -32,15 +32,18 @@ project_token = k5lib.get_project_token(username, password, domain, projectname,
 project_id = k5lib.get_project_id(username, password, domain, projectname, region)
 
 keypair_info = k5lib.create_keypair(project_token,project_id, region, az_name, keypair_name )
-info_dict = keypair_info['keypair']
 
-# Check if keypair creation was succesful
-if 'private_key' in info_dict:
-    # print(json.dumps(keypair_info, indent=2))
+# Check if keypair creation was succesful and write keys on disk
+if not 'Error' in keypair_info:
+    print('Writing keys on disk....')
+    info_dict = keypair_info['keypair']
+
     with open(privatekey, 'w') as file:
         file.write(info_dict['private_key'])
 
     with open(publickey, 'w') as file:
         file.write(info_dict['public_key'])
+    print('Created keypair: ')
+    print(json.dumps(keypair_info, indent=2))
 else:
     print('Error in keypair creation')
